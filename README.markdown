@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fglosswordteam%2FGlossword.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fglosswordteam%2FGlossword?ref=badge_shield)
+
 Glossword
 =========
 
@@ -17,3 +19,6 @@ Not yet fixed
 - old to new class constructors
 - arrayValueByReference
 - funcGetArg
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fglosswordteam%2FGlossword.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fglosswordteam%2FGlossword?ref=badge_large)
