@@ -35,7 +35,7 @@ class gw_htmlforms extends gwForms
 					   'make_usg'  => 1, 'make_src'  => 1, 'make_address' => 1, 'make_phone'  => 1
 					  );
 	// autostart
-	function gw_htmlforms()
+	function __construct()
 	{
 		// load trns
 		// load abbr

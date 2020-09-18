@@ -27,7 +27,7 @@ if (!defined('IS_CLASS_TIMER'))
 class gw_timer {
 	var $prefix = '';
 	/* */
-	function gw_timer($prefix = '')
+	function __construct($prefix = '')
 	{
 		$this->prefix = $prefix;
 		$var = $this->prefix.'_starttime';

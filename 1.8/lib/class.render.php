@@ -71,7 +71,7 @@ class gw_render extends gw_htmlforms
 					   'make_html_usg'  => 1, 'make_html_src'  => 1, 'make_html_address' => 1, 'make_html_phone'  => 1
 					  );
 	/* Autoexec */
-	function gw_render()
+	function __construct()
 	{
 		global $oSess, $oDb, $oSqlQ, $oL, $oHtml, $oFunc, $oTpl;
 		global $sys, $gw_this, $ar_theme;
