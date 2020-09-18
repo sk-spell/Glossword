@@ -42,7 +42,7 @@ class gw_topics_recounter
 	var $ar_sum_totals, $ar_parents, $ar_items_counted = array();
 	
 	/* Autoexec */
-	function gw_topics_recounter()
+	function __construct()
 	{
 		global $oDb, $sys;
 		$this->oDb =& $oDb;

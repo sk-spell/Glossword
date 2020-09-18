@@ -37,7 +37,7 @@ class gwv_casemap
 	/* Character encoding */
 	var $encoding = 'UTF-8';
 	/* Autostart */
-	function gwv_casemap($arp = array(1), $arp_sp = array(1))
+	function __construct($arp = array(1), $arp_sp = array(1))
 	{
 		$this->arp = $arp;
 		$this->arp_sp = $arp_sp;
