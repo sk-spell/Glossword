@@ -112,7 +112,9 @@ function my_function_1()
 /* Glossword.info search form (1) */
 /* ----------------------------------------------------- */
 # $oTpl->addVal( 'block:gwsearch1', $oFunc->file_get_contents($sys['path_tpl'].'/common/gw_info1.html') );
-# $oTpl->addVal( 'block:google_ads', $oFunc->file_get_contents($sys['path_tpl'].'/common/google_ads.txt') );
+$oTpl->addVal( 'block:google_ads', $oFunc->file_get_contents($sys['path_tpl'].'/common/google_ads.txt') );
+$oTpl->addVal( 'block:gwsearch1', $oFunc->file_get_contents($sys['path_tpl'].'/common/analytics.txt') );
+
 
 
 /* ----------------------------------------------------- */
