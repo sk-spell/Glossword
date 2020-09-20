@@ -2,8 +2,8 @@
 /* Database settings for Glossword */
 define('GW_DB_HOST', 'localhost');
 define('GW_DB_DATABASE', 'glossword');
-define('GW_DB_USER', 'root');
-define('GW_DB_PASSWORD', 'root');
+define('GW_DB_USER', 'gw_root');
+define('GW_DB_PASSWORD', 'gw_pwd');
 $sys['tbl_prefix'] = 'gw_';
 $sys['db_type'] = 'mysql';
 /* Path names for Glossword */
