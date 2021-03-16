@@ -267,7 +267,7 @@ $tmp['ar_queries'] = array(
 						AND d.is_active = "1"
 					',
 	'get-terms-total' => 'SELECT count(*) AS num, SUM(int_terms) AS sum
-						FROM '.$sys['tbl_prefix'].'dict`
+						FROM '.$sys['tbl_prefix'].'dict
 						WHERE is_active = "1"
 					',
 	'top-dict-updated' => 'SELECT d.id, d.date_modified, s.hits, d.title, d.dict_uri
