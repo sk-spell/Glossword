@@ -20,7 +20,7 @@ class gw_addon_dicts_admin extends gw_addon
 	/* Current component name */
 	var $component;
 	/* Autoexec */
-	function gw_addon_dicts_admin()
+	function __construct()
 	{
 		$this->init();
 	}

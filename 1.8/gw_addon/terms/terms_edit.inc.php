@@ -570,7 +570,16 @@ else
 		/* Automatically parse URLs */
 		if ($arPre['is_parse_url'])
 		{
-			$arPre['parameters']['xml'] = preg_replace("/(^|\[|\s)((http|https|news|ftp|aim|callto):\/\/\w+[^\s\[\\]]+)/ie"  , "gw_regex_url(array('html' => '\\2', 'show' => '\\2', 'st' => '\\1'))", $arPre['parameters']['xml']);
+			/* $arPre['parameters']['xml'] = preg_replace("/(^|\[|\s)((http|https|news|ftp|aim|callto):\/\/\w+[^\s\[\\]]+)/ie"  ,
+			 "gw_regex_url(array('html' => '\\2', 'show' => '\\2', 'st' => '\\1'))", $arPre['parameters']['xml']); */
+			$arPre['parameters']['xml'] = preg_replace_callback("/(^|\[|\s)((http|https|news|ftp|aim|callto):\/\/\w+[^\s\[\\]]+)/i", function ($matches)
+			{
+				foreach ($matches as $match)
+				{
+					return "gw_regex_url(array('html' => '\\2', 'show' => '\\2', 'st' => '\\1'))";
+				}
+			}
+			, $arPre['parameters']['xml']);
 		}
 		/* Construct queries for the term */
 		$ar = gwAddTerm($arPre, $this->gw_this['vars']['id'], $arStop, 1, $arPre['is_specialchars'], $arPre['is_overwrite'], 0, 1);
