@@ -984,7 +984,7 @@ var gw_path_temp = "' . $sys['path_temporary'] . '";
 gwVT.init();
 ';
 /* */
-if ( $arDictParam['id']
+if ( ($arDictParam['id'] ?? false)
 		&& (($gw_this['vars'][GW_ACTION] == 'index')
 		|| ($gw_this['vars'][GW_ACTION] == GW_A_SEARCH)
 		|| ($gw_this['vars'][GW_ACTION] == 'term')
