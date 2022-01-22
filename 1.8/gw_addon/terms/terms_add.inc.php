@@ -180,7 +180,7 @@ else
 		/* Automatically parse URLs */
 		if ($arPre['is_parse_url'])
 		{
-			$arPre['parameters']['xml'] = preg_replace("/(^|\[|\s)((http|https|news|ftp|aim|callto):\/\/\w+[^\s\[\\]]+)/ie"  , "gw_regex_url(array('html' => '\\2', 'show' => '\\2', 'st' => '\\1'))", $arPre['parameters']['xml']);
+			$arPre['parameters']['xml'] = preg_replace_callback("/(^|\[|\s)((http|https|news|ftp|aim|callto):\/\/\w+[^\s\[\\]]+)/i"  , "gw_regex_url(array('html' => '\\2', 'show' => '\\2', 'st' => '\\1'))", $arPre['parameters']['xml']);
 		}
 #prn_r( $arPre );
 		/* Construct queries for the term */
