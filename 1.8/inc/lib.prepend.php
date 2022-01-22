@@ -80,8 +80,8 @@ if (!isset($sys['server_host']))
 {
 	$sys['server_host'] = isset($_SERVER["HTTP_HOST"])&&!empty($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"]
 					: (isset($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"]
-					: (getenv('SERVER_NAME') != '') ? getenv('SERVER_NAME')
-					: 'localhost');
+					: ((getenv('SERVER_NAME') != '') ? getenv('SERVER_NAME')
+					: 'localhost'));
 }
 define('HTTP_HOST',  $sys['server_host']);
 define('GW_REQUEST_URI', isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI']
