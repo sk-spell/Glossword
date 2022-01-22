@@ -87,7 +87,7 @@ define('HTTP_HOST',  $sys['server_host']);
 define('GW_REQUEST_URI', isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI']
 					: ((getenv('REQUEST_URI') != '') ? getenv('REQUEST_URI')
 					: ((isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != '') ? ($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'])
-					: $_ENV['PHP_SELF'])));
+					: $_SERVER['PHP_SELF'])));
 if (!isset($sys['server_dir']))
 {
 	$sys['server_dir'] = dirname(GW_REQUEST_URI);
