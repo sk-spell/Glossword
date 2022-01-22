@@ -526,7 +526,10 @@ class gw_session_1_9
 				/* Authorization required. Session expired or does not exist. */
 				$msg = $this->msg_4;
 				$this->id_sess = '';
-				$this->uri = base64_encode($_SERVER['QUERY_STRING']);
+				if (isset($_SERVER['QUERY_STRING']))
+				{
+					$this->uri = base64_encode($_SERVER['QUERY_STRING']);
+				}
 			break;
 		}
 		/* Display HTML */
