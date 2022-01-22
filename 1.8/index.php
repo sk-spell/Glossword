@@ -313,6 +313,7 @@ if ( $gw_this['vars'][GW_ID_DICT] ) {
 }
 
 /* No custom theme defined */
+$gw_this['vars']['is'] = array('save_visualtheme', 'save_'.GW_LANG_I);
 if ($gw_this['vars']['visualtheme'] == '')
 {
 	$gw_this['vars']['visualtheme'] = $sys['visualtheme'];

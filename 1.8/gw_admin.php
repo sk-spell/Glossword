@@ -138,7 +138,12 @@ else
 		$gw_this['cookie']['gw_is_save_'.GW_LANG_I] = '';
 	}
 }
-$gw_this['vars']['is']['save_'.GW_LANG_I] = 
+
+if( !is_array($gw_this['vars']['is']))
+  $gw_this['vars']['is'] = array();
+if( !isset($gw_this['vars']['is']['save_'.GW_LANG_I]) )
+  $gw_this['vars']['is']['save_'.GW_LANG_I] = '' ;
+$gw_this['vars']['is']['save_'.GW_LANG_I] =
 	(isset($gw_this['cookie']['gw_is_save_'.GW_LANG_I]) && $gw_this['cookie']['gw_is_save_'.GW_LANG_I] == 1)
 	? 1 : 0;
 $gw_this['vars'][GW_LANG_I] = preg_replace("/-([a-z0-9])+$/", '', $gw_this['vars'][GW_LANG_I]);
