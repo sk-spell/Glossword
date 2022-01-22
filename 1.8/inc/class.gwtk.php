@@ -141,7 +141,7 @@ class gwtk
 		{
 			/* array_merge_clobber */
 			$arNew = $this->lang;
-			while (list($key, $val) = each($this->$f_name))
+			foreach ($this->$f_name as $key => $val)
 			{
 				$arNew[$key] = $val;
 			}
@@ -302,7 +302,7 @@ class gwtk
 		else
 		{
 			/* returns array [ISO 639 code] = "Display name" */
-			while (list($k, $v) = each($a))
+			foreach ($a as $k => $v)
 			{
 				$a[$k] = unserialize($v);
 				$ar[$k] = $a[$k][3];

@@ -757,7 +757,7 @@ function getSettings()
 		print '<p><a href="'.$sys['server_dir'].'/gw_install/index.php">Run installation script</a></p>';
 		exit;
 	}
-	for (; list($k, $v) = each($arSql);)
+	foreach($arSql as $v)
 	{
 		$strA[$v['settings_key']] = $v['settings_val'];
 	}

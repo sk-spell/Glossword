@@ -68,7 +68,7 @@ class gwv_casemap
 			case 'windows-1251': $func_enc = '_get_windows1251_casemap'; break;
 			default: $func_enc = '_get_utf8_casemap'; break;
 		}
-		for (reset($ar); list($k, $v) = each($ar);)
+		foreach ($ar as $k => $v)
 		{
 			$this->ar['lc'] = array_merge($this->ar['lc'], unserialize($this->$func_enc('lc', $v)));
 			$this->ar['uc'] = array_merge($this->ar['uc'], unserialize($this->$func_enc('uc', $v)));
@@ -85,7 +85,7 @@ class gwv_casemap
 			return;
 		}
 		$this->ar_sp = array();
-		for (reset($ar); list($k, $v) = each($ar);)
+		foreach ($ar as $n => $v)
 		{
 			$this->ar_sp = array_merge($this->ar_sp, unserialize($this->_get_specials($v)));
 		}
@@ -106,7 +106,7 @@ class gwv_casemap
 		$this->is_use_mbstring = $is_use_mbstring;
 		if (isset($this->ar[$src]) && isset($this->ar[$trg]))
 		{
-			for (reset($this->ar[$trg]); list($k, $v) = each($this->ar[$trg]);)
+		foreach ($this->ar[$trg] as $k => $v)
 			{
 				if (isset($this->ar[$src][$k]))
 				{
@@ -304,7 +304,7 @@ class gwv_casemap
 	{
 		if (!is_array($ar)){ return; }
 		$this->_load_profile_sp($this->arp_sp);
-		for (reset($ar); list($k, $v) = each($ar);)
+		foreach ($ar as $k => $v)
 		{
 			$this->ar_sp[$k] = $v;
 		}

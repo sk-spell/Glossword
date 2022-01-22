@@ -122,7 +122,7 @@ class gw_html {
 		{
 			/* Do sort attributes in a good manner. */
 			ksort($ar);
-			for (reset($ar); list($k, $v) = each($ar);)
+      foreach ($ar as $k => $v)
 			{
 				if (is_array($v)) { continue; }
 				$str .= ($v != '') ? ($delimeter . $k . '=' . $frame.$v.$frame) : '';
@@ -145,14 +145,14 @@ class gw_html {
 			{
 				$url = $url.'&'.$this->id_sess_name.'='.$this->id_sess;
 			}
-			for (reset($this->ar_url_append); list($k, $v) = each($this->ar_url_append);)
+      foreach ($this->ar_url_append as $k => $v)
 			{
 				$url .= '&'.$k.'='.$v;
 			}
 			list($file, $param) = explode("?", $url);
 			$ar = explode('&', $param);
 			/* remove empty values, 2 feb 2004 */
-			for (reset($ar); list($ka, $va) = each($ar);)
+      foreach ($ar as $ka => $va)
 			{
 				@list($src, $trg) = explode('=', $va);
 				if ($trg == '')
@@ -166,7 +166,7 @@ class gw_html {
 			{
 				$arQ = array();
 				/* Exception mode */
-				for (reset($this->ar_except); list($k, $v) = each($this->ar_except);)
+        foreach ($this->ar_except as $k => $v)
 				{
 					if ( preg_match("/".$v."/", $url) )
 					{
@@ -180,7 +180,7 @@ class gw_html {
 				{
 					gw_stripslashes_array($arQ);
 				}
-				for (reset($this->mod_rewrite_rule); list($kR, $vR) = each($this->mod_rewrite_rule);)
+        foreach ($this->mod_rewrite_rule as $kR => $vR)
 				{
 					if ($this->is_append_sid)
 					{
@@ -224,7 +224,7 @@ class gw_html {
 		else
 		{
 			$url = $url . '?';
-			for (reset($this->ar_url_append); list($k, $v) = each($this->ar_url_append);)
+      foreach ($this->ar_url_append as $k => $v)
 			{
 				$url .= '&'.$k.'='.$v;
 			}
@@ -247,7 +247,7 @@ class gw_html {
 		$url = str_replace($this->mod_rewrite_index, '', $url);
 		$arP = explode('/', $url);
 		$url = '';
-		for (reset($this->mod_rewrite_rule); list($kR, $vR) = each($this->mod_rewrite_rule);)
+    foreach ($this->mod_rewrite_rule as $kR => $vR)
 		{
 			if ($this->is_append_sid)
 			{
@@ -257,7 +257,7 @@ class gw_html {
 			{
 				list($if_src, $if_trg) = explode('=', $kR);
 				$arRule = explode("/", $vR);
-				for (reset($arP); list($kP, $vP) = each($arP);)
+        foreach ($arP as $kP => $vP)
 				{	
 					if (in_array($if_src, $arRule) && ($arP[$kP] == $if_trg) ) /* condition found */
 					{
@@ -290,7 +290,7 @@ class gw_html {
 		$url = '';
 		$arRule = explode('/', $str);
 		$arUrl = array();
-		while (list($k, $v) = each($arRule))
+    foreach ($arRule as $k => $v)
 		{
 			if (isset($arQ[$v]) )
 			{
@@ -320,7 +320,7 @@ class gw_html {
 		$arUrl = array();
 		if (sizeof($arRule2) > 1 )
 		{
-			while (list($k, $v) = each($arRule2))
+      foreach ($arRule2 as $k => $v)
 			{
 				$arQ[$v] = isset($arQ[$v]) ? $arQ[$v] : '';
 				$arUrl[] = urlencode($arQ[$v]);
@@ -343,7 +343,7 @@ class gw_html {
 	{
 		$url = '';
 		reset($arRule);
-		while (list($k, $v) = each($arRule))
+    foreach ($arRule as $k => $v)
 		{
 			if (($v != '') 
 				&& isset($arP[$k]) && ($arP[$k] != '') 
@@ -378,7 +378,7 @@ class gw_html {
 		$arRule2 = explode($str_split, end($arRule));
 		$arP2 = explode($str_split, str_replace($this->mod_rewrite_suffix, '', end($arP)));
 		$int_p = sizeof($arP2);
-		while (list($k, $v) = each($arRule2))
+    foreach ($arRule2 as $k => $v)
 		{
 			if (($v != '') && isset($arP2[$k]) 
 				&& ($arP2[$k] != '') 

@@ -229,9 +229,9 @@ function gw_fixslash(&$str, $type = 'gpc', $mode = 'php')
 	{
 		if (is_array($str) || is_object($str))
 		{
-			for (reset($str); list($k, $v) = each($str);)
-			{
-				gw_fixslash($str[$k], $type, $mode);
+      foreach ($str as $k => $v)
+      {
+        gw_fixslash($str[$k], $type, $mode);
 			}
 			reset($str);
 		}
@@ -412,7 +412,7 @@ function gwGetRemoteIp()
 	$arIana = array("127.0.", "192.168.", "1.", "0.", "10.", "172.16.", "224.", "240.");
 	if ($HTTP_X_FW != '')
 	{
-		for (reset($arIana); list($k, $v) = each($arIana);) // check values
+		foreach ($arIana as $k => $v)
 		{
 			if (preg_match("/^" . $v . "/", $HTTP_X_FW) ||
 				!preg_match("/^([0-9]{1,3}\.){3,3}[0-9]{1,3}$/", $HTTP_X_FW))
@@ -492,7 +492,7 @@ class gw_functions {
 	 * @param    string $first    First character for returned string
 	 * @return   string Generated text
 	 */
-	function text_make_uid($maxchar = 8,  $nChar = 0, $first = '')
+  function text_make_uid($maxchar = 8,  $nChar = 0, $first = '')
 	{
 		/* Exclude bad symbols. */
 		/* 1st bad group: 0, 1, l, I */
@@ -505,12 +505,12 @@ class gw_functions {
 				? $charN
 				: (($nChar == 2) ? $charL
 					: (($nChar == 3) ? $charU
-					: ($nChar == 4) ? $charN.$charL
-					: ($nChar == 5) ? $charL.$charU
-					: $charN.$charL.$charU)
+					  : (($nChar == 4) ? $charN.$charL
+					   : (($nChar == 5) ? $charL.$charU
+					: $charN.$charL.$charU)))
 				);
 		$len = strlen($charN);
-		mt_srand( (double) microtime()*1000000);
+		mt_srand( (int) microtime()*1_000_000);
 		for ($i = 0; $i < $maxchar; $i++)
 		{
 			$sed = mt_rand(0, $len-1);
@@ -769,7 +769,8 @@ class gw_functions {
 		$str_temp = '';
 		$cur_length = 0;
 		$ar_words = explode(' ', $str.' ', 100);
-		for (; list($k, $v) = each($ar_words);)
+		//for (; list($k, $v) = each($ar_words);)
+    foreach($ar_words as $v)
 		{
 			$cur_length += $this->mb_strlen(' '.$v);
 			if ($cur_length >= $len)

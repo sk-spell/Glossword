@@ -35,7 +35,7 @@ class gw_register_globals
 		global $_GET, $_POST, $_FILES, $_COOKIE;
 		$tmp = array();
 		$tmp['_files'] = $tmp['_cookie'] = array();
-		for (reset($ar); list($k, $v) = each($ar);)
+    foreach ($ar as $k => $v)
 		{
 			if (isset($_POST[$v]) && ($_POST[$v] != ''))
 			{
@@ -157,7 +157,7 @@ class gw_register_globals
 $oGlobals = new gw_register_globals;
 /* We don't need any global variables, really */
 $ar = array_merge($_POST, $_GET, $_COOKIE, $_FILES );
-for (; list($k, $v) = each($ar);)
+foreach($ar as $k => $v)
 {
 	unset($$k);
 }

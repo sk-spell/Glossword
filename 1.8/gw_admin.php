@@ -85,7 +85,7 @@ $oGlobals->do_default($gw_this['vars']['uri'], '');
 $sys['uri'] =& $gw_this['vars']['uri'];
 
 /* Depreciated method */
-for (reset($gw_this['vars']); list($k1, $v1) = each($gw_this['vars']);)
+foreach ($gw_this['vars'] as $k1 => $v1)
 {
 	$$k1 = $v1;
 }

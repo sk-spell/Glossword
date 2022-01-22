@@ -38,7 +38,7 @@ function gw_get_dict_terms($dict_tablename, $id_dict)
 	$ar0z = getLettersArray($arDictParam['id']);
 
 	/* For each letter */
-	for (; list($letter, $azv) = each($ar0z);)
+	foreach ($ar0z as $letter => $azv)
 	{
 		$str .= '<h5>'. $oHtml->a($sys['page_index'].
 					'?'.GW_ACTION.'='.GW_A_LIST.
@@ -48,7 +48,7 @@ function gw_get_dict_terms($dict_tablename, $id_dict)
 		$sql = $oSqlQ->getQ('get-az-terms', $dict_tablename, $letter, $sys['time_now_db'], $arDictParam['az_sql'], $sys['max_terms_in_index']);
 		$arSql = $oDb->sqlExec($sql);
 		$ar_terms = array();
-		for (; list($arK, $arV) = each($arSql);)
+		foreach ($arSql as $arK => $azv)
 		{
 			switch ($sys['pages_link_mode'])
 			{
@@ -158,7 +158,7 @@ function getDictWordList($w1, $w2, $w3, $id_dict, $p, $is_descr = true, $is_full
 		$oRender->Set('arFields', $arFields );
 		$oRender->load_abbr_trns();
 
-		for (; list($arK, $arV) = each($arSql);)
+		foreach ($arSql as $arK => $arV)
 		{
 			$arA[$arK]['defn'] = $arA[$arK]['term'] = '';
 			// Render HTML page, 25 apr 2003
@@ -226,7 +226,7 @@ function getDictWordList($w1, $w2, $w3, $id_dict, $p, $is_descr = true, $is_full
 	{
 		return;
 	}
-	for (reset($arA); list($k1, $v1) = each($arA);)
+	foreach ($arA as $k1 => $v1)
 	{
 		/* Collect data for template */
 		if (GW_IS_BROWSE_WEB)
@@ -322,7 +322,7 @@ function getDictArray()
 	}
 	/* Resort using Dictionary ID */
 	$arSqlNew = array();
-	for (reset($arSql); list($k, $v) = each($arSql);)
+	foreach ($arSql as $k => $v)
 	{
 		unset($arSql[$k]);
 		$arSqlNew[$v['id']] = $v;
@@ -346,7 +346,7 @@ function getDictSrch($language = '', $x = 1, $y = 99, $qStrOrder = '', $is_form_
 		{
 			#$arDictMap[0] = '-'.$oL->m('1115').'-';
 		}
-		for (reset($arSql); list($arK, $arV) = each($arSql);)
+		foreach ($arSql as $arK => $arV)
 		{
 			$arDictMap[$arV['id']] = strip_tags($arV['title']);
 		}
@@ -407,7 +407,7 @@ function getDictList($language = '', $dict_nmax = 5, $x = 1, $y = 99, $qStrOrder
 	}
 	$cnt = 0;
 	$strGroupBy = 'tpname';
-	for (reset($arSql); list($arK, $arV) = each($arSql);)
+	foreach ($arSql as $arK => $arV)
 	{
 		switch ($sys['pages_link_mode'])
 		{
@@ -653,7 +653,7 @@ function gw_rearrange_to_tree($arSql, $id = 0, $id_name = 'id_page')
 {
 	$arStr = array(array());
 	$arStr2 = array();
-	for (reset($arSql); list($arK, $arV) = each($arSql);)
+	foreach ($arSql as $arK => $arV)
 	{
 		list($int_sort, $id) = sscanf($arV[$id_name], "%05d%03d");
 		$arV['id'] = $arV[$id_name] = $id;
@@ -666,7 +666,7 @@ function gw_rearrange_to_tree($arSql, $id = 0, $id_name = 'id_page')
 		if (!isset($arStr[$p]['min'])) $arStr[$p]['min'] = $i;
 	}
 	/* Merge */
-	while (is_array($arStr2) && list($key, $val) = each($arStr2) )
+	foreach ($arStr2 as $key => $val)
 	{
 		if (isset($arStr[$key]))
 		{
@@ -689,7 +689,7 @@ function gw_rearrange_to_locale($arSql, $id_name = 'id_page')
 	$arSql2 = array();
 	$arSql3 = array();
 	/* re-arrange */
-	for (; list($k, $arV) = each($arSql);)
+	foreach ($arSql as $k => $arV)
 	{
 		$arV[$id_name] = sprintf("%05d", $arV['int_sort']).sprintf("%03d", $arV[$id_name]);
 		$arSql2[$arV[$id_name]][$arV['id_lang']] = $arV;
@@ -697,7 +697,7 @@ function gw_rearrange_to_locale($arSql, $id_name = 'id_page')
 	$arSql = array();
 	$cnt = 0;
 	$int_size = sizeof($arSql2);
-	for (; list($k, $arV) = each($arSql2);)
+	foreach ($arSql2 as $k => $arV)
 	{
 		$cur_id_lang = $gw_this['vars'][GW_LANG_I].'-'.$gw_this['vars']['lang_enc'];
 		if (isset($arV[$cur_id_lang]))
@@ -1078,12 +1078,16 @@ function gw_get_thread_pages($ar = array(), $startId = 0, $cntRow = 1)
 				if ($gw_this['vars'][GW_TARGET] == 'topics')
 				{
 					/* Check permission to edit the topic */
-					$is_allow_edit = ($oSess->is('is-topics') ? 1 : ($oSess->is('is-topics-own') && ($ar[$startId]['id_user'] == $oSess->id_user)) ? 1 : 0);
+					$is_allow_edit = ($oSess->is('is-topics') 
+            ? 1 
+            : (($oSess->is('is-topics-own') && ($ar[$startId]['id_user'] == $oSess->id_user)) ? 1
+             : 0));
 				}
 				else if ($gw_this['vars'][GW_TARGET] == 'custom-pages')
 				{
 					/* Check permission to edit the page */
-					$is_allow_edit = ($oSess->is('is-cpages') ? 1 : ($oSess->is('is-cpages-own') && ($ar[$startId]['id_user'] == $oSess->id_user)) ? 1 : 0);
+					$is_allow_edit = ($oSess->is('is-cpages') ? 1 
+            : (($oSess->is('is-cpages-own') && ($ar[$startId]['id_user'] == $oSess->id_user)) ? 1 : 0));
 				}
 				
 				if ($int_title_len > 45)

@@ -81,7 +81,7 @@ class gwv_template
 	function get_info_files()
 	{
 		$ar = array();
-		for (reset($this->pairsC); list($k, $v) = each($this->pairsC);)
+		foreach ($this->pairsC as $k => $v)
 		{
 			$ar[crc32($v['filename'])] = $v['filename'];
 		}
@@ -171,7 +171,7 @@ class gwv_template
 	function assign($ar = array())
 	{
 		$str = '';
-		for (reset($ar); list($n, $v) = each($ar);)
+		foreach ($ar as $n => $v)
 		{
 			/* $v_parsed = {namespace::template_name} */
 			$this->_parse_var($n);
