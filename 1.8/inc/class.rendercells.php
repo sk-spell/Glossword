@@ -102,7 +102,7 @@ function RenderCells()
                 $intCellwidth += intval(100 / $this->X);
                 if ($ThumbRows == $this->X)
                 {
-                    $cellwidth = $cellwidth + (100 - $intCellwidth) . '%';
+                    $cellwidth = intval($cellwidth) + (100 - $intCellwidth) . '%';
                 }
                 $str.= '<col width="'.$cellwidth.'"/>';
             }
