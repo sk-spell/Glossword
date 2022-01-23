@@ -1,0 +1,8 @@
+1.8/gw_temp/gw_export
+1.8/gw_temp/gw_logs
+
+*.txt
+*.bak
+*.bak-*
+*.my
+*.org
