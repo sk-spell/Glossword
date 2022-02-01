@@ -888,7 +888,7 @@ function getDictParam($id_dict)
 	}
 #prn_r( $compare_to );
 	/* For for each dictionary */
-	foreach ($gw_this['ar_dict_list']) as $kDict => $vDict)
+	foreach ($gw_this['ar_dict_list'] as $kDict => $vDict)
 	{
 		if ($vDict[$compare_to] == $id_dict)
 		{
