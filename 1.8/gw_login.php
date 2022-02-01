@@ -196,7 +196,8 @@ function gw_login_form($ar_vars, $ar_broken = array(), $ar_req = array())
 
 	/* Mark fields as "REQUIRED" and make error messages */
 	$ar_req = array_flip($ar_req);
-	while (is_array($ar_vars) && list($k, $v) = each($ar_vars) )
+	// while (is_array($ar_vars) && list($k, $v) = each($ar_vars) )
+	foreach ($ar_vars as $k => $v)
 	{
 		$ar_req_m[$k] = isset($ar_req[$k]) ? '&#160;<span class="red"><strong>*</strong></span>' : '';
 		$ar_broken_m[$k] = isset($ar_broken[$k]) ? ' <span class="red"><strong>' . $oL->m('reason_9') .'</strong></span>' : '';

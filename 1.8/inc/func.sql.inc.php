@@ -606,7 +606,7 @@ function gw_sql_insert($SQLnamesA, $table, $isFields = 1, $intCnt = 0, $is_delay
 	$SQLfiledA = $SQLvalueA = array();
 	if (is_array($SQLnamesA))
 	{
-		for (reset($SQLnamesA); list($k, $v) = each($SQLnamesA);)
+		foreach ($SQLnamesA as $k => $v)
 		{
 			$v = gw_text_sql($v);
 			if ($v == '') {

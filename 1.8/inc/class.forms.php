@@ -77,7 +77,7 @@ class gwForms {
 		{
 			// Do sort attributes in a good manner.
 			ksort($ar);
-			for (reset($ar); list($k, $v) = each($ar);)
+			foreach ($ar as $k => $v)
 			{
 				$str .= ($v != '') ? (' ' . $k . '="' . $v . '"') : '';
 			}

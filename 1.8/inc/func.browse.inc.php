@@ -23,7 +23,7 @@ function gw_get_themes_select()
 {
 	global $gw_this;
 	$ar = array();
-	for (; list($k, $v) = each($gw_this['ar_themes']);)
+	foreach ($gw_this['ar_themes'] as $k => $v)
 	{
 		$ar[$k] = $v['theme_name'];
 		if (GW_IS_BROWSE_ADMIN)
@@ -52,7 +52,7 @@ function gw_get_themes_list()
 	}
 	/* re-format */
 	$arVars = array();
-	for (; list($kV, $arV) = each($arSql);)
+	foreach ($arSql as $kV => $arV)
 	{
 		$arV['theme_version'] = $arV['v1'].'.'.$arV['v2'].'.'.$arV['v3'];
 		unset($arV['v1'], $arV['v2'], $arV['v3']);
@@ -117,12 +117,12 @@ function gw_sql2defnpreview($arSql)
 	}
 # @header("Content-Type: text/html; charset=utf-8");
 	$arDuplicates = array(array());
-	for (; list($k, $arV) = each($arSql);)
+	foreach ($arSql as $k => $arV)
 	{
 		$incr_term = $k;
 		$arPre = array();
 		/* Init. */
-		for (reset($arFields); list($fK, $fV) = each($arFields);)
+   	foreach ($arFields as $fK => $fV)
 		{
 			$arPreview[$incr_term][0][$fK] = '';
 			$arDictParam['is_'.$fV[0]] = 1;
@@ -144,7 +144,7 @@ function gw_sql2defnpreview($arSql)
 		/* */
 		$arPre = array_merge_clobber($arPre, gw_Xml2Array('<term>'.$arV['term'].'</term>'.$arV['defn']));
 #prn_r( $arPre );
-		for (reset($arFields); list($fK, $fV) = each($arFields);)
+		foreach ($arFields as $fK => $fV)
 		{
 			if (!isset($arPre[$fV[0]])){ continue; }
 			$tmpStr = $oDom->get_content( $arPre[$fV[0]] );
@@ -153,10 +153,10 @@ function gw_sql2defnpreview($arSql)
 			switch ($fV[0])
 			{
 				case 'trsp':
-					for (reset($arPre[$fV[0]]); list($kfV, $vfV) = each($arPre[$fV[0]]);)
+					foreach ($arPre[$fV[0]] as $kfV => $vfV)
 					{
 						$ar_vvfV = array();
-						for (reset($vfV); list($kkfV, $vvfV) = each($vfV);)
+						foreach ($vfV as $kkfV => $vvfV)
 						{
 							$ar_vvfV[] = $vvfV['value'];
 						}
@@ -176,7 +176,7 @@ function gw_sql2defnpreview($arSql)
 				break;
 				case 'defn':
 					$tmpf = array();
-					for (reset($arPre[$fV[0]]); list($kfV, $vfV) = each($arPre[$fV[0]]);)
+					foreach ($arPre[$fV[0]] as $kfV => $vfV)
 					{
 						if ($kfV == 0)
 						{
@@ -190,10 +190,10 @@ function gw_sql2defnpreview($arSql)
 				break;
 				case 'abbr':
 				case 'trns':
-					for (reset($arPre[$fV[0]]); list($kfV, $vfV) = each($arPre[$fV[0]]);)
+					foreach ($arPre[$fV[0]] as $kfV => $vfV)
 					{
 						$ar_vvfV = array();
-						for (reset($vfV); list($kkfV, $vvfV) = each($vfV);)
+						foreach ($vfV as $kkfV => $vvfV)
 						{
 							if ($vvfV['value'] == '' || $vvfV['value'] == '<![CDATA[]]>')
 							{
@@ -228,10 +228,10 @@ function gw_sql2defnpreview($arSql)
 				case 'see':
 				case 'syn':
 				case 'antonym':
-					for (reset($arPre[$fV[0]]); list($kfV, $vfV) = each($arPre[$fV[0]]);)
+					foreach ($arPre[$fV[0]] as $kfV => $vfV)
 					{
 						$ar_vvfV = array();
-						for (reset($vfV); list($kkfV, $vvfV) = each($vfV);)
+						foreach ($vfV as $kkfV => $vvfV)
 						{
 							$ar_vvfV[] = $vvfV['value'];
 						}
@@ -249,10 +249,10 @@ function gw_sql2defnpreview($arSql)
 				case 'src':
 				case 'phone':
 				case 'address':
-					for (reset($arPre[$fV[0]]); list($kfV, $vfV) = each($arPre[$fV[0]]);)
+					foreach ($arPre[$fV[0]] as $kfV => $vfV)
 					{
 						$ar_vvfV = array();
-						for (reset($vfV); list($kkfV, $vvfV) = each($vfV);)
+						foreach ($vfV as $kkfV => $vvfV)
 						{
 							$ar_vvfV[] = $vvfV['value'];
 						}
@@ -288,7 +288,7 @@ function gw_sql2defnpreview($arSql)
 #prn_r( $arDuplicates );
 	$arA = array(array());
 	$int_timer = 0;
-	for (reset($arPreview); list($k, $arV) = each($arPreview);)
+	foreach (arPreview as $k => $arV)
 	{
 		$str_incomplete = $arV[1]['is_complete'] ? '' : '?&#160;';
 
@@ -301,7 +301,7 @@ function gw_sql2defnpreview($arSql)
 		$arA[$k]['is_active'] = $arV[1]['is_active'];
 		$arA[$k]['is_complete'] = $arV[1]['is_complete'];
 		$arA[$k]['defn_tooltip'] = $arA[$k]['defn'] = '';
-		
+
 		/* remove some fields from definition preview */
 		if (isset($arV[$k][1])) { unset($arV[$k][1]); }
 		/* Join all fields into one string */
@@ -317,7 +317,7 @@ function gw_sql2defnpreview($arSql)
 		}
 		if (!empty($arDuplicates[$k]))
 		{
-			for (reset($arDuplicates[$k]); list($kD, $arVd) = each($arDuplicates[$k]);)
+			foreach ($arDuplicates[$k] as $kD => $arVd)
 			{
 				/* remove some fields from definition preview */
 #				if (isset($arVd[1])) { unset($arVd[1]); }
@@ -445,7 +445,7 @@ function gw_custom_page($id_page)
 		break;
 	}
 	$arSql = $oDb->sqlRun($oSqlQ->getQ('get-custompages-lang', $sql_id_page), 'page');
-	for (; list($arK, $arV) = each($arSql);)
+	foreach ($arSql as $arK => $arV)
 	{
 		if ($arV['id_lang'] == $gw_this['vars'][GW_LANG_I].'-'.$gw_this['vars']['lang_enc'])
 		{
@@ -492,7 +492,7 @@ function gw_custom_page($id_page)
 			$href_page = $sys['page_index'].'?'.GW_ACTION.'='.'viewpage&'.'&id='.$arSql[0][$page_uri];
 			gwtk_header($sys['server_proto'].$sys['server_host'].$oHtml->url_normalize($href_page), $sys['is_delay_redirect'], __FILE__, __LINE__);
 		}
-		for (; list($arK, $arV) = each($arSql);)
+		foreach ($arSql as $arK => $arV)
 		{
 			$id_page_int = $arV['id_page'];
 			/* Process text filters */
@@ -523,7 +523,7 @@ function gw_custom_page($id_page)
 
 	/* The list of pages, 1 level up. */
 	$ar_parents = isset($arSqlc[$id_page_int]['p']) ? $arSqlc[$arSqlc[$id_page_int]['p']]['ch'] : array();
-	for (; list($page_k, $ar_page_v) = each($ar_parents);)
+	foreach ($ar_parents as $page_k => $ar_page_v)
 	{
 		if (($arSqlc[$page_k]['p'] == 0) && ($layout != 'title')) { continue; }
 		switch ($sys['pages_link_mode'])
@@ -555,7 +555,7 @@ function gw_custom_page($id_page)
 		$subpages_cnt = 0;
 		/* The list of subpages, current level. */
 		$ar_subpages = $arSqlc[$id_page_int]['ch'];
-		for (; list($page_k, $ar_page_v) = each($ar_subpages);)
+		foreach ($ar_subpages as $page_k => $ar_page_v)
 		{
 			switch ($sys['pages_link_mode'])
 			{
@@ -589,9 +589,9 @@ function gw_custom_page($id_page)
 		{
 			$oTplPage->addVal( 'v:path_img_www', $sys['dirname'] . '/'. $sys['path_www_images'] );
 		}
-		for (; list($k2, $v2) = each($arVarPage);)
+		foreach ($arVarPage as $k2 => $v2)
 		{
-			for (reset($v2); list($k, $v) = each($v2);)
+			foreach ($v2 as $k => $v)
 			{
 				$oTplPage->assign(array($k => $v));
 			}
@@ -601,7 +601,7 @@ function gw_custom_page($id_page)
 		$arTpl['subpages_dl'] = $oTplPage->output();
 		$arTpl['subpages_cnt'] = $subpages_cnt;
 	}
-	for (; list($k, $v) = each($arTpl);)
+	foreach ($arTpl as $k => $v)
 	{
 		$oTpl->addVal($k, $v);
 	}
@@ -689,7 +689,7 @@ function getTop10($m, $amount = 10, $isItemOnly = 0, $order = 0, $top10_display 
 		{
 			$str_foot .= '<tr>';
 			$str_foot .= '<th style="font-size:1px;height:1px;width:1%"></th>';
-			for (reset($arThWidth); list ($kT, $vT)= each($arThWidth);)
+      foreach ($arThWidth as $kT => $vT)
 			{
 				$str_width = '';
 				if (isset($arThWidth[$kT]) && ($arThWidth[$kT] != ''))
@@ -888,7 +888,7 @@ function getDictParam($id_dict)
 	}
 #prn_r( $compare_to );
 	/* For for each dictionary */
-	for (reset($gw_this['ar_dict_list']); list($kDict, $vDict) = each($gw_this['ar_dict_list']);)
+	foreach ($gw_this['ar_dict_list']) as $kDict => $vDict)
 	{
 		if ($vDict[$compare_to] == $id_dict)
 		{
@@ -923,7 +923,7 @@ function getDictParam($id_dict)
 
 /**
  * Get a random term from a random dictionary
- * 
+ *
  * @return  array   array with term and dictionary
  */
 function getTermRandom()
@@ -949,9 +949,9 @@ function getTermParam($tid = '', $name = '')
 {
 	global $gw_this, $oL, $arDictParam, $oDb, $oSqlQ, $oSess, $sys;
 	$arFound = $arFoundInit = array(
-		'is_active' => '0', 'is_complete' => '0', 
+		'is_active' => '0', 'is_complete' => '0',
 		'term' => '', 'term_uri' => '',
-		'term_1' => ' ', 'term_2' => ' ', 'term_3' => ' ', 
+		'term_1' => ' ', 'term_2' => ' ', 'term_3' => ' ',
 		'defn' => '', 'tid' => '', 'term_order' => '',
 		'date_created' => 0, 'date_modified' => 0
 	);
@@ -1062,7 +1062,7 @@ function getTermParam($tid = '', $name = '')
 			$sql = $oSqlQ->getQ('get-term-by-name', TBL_WORDLIST, TBL_WORDMAP, $arDictParam['tablename'], $gw_this['vars'][GW_ID_DICT], $word_srch_sql);
 		}
 		$arSql = $oDb->sqlExec($sql, sprintf("%05d", $gw_this['vars'][GW_ID_DICT]), 0);
-		for (reset($arSql); list($arK, $arV) = each($arSql);) // compare founded values (Q) with imported (T)
+		foreach ($arSql as $arK => $arK) // compare founded values (Q) with imported (T)
 		{
 			$isTermExist = 0;
 			// first method, 08 july 2000
@@ -1143,9 +1143,9 @@ function getLettersArray($id_dict, $w = '')
 	/* One array for both indexes (single and double) */
 	$arA = array();
 	$sys['ar_az_last_characters'] = array();
-	for (; list($k, $v) = each($arSql);)
+	foreach ($arSql as $k => $v)
 	{
-		/* Must be mb_substr($v['L1'], 0, 1), but parameter (0, 3) allows to override 
+		/* Must be mb_substr($v['L1'], 0, 1), but parameter (0, 3) allows to override
 		   Unicode sorting order for diacritics. Example (urlencoded): S%CC%8C overrides %C5%A0
 		05 jul 2005: varchar(0, 64) allows to use toolbar as the list of topics.
 		24 jul 2006: toolbar limits removed for higher performance.
@@ -1243,7 +1243,7 @@ function getLetterHtml($ar, $id_dict, $w1 = '', $w2 = '', $w3 = '')
 	$arTmp['href'][GW_TARGET] = GW_T_DICT;
 	$arTmp['href'][GW_ID_DICT] = $id_dict;
 	/* for each letter */
-	for (reset($ar); list($k1, $v1) = each($ar);)
+	foreach ($ar as $k => $v)
 	{
 		$int_cnt++;
 		$cnt1_str = (isset($sys['is_print_toolbar_num']) && $sys['is_print_toolbar_num'] == 1) ? $int_cnt : '';
@@ -1269,7 +1269,7 @@ function getLetterHtml($ar, $id_dict, $w1 = '', $w2 = '', $w3 = '')
 				/* start letter */
 				$int_utf2hex_tb_from = ($v2[0]);
 				/* start letter > current letter < next letter */
-				if (($int_utf2hex >= $int_utf2hex_tb_from) 
+				if (($int_utf2hex >= $int_utf2hex_tb_from)
 					&& ($int_utf2hex < $int_utf2hex_tb_to))
 				{
 #prn_r( $int_utf2hex_tb_from . '=> '. $int_utf2hex .' ('.  $k1 . ') <=' .$int_utf2hex_tb_to );
@@ -1312,7 +1312,7 @@ function getLetterHtml($ar, $id_dict, $w1 = '', $w2 = '', $w3 = '')
 				{
 					if (empty($v1[(trim($w2))])){ continue; }
 					if (strval($k2) != (trim($w2)) ) { continue; } /* fix for getLettersArray() */
-					for (reset($v2); list($k3, $v3) = each($v2);)
+					foreach ($v2 as $k3 => $v3)
 					{
 						$oHtml->setTag('a', 'class', '');
 						if (strval($k3) == (trim($w3)))
@@ -1335,7 +1335,7 @@ function getLetterHtml($ar, $id_dict, $w1 = '', $w2 = '', $w3 = '')
 			if (strval($k1) == (trim($w1)))
 			{
 				if (!is_array($v1)){ continue; }
-				for (reset($v1); list($k2, $v2) = each($v1);)
+				foreach ($v1 as $k2 => $v2)
 				{
 					$oHtml->setTag('a', 'class', '');
 					if (strval($k2) == (trim($w2)))
@@ -1357,7 +1357,7 @@ function getLetterHtml($ar, $id_dict, $w1 = '', $w2 = '', $w3 = '')
 	/* Build html-code */
 	$str = '';
 	ksort($arS);
-	for (reset($arS); list($k1, $v1) = each($arS);)
+	foreach ($arS as $k1 => $v1)
 	{
 		if (is_array($v1))
 		{
@@ -1403,7 +1403,7 @@ function gw_Xml2Array($str)
 		}
 	}
 	/* Go for each root element */
-	for (reset($xmlRoot); list($kp, $vp) = each($xmlRoot);)
+	foreach ($xmlRoot as $kp => $vp)
 	{
 		preg_match_all("/<$vp>(.+?)<\/$vp>/s", $str, $strDefnA); // root tags without attributes
 		if (!isset($strDefnA[0]) || !isset($strDefnA[0][0]) || empty($strDefnA[0][0]))
@@ -1418,7 +1418,7 @@ function gw_Xml2Array($str)
 			/* 10 march 2003: based on `value' */
 			$parsedAr[$vp][$intDefnC]['value'] = $strDefnA[1][$intDefnC];
 			/* search for attributtes */
-			for (reset($xmlTags); list($kt, $vt) = each($xmlTags);)
+			foreach ($xmlTags as $kt => $vt)
 			{
 				preg_match_all("/<$vt(.*?)\>(.*?)\<\/$vt\>/s", $strDefnA[1][$intDefnC], $strTmpA);
 				if (!isset($strTmpA[0]) || empty($strTmpA[0]))
@@ -1435,7 +1435,7 @@ function gw_Xml2Array($str)
 						continue;
 					}
 					/* 22 jan 2006: read any attributes per any tag */
-					for (reset($xmlAttr); list($ka, $va) = each($xmlAttr);)
+					foreach ($xmlAttr as $ka => $va)
 					{
 						preg_match_all("/$va=\"(.*?)\"/", $strTmpA[1][$intTmpC], $ar_attr);
 						if (!isset($ar_attr[1][0]) || empty($ar_attr[1][0]))
