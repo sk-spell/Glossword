@@ -87,7 +87,7 @@ function gw_get_theme($theme_name)
 	{
 		$sys['path_theme'] = $theme_name;
 	}
-	for (; list($kV, $arV) = each($arSql);)
+	foreach ($arSql as $kV => $arV)
 	{
 		$ar_theme[$arV['settings_key']] = $arV['settings_value'];
 		unset($arSql[$kV]);
