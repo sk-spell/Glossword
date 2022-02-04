@@ -288,7 +288,7 @@ function gw_sql2defnpreview($arSql)
 #prn_r( $arDuplicates );
 	$arA = array(array());
 	$int_timer = 0;
-	foreach (arPreview as $k => $arV)
+	foreach ($arPreview as $k => $arV)
 	{
 		$str_incomplete = $arV[1]['is_complete'] ? '' : '?&#160;';
 
@@ -1308,7 +1308,7 @@ function getLetterHtml($ar, $id_dict, $w1 = '', $w2 = '', $w3 = '')
 			/* 000-ZZZ */
 			if (strval($k1) == (trim($w1))  )
 			{
-  				for (reset($v1); list($k2, $v2) = each($v1);)
+					foreach ($v1 as $k2 => $v2)
 				{
 					if (empty($v1[(trim($w2))])){ continue; }
 					if (strval($k2) != (trim($w2)) ) { continue; } /* fix for getLettersArray() */
@@ -1390,7 +1390,7 @@ function gw_Xml2Array($str)
 	/* Fix for empty definitions */
 	$str = str_replace('<defn><![CDATA[]]></defn>', '', $str);
 	// Get defined tags
-	for (reset($arFields); list($fk, $fv) = each($arFields);)
+	foreach ($arFields as $fk => $fv)
 	{
 		$fieldname = 'is_'.$fv[0];
 		if (isset($fv[4]) && $fv[4]) // root
