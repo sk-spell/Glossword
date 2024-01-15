@@ -407,7 +407,7 @@ if (isset($gw_this['vars']['srch']['by']) && $gw_this['vars']['srch']['by'] == '
 
 	// Set switcher for HTML
 	$arTplVars['srch']['v:chk_srch_by_dict'] = ' checked="checked"';
-	for (reset($gw_this['ar_dict_list']); list($kDict, $vDict) = each($gw_this['ar_dict_list']);)
+	foreach ($gw_this['ar_dict_list'] as $kDict => $vDict)
 	{
 		if ($d == 0)
 		{
@@ -481,7 +481,7 @@ if ($gw_this['vars']['d'])
 		/* A part of SQL-request for listing terms */
 		$sql_az = '';
 		$ar_az = array();
-		for (; list($k, $v) = each($arSql);)
+		foreach ($arSql as $k => $v)
 		{
 			$ar_az[] = $v['value'];
 		}
@@ -775,7 +775,7 @@ if ($sys['id_current_status'] == '2_page__')
 				 );
 	$strHelp = '';
 	$strHelp .= '<dl>';
-	for(; list($k, $v) = each($arHelpMap);)
+	foreach ($arHelpMap as $k => $v)
 	{
 		$strHelp .= '<dt><b>' . $oL->m($k) . '</b></dt>';
 		$strHelp .= '<dd>' . $oL->m($v) . '</dd>';
@@ -788,7 +788,7 @@ else
    $oTpl->addVal( 'v:html_title', $oL->m('2_page__') . ' - ' . strip_tags($oL->m($sys['id_current_status'])) );
 }
 /* Add previously defined template variables */
-for (reset($arTplVars['srch']); list($k, $v) = each($arTplVars['srch']);)
+foreach ($arTplVars['srch'] as $k => $v)
 {
 	$oTpl->AddVal($k, $v);
 }
@@ -799,7 +799,7 @@ $oTpl->set_tpl($gw_this['id_tpl_page']);
 
 /* Append URL for integration */
 $tmp['input_url_append'] = '';
-for (reset($sys['ar_url_append']); list($k, $v) = each($sys['ar_url_append']);)
+foreach ($sys['ar_url_append'] as $k => $v)
 {
 	$tmp['input_url_append'] .= '<input type="hidden" name="'.$k.'" value="'.$v.'" />';
 }
@@ -807,13 +807,13 @@ $oTpl->addVal( 'v:input_url_append', $tmp['input_url_append'] );
 
 
 /* Parse dynamic blocks */
-for (reset($oTpl->tmp['d']); list($id_dynamic, $arV) = each($oTpl->tmp['d']);)
+foreach ($oTpl->tmp['d'] as $id_dynamic => $arV)
 {
 	if (is_array($arV))
 	{
-		for (reset($arV); list($k2, $v2) = each($arV);)
+		foreach ($arV as $k2 => $v2)
 		{
-			for (reset($v2); list($k, $v) = each($v2);)
+			foreach ($v2 as $k => $v)
 			{
 				$oTpl->assign(array($k => $v));
 			}
@@ -852,10 +852,11 @@ $oTpl->parse();
 $str_output = $oTpl->output();
 /* Process text filters */
 while (!$sys['is_debug_output']
-		&& is_array($sys['filters_output'])
-		&& list($k, $v) = each($sys['filters_output']) )
+    && is_array($sys['filters_output'])
+    && ($filter = current($sys['filters_output'])) !== false)
 {
-	$str_output = $v($str_output);
+    $str_output = $filter($str_output);
+    next($sys['filters_output']);
 }
 print $str_output;
 

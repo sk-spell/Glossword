@@ -98,7 +98,7 @@ function gw_text_tpl_compile($t = '', $ar = array())
 	$preg = "/({)([ A-Za-z0-9:\/\-_]+)(})/i";
 	if (preg_match_all($preg, $t, $tmp['tpl_matches']))
 	{
-		while (list($k, $cmd_src) = each($tmp['tpl_matches'][2]))
+		foreach ($tmp['tpl_matches'][2] as $k => $cmd_src)
 		{
 			$arCmd[] = $tmp['tpl_matches'][1][$k].$cmd_src.$tmp['tpl_matches'][3][$k];
 			$tmp['cmd'] = trim($cmd_src);
@@ -129,7 +129,7 @@ function gw_get_theme($theme_name)
 	{
 		$sys['path_theme'] = $theme_name;
 	}
-	for (; list($kV, $arV) = each($arSql);)
+	foreach ($arSql as $kV => $arV)
 	{
 		$ar_theme[$arV['settings_key']] = $arV['settings_value'];
 		unset($arSql[$kV]);
@@ -141,7 +141,7 @@ function getSettings()
 	global $oSqlQ, $oDb, $oFunc, $sys;
 	$strA = array();
 	$arSql = $oDb->sqlRun($oSqlQ->getQ('get-settings'), 'st');
-	for (; list($k, $v) = each($arSql);)
+	foreach ($arSql as $k => $v)
 	{
 		$strA[$v['settings_key']] = $v['settings_val'];
 	}

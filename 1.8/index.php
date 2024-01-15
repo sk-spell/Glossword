@@ -138,12 +138,10 @@ $oGlobals->do_default($gw_this['vars']['uri'], '');
 $sys['uri'] =& $gw_this['vars']['uri'];
 
 $gw_this['vars']['id'] = urldecode($gw_this['vars']['id']);
-
-/* Depreciated method */
-for (reset($gw_this['vars']); list($k1, $v1) = each($gw_this['vars']);)
-{
-	$$k1 = $v1;
+foreach ($gw_this['vars'] as $k1 => $v1) {
+    $$k1 = $v1;
 }
+
 /* Fix for #118 */
 if ( isset ( $t ) )
 {
@@ -258,7 +256,7 @@ $gw_this['vars']['funcnames'][GW_T_DICT] = isset($gw_this['vars']['funcnames'][G
 /* Replace main page by dictionary page */
 if (!$gw_this['vars'][GW_ID_DICT] && ($gw_this['vars'][GW_ACTION] == ''))
 {
-	for (reset($gw_this['ar_dict_list']); list($kDict, $vDict) = each($gw_this['ar_dict_list']);)
+	foreach ($gw_this['ar_dict_list'] as $kDict => $vDict)
 	{
 		$arDictParam = getDictParam($vDict['dict_uri']);
 		if (isset($arDictParam['is_dict_as_index']) && $arDictParam['is_dict_as_index'])
@@ -295,7 +293,7 @@ if ( $gw_this['vars'][GW_ID_DICT] ) {
 		/* A part of SQL-request for listing terms */
 		$sql_az = '';
 		$ar_az = array();
-		for (; list($k, $v) = each($arSql);)
+		foreach($arSql as $k => $v)
 		{
 			$ar_az[] = $v['value'];
 		}
@@ -527,7 +525,7 @@ if (isset($gw_this['vars']['srch']['by']) && $gw_this['vars']['srch']['by'] == '
 	//
 	// Set switcher for HTML
 	$arTplVars['srch'][] = array('v:chk_srch_by_dict' => ' checked="checked"' );
-	for (reset($gw_this['ar_dict_list']); list($kDict, $vDict) = each($gw_this['ar_dict_list']);)
+	foreach ($gw_this['ar_dict_list'] as $kDict => $vDict)
 	{
 		if ($gw_this['vars'][GW_ID_DICT] == '0')
 		{
@@ -549,7 +547,7 @@ else if (isset($gw_this['vars']['srch']['by']) && $gw_this['vars']['srch']['by']
 	$arTplVars['srch'][] = array('v:chk_srch_by_topic' => ' checked="checked"' );
 	// Get topic's tree ID
 	$gw_this['arTreeId'] = ctlgGetTree($gw_this['ar_topics_list'], $gw_this['vars']['id_topic']);
-	for (reset($gw_this['ar_dict_list']); list($kDict, $vDict) = each($gw_this['ar_dict_list']);)
+	foreach ($gw_this['ar_dict_list'] as $kDict => $vDict)
 	{
 		// check if dictionary presents in the selected topic
 		if (isset($gw_this['arTreeId'][$vDict['id_topic']]))
@@ -625,11 +623,13 @@ $oTpl->parse();
 $str_output = $oTpl->output();
 /* Process text filters */
 while (!$sys['is_debug_output']
-		&& is_array($sys['filters_output'])
-		&& list($k, $v) = each($sys['filters_output']) )
+    && is_array($sys['filters_output'])
+    && ($filter = current($sys['filters_output'])) !== false)
 {
-	$str_output = $v($str_output);
+    $str_output = $filter($str_output);
+    next($sys['filters_output']);
 }
+
 /* --------------------------------------------------------
  * GZip compression
  * ----------------------------------------------------- */
