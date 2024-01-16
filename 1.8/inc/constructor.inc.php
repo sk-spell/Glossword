@@ -59,7 +59,7 @@ if ( $gw_this['vars']['layout'] != '' ) // settings for all dictionary pages
 			{
 				$arSql = $oDb->sqlRun( $oSqlQ->getQ( 'get-users-by-dict_id', $arDictParam['id'] ), 'dict' );
 				$ar_authors = array ( );
-				for (; list($k, $arV) = each( $arSql ); )
+				foreach( $arSql as $k => $arV)
 				{
 					$ar_authors[] = $oHtml->a( $sys['page_index'] . '?' . GW_ACTION . '=' . GW_A_PROFILE . '&t=view&id=' . $arV['id_user'], $arV['user_name'] );
 				}
@@ -142,7 +142,7 @@ $oTpl->addVal( 'url:site_name', $oHtml->a( $sys['page_index'], strip_tags( $sys[
 
 /* Append URL for integration */
 $tmp['input_url_append'] = '';
-for ( reset( $sys['ar_url_append'] ); list($k, $v) = each( $sys['ar_url_append'] ); )
+foreach( $arSql as $k => $arV)
 {
 	$tmp['input_url_append'] .= '<input type="hidden" name="' . $k . '" value="' . $v . '" />';
 }
@@ -345,7 +345,7 @@ switch ( $gw_this['vars']['layout'] )
 			// Process automatic functions
 			if ( !empty( $gw_this['vars']['funcnames'][GW_T_TERM] ) )
 			{
-				for (; list($k, $v) = each( $gw_this['vars']['funcnames'][GW_T_TERM] ); )
+				foreach( $$gw_this['vars']['funcnames'][GW_T_TERM] as $k => $v )
 				{
 					if ( function_exists( $v ) )
 					{
@@ -383,10 +383,11 @@ switch ( $gw_this['vars']['layout'] )
 			//
 			$tmp['str_defn'] = $oRender->array_to_html( $arPre );
 			/* Process text filters */
-			while ( !$sys['is_debug_output']
-			&& is_array( $sys['filters_defn'] )
-			&& list($k, $v) = each( $sys['filters_defn'] ) )
+			foreach( $sys['filters_defn'] as $k => $v)
 			{
+				if (!$sys['is_debug_output'] || !is_array($sys['filters_defn'])) {
+					break;
+				}
 				$tmp['str_defn'] = $v( $tmp['str_defn'] );
 			}
 			// -------------------------------------------------
@@ -845,13 +846,13 @@ $arSql = $oDb->sqlRun( $oSqlQ->getQ( 'get-pages-list' ), 'page' );
 
 $arSql2 = array ( );
 /* re-arrange the list of pages */
-for (; list($k, $arV) = each( $arSql ); )
+foreach( $arSql as $k => $arV)
 {
 	$arSql2[sprintf( "%05d", $arV['int_sort'] ) . sprintf( "%03d", $arV['id_page'] )][$arV['id_lang']] = $arV;
 }
 $arSql = array ( );
 /* Foreach custom page */
-for (; list($k, $arV) = each( $arSql2 ); )
+foreach( $arSql2 as $k => $arV)
 {
 	$oHtml->unsetTag( 'a' );
 	$cur_id_lang = $gw_this['vars'][GW_LANG_I] . '-' . $gw_this['vars']['lang_enc'];
@@ -1128,20 +1129,20 @@ $oTpl->addVal( 'v:meta_description', trim( strip_tags( $metaDescr ) ) );
 ## --------------------------------------------------------
 
 /* Add previously defined template variables */
-for ( reset( $arTplVars['srch'] ); list($k, $v) = each( $arTplVars['srch'] ); )
+foreach($arTplVars['srch'] as $k => $v)
 {
 	$oTpl->AddVal( $k, $v );
 }
 
 $oTpl->set_tpl( $gw_this['id_tpl_page'] );
 /* Parse dynamic blocks */
-for ( reset( $oTpl->tmp['d'] ); list($id_dynamic, $arV) = each( $oTpl->tmp['d'] ); )
+foreach( $oTpl->tmp['d'] as $id_dynamic => $arV)
 {
 	if ( is_array( $arV ) )
 	{
-		for ( reset( $arV ); list($k2, $v2) = each( $arV ); )
+		foreach( $arV as $k2 => $v2)
 		{
-			for ( reset( $v2 ); list($k, $v) = each( $v2 ); )
+			foreach( $v2 as $k => $v)
 			{
 				$oTpl->assign( array ( $k => $v ) );
 			}
