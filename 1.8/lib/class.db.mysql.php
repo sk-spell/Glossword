@@ -200,7 +200,10 @@ class gwtkDataBase
 				print '<br/>DB: free ' . $query_id;
 			}
 		}
-		return @mysqli_free_result($this->query_id);
+		if ($this->query_id instanceof mysqli_result) {
+			return @mysqli_free_result($this->query_id);
+		}
+		return false;
 	} // end of free_result();
 	/**
 	 *
