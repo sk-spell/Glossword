@@ -69,7 +69,7 @@ class pch_template extends gwv_template
 		{
 			$arSql = $oDb->sqlRun($oSqlQ->getQ('get-theme-code-key', gw_text_sql($theme_name), gw_text_sql($id_group)), 'theme');
 		}
-		while (is_array($arSql) && list($k, $arV) = each($arSql))
+		foreach($arSql as $k => $arV)
 		{
 			$arBlockI = array();
 			$tkey = sprintf("%u", crc32($arV['settings_key']));
