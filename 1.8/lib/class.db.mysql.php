@@ -254,7 +254,7 @@ class gwtkDataBase
 		$sql = 'LOCK TABLES ';
 		if (is_array($table)) // many tables
 		{
-			while (list($k, $v) = each($table))
+			foreach( $table as $k => $v )
 			{
 				if (($k == "read") && ($k != 0))
 				{

@@ -159,7 +159,7 @@ class gwtk
 	function getMsgNames()
 	{
 		$this->arMessages = array_flip(array_values(array_unique($this->arMessages)));
-		while (list($k, $v) = each($this->arMessages)) /* all phrases used on page */
+		foreach( $this->arMessages as $k => $v) /* all phrases used on page */
 		{
 			if (isset($this->lang[$k])) /* global phrase list */
 			{
