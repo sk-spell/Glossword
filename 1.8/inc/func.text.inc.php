@@ -509,8 +509,8 @@ function text_highlight($t, $q, $encoding = 'UTF-8')
 	$q = str_replace("*", ' ', $q);
 	$q = str_replace("?", ' ', $q);
 	$ar_words = explode(' ', $q);
-	
-	for (; list($k, $v) = each($ar_words);)
+
+	foreach ($ar_words as $k => $v)
 	{
 		if ($v == '') { continue; }
 		$v = str_replace("/", ' ', $v);
@@ -539,7 +539,7 @@ function text_highlight($t, $q, $encoding = 'UTF-8')
 	}
 	/* fix &#xn<span class="highlight">n</span>nn; */
 	preg_match_all('/&(#)?([0-9a-z="<>\/ ]+);/u', $t, $ar);
-	for (; list($k, $v) = each($ar[0]);)
+	foreach( $ar[0] as $k => $v )
 	{
 		$t = str_replace($v, strip_tags($v), $t);
 	}
@@ -555,7 +555,7 @@ function text_highlight($t, $q, $encoding = 'UTF-8')
 function array_clear_key($ar, $key_value)
 {
 	if (!is_array($ar)) { return $ar; }
-	while (list($k, $v) = each($ar))
+	foreach($ar as $k => $v)
 	{
 		if (is_array($v))
 		{
@@ -579,7 +579,7 @@ function gw_text_wildcars($t = '', $mode = 'none')
 	{
 		if (is_array($t))
 		{
-			while (list($k, $v) = each($t))
+			foreach( $t as $k => $v )
 			{
 				$t[$k] = str_replace('*', '%', str_replace('?', '_', $v));
 			}
@@ -593,7 +593,7 @@ function gw_text_wildcars($t = '', $mode = 'none')
 	{
 		if (is_array($t))
 		{
-			while (list($k, $v) = each($t))
+			foreach( $t as $k => $v )
 			{
 				$t[$k] = str_replace('*', '', str_replace('?', '', $v));
 			}
@@ -653,7 +653,7 @@ function array_merge_clobber($a1, $a2)
 {
 	if (!is_array($a1) || !is_array($a2)) { return false; }
 	$arNew = $a1;
-	while (list($key, $val) = each($a2))
+	foreach( $a2 as $key => $val)
 	{
 		if (is_array($val) && isset($arNew[$key]) && is_array($arNew[$key]))
 		{
@@ -706,7 +706,7 @@ function gw_array2str($ar, $delimeter = "\n")
 	$s = array();
 	if (is_array($ar))
 	{
-		while (list($k, $v) = each($ar))
+		foreach( $ar as $k => $v)
 		{
 			$s[] = $v;
 		}
@@ -797,7 +797,7 @@ function text2keywords($t, $min = 1, $max = 25, $enc = 'UTF-8')
 	$str_temp = ' ';
 #	prn_r( $t );
 	preg_match_all("/./u", $t, $ar_letters);
-	for (; list($k, $v) = each($ar_letters[0]);)
+	foreach( $ar_letters[0] as $k => $v)
 	{
 		$str_temp .= $v;
 		if ($v == ' ')
@@ -827,7 +827,7 @@ function text2keywords_crc($t, $mn = 1, $mx = 25, $e = 'UTF-8')
 	$s = ' ';
 	$d = 0;
 	preg_match_all("/./u", $t, $a);
-	for (; list($k, $v) = each($a[0]);)
+	foreach ($a[0] as $k => $v)
 	{
 		$s .= $v;
 		if ($v == ' ')
@@ -855,7 +855,7 @@ function text2keywords_crc($t, $mn = 1, $mx = 25, $e = 'UTF-8')
 		}
 		unset($a[0][$k]);
 	}
-	for (; list($i, $v) = each($ar);)
+	foreach ($ar as $i => $v)
 	{
 		$ar[$i] = array_values(array_unique($ar[$i]));
 	}
@@ -1048,11 +1048,10 @@ function htmlFormsSelect($arData, $default, $formname = 'select', $class = 'inpu
 	}
 
 	$str = '<select' . $oHtml->paramValue( $ar_attr_select ) . '>';
-	
-	for ( reset( $arData ); list($k, $v) = each( $arData ); )
+	foreach ( $arData as $k => $v )
 	{
 		$ar_attr_option = array( );
-		
+
 		/* 8 Oct 2010: Decode quotes to calculate the correct string length */
 		$v = htmlspecialchars_decode( $v, ENT_QUOTES );
 		$v_src = $v;
@@ -1114,7 +1113,7 @@ function searchkeys($ar)
 	$k = str_replace("\n", ' ', $k);
 	$k = str_replace(', ', ',', $k);
 	$wordsA = explode(",", $k);
-	for (reset($wordsA); list ($k, $v)= each($wordsA);)
+	foreach( $wordsA as $k => $v )
 	{
 		$v = trim($v);
 		$wordsA[$k] = $v;
@@ -1178,7 +1177,7 @@ function gw_text_smooth_defn($t, $is_debug = 0)
 	/* (.*[^>]) */
 	if (preg_match_all("/<pre(.*?)>(.*?)<\/pre>/s", $t, $pre))
 	{
-		for (; list ($k, $v)= each($pre[2]);)
+		foreach( $pre[2] as $k => $v )
 		{
 			$pre[2][$k] = str_replace("\t", "&#160;&#160;&#160;", $pre[2][$k]);
 			$pre[2][$k] = str_replace("  ", "&#160;&#160;", $pre[2][$k]);
@@ -1211,9 +1210,9 @@ function textcodetoform($t)
 function validatePostWalk($a, $reqFieldsA = array())
 {
 	$brokenFieldsA = array();
-	for (reset($a); list($k1, $v1) = each($a);) // read posted array, usually HTTP_POST_VARS
+	foreach( $a as $k1 => $v1)  // read posted array, usually HTTP_POST_VARS
 	{
-		for (reset($reqFieldsA); list($reqk1, $reqv1) = each($reqFieldsA );) // read required
+		foreach( $reqFieldsA as $reqk1 => $reqv1 )  // read required
 		{
 			if ($k1 == $reqv1) // posted == required
 			{
@@ -1226,7 +1225,7 @@ function validatePostWalk($a, $reqFieldsA = array())
 				}
 				else
 				{
-					for (reset($v1); list ($k2, $v2)= each($v1);)
+					foreach($v1 as $k2 => $v2)
 					{
 						$v1[$k2] = gw_text_sql($v2);
 						if ($v1[$k2] == ''){ $brokenFieldsA[$k1] = ''; }
