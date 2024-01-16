@@ -289,7 +289,7 @@ function gw_bbcode_html_tag($t)
 	$spacepos = strpos($t, ' ');
 	$attr = '';
 	$l = strlen($t);
-	if ($t{0} == '/')
+	if ($t[0]== '/')
 	{
 		$slash_s = '/';
 		$t = substr($t, 1);
