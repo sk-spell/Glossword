@@ -192,18 +192,16 @@ class gwtkDataBase
 	 */
 	function free_result($query_id = -1)
 	{
-		if ($query_id != -1)
+		if ($query_id == -1)
 		{
-			$this->query_id = $query_id;
-			if ($this->is_print_events)
-			{
-				print '<br/>DB: free ' . $query_id;
-			}
+			return $query_id;
 		}
-		if ($this->query_id instanceof mysqli_result) {
-			return @mysqli_free_result($this->query_id);
+		$this->query_id = $query_id;
+		if ($this->is_print_events)
+		{
+			print '<br/>DB: free ' . $query_id;
 		}
-		return false;
+		return @mysqli_free_result($this->query_id);
 	} // end of free_result();
 	/**
 	 *
