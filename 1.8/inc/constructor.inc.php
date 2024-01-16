@@ -142,7 +142,7 @@ $oTpl->addVal( 'url:site_name', $oHtml->a( $sys['page_index'], strip_tags( $sys[
 
 /* Append URL for integration */
 $tmp['input_url_append'] = '';
-foreach( $arSql as $k => $arV)
+foreach( $sys['ar_url_append'] as $k => $v)
 {
 	$tmp['input_url_append'] .= '<input type="hidden" name="' . $k . '" value="' . $v . '" />';
 }
