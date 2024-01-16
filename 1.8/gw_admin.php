@@ -83,22 +83,10 @@ $oGlobals->do_default($gw_this['vars']['visualtheme'], $sys['visualtheme']);
 $oGlobals->do_default($gw_this['vars']['uri'], '');
 /* used for Session class */
 $sys['uri'] =& $gw_this['vars']['uri'];
-
-/* Depreciated method */
 foreach ($gw_this['vars'] as $k1 => $v1)
 {
 	$$k1 = $v1;
 }
-#$arPostVars = array('file_location','arAudio','arImg','arVideo');
-#for (reset($arPostVars); list($k, $v) = each($arPostVars);)
-#{
-#	if (isset($_FILES[$v]) && ($_FILES[$v] != '')) // get values from FILES
-#	{
-#		$$v = $_FILES[$v];
-#		$gw_this['_files'][$v] = $_FILES[$v];
-#	}
-#}
-#prn_r( $_FILES, __LINE__ );
 unset($arPostVars);
 
 

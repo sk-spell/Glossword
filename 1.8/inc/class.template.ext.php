@@ -52,7 +52,7 @@ class pch_template extends gwv_template
 	{
 		global $ar_theme;
 		/* autoload theme colors */
-		for (reset($ar_theme); list($k, $v) = each($ar_theme);)
+		foreach ($ar_theme as $k => $v)
 		{
 			$this->assign(array($k => $v));
 		}
@@ -135,7 +135,7 @@ class pch_template extends gwv_template
 				$arCmd = array();
 				$arCmd[] = '<?xml';
 				$arRpl[] = '<?'.'php echo "<","?xml"; ?'.'>';
-				while (list($k, $cmd_src) = each($tmp['tpl_matches'][2]))
+				foreach ($tmp['tpl_matches'][2] as $k => $cmd_src)
 				{
 					$arCmd[] = $tmp['tpl_matches'][1][$k].$cmd_src.$tmp['tpl_matches'][3][$k];
 					$tmp['cmd'] = trim($cmd_src);
@@ -173,7 +173,7 @@ class pch_template extends gwv_template
 		$tpl = array();
 		$this->var_last_parsed = '';
 		$str_code = '';
-		for (reset($this->pairsC); list($tkey, $arV) = each($this->pairsC);)
+		foreach ($this->pairsC as $tkey => $arV)
 		{
 			if ($this->is_tpl_show_names)
 			{

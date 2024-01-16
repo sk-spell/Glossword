@@ -246,14 +246,14 @@ class gwForms {
 			}
 			$extras = $this->htmlParamValue($this->tags[$formtype]);
 			$str = sprintf('<select%s>', $extras);
-			while (is_array($array) && list($k, $v) = each($array) )
+			foreach ($array as $k => $v)
 			{
 				$s = '';
 				$title = '';
 				if (is_array($value))
 				{
 					/* Multiple */
-					for (reset($value); list($kV, $vV) = each($value);)
+					foreach ($value as $kV => $vV)
 					{
 						if (strval($k) == strval($kV))
 						{
