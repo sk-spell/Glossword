@@ -5,7 +5,7 @@ if (!defined('IN_GW'))
 }
 /**
  *  Glossword - glossary compiler (http://glossword.info/)
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  ï¿½ 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -27,18 +27,18 @@ if (!defined('IN_GW'))
 	2. Get terms untill the number of terms reaches $amount.
 	*/
 	$arDicts = array();
-	for (reset($gw_this['ar_dict_list']); list($k, $arDs) = each($gw_this['ar_dict_list']);)
+	foreach($gw_this['ar_dict_list'] as $k => $arDs)
 	{
 		$arDicts[$arDs['date_modified']] = $arDs;
 	}
 	krsort($arDicts);
 	$cnt_terms = 0;
 	$ar_terms = array();
-	for (; list($k, $arDs) = each($arDicts);)
+	foreach($arDicts as $k => $arDs)
 	{
 		$sql = $oSqlQ->getQ('top-term-new', $arDs['tablename'], $sys['time_now_db'], 'date_modified DESC', $amount);
 		$arSql = $oDb->sqlExec($sql);
-		for (; list($arK, $arV) = each($arSql);)
+		foreach($arSql as $arK => $arV)
 		{
 			$arV['title'] = $arDs['title'];
 			$arV['id_dict'] = $arDs['id'];
@@ -92,7 +92,7 @@ if (!defined('IN_GW'))
 	}
 
 	/* For each term */
-	for (; list($k, $arV) = each($ar_terms);)
+	foreach($ar_terms as $k => $arV)
 	{
 		if ($cnt == $amount) { break; }
 		$cnt % 2 ? ($bgcolor = $ar_theme['color_2']) : ($bgcolor = $ar_theme['color_1']);
@@ -106,10 +106,8 @@ if (!defined('IN_GW'))
 			$href_edit = $sys['page_admin']. '?'.GW_ACTION.'='.GW_A_EDIT. '&'. GW_TARGET.'='.GW_T_TERMS. '&id='.$arV['id_dict'] . '&tid='.$arV['id'];
 
 			/* Check for permission */
-			if ($oSess->is('is-terms')
-				? 1 
-				: (($arV['id_user'] == $oSess->id_guest)
-				|| ($oSess->is('is-terms-own') && ($arV['id_user'] == $oSess->id_user))) 
+			if (($oSess->is('is-terms') ? 1 
+				: (($arV['id_user'] == $oSess->id_guest) || ($oSess->is('is-terms-own') && ($arV['id_user'] == $oSess->id_user))))
 				? 1 : 0
 			)
 			{
