@@ -299,7 +299,9 @@ class gwtkDataBase
 	}
 	function num_rows()
 	{
-		return @mysqli_num_rows($this->query_id);
+		if (!empty($this->query_id) && $this->query_id !== true) {
+			return @mysqli_num_rows($this->query_id);
+		}
 	}
 	/* public: evaluate the result (size, width) */
 	function affected_rows()
