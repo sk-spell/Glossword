@@ -110,8 +110,7 @@ function gw_highlight_sql($s)
 	if (is_array($s))
 	{
 		/* can't use array_walk() on byself with reference */
-		for (reset($s); list($k, $v) = each($s);)
-		{
+		foreach ($s as $k => $v) {
 			$s[$k] = gw_highlight_sql($v);
 		}
 		return $s;
@@ -138,8 +137,7 @@ function htmlspecialchars_ltgt($s)
 	if (is_array($s))
 	{
 		/* can't use array_walk() on byself with reference */
-		for (reset($s); list($k, $v) = each($s);)
-		{
+		foreach ($s as $k => $v) {
 			$s[$k] = htmlspecialchars_ltgt($v);
 		}
 		return $s;
@@ -147,8 +145,7 @@ function htmlspecialchars_ltgt($s)
 	elseif (is_object($s))
 	{
 		$ar = get_class_vars(get_class($s));
-		for (reset($ar); list($k, $v) = each($ar);)
-		{
+		foreach ($ar as $k => $v) {
 			$ar[$k] = htmlspecialchars_ltgt($s->$k);
 		}
 		return $ar;
@@ -164,8 +161,7 @@ function unhtmlspecialchars_ltgt($s)
 	if (is_array($s))
 	{
 		/* can't use array_walk() on byself with reference */
-		for (reset($s); list($k, $v) = each($s);)
-		{
+		foreach ($s as $k => $v) {
 			$s[$k] = unhtmlspecialchars_ltgt($v);
 		}
 		return $s;
@@ -173,8 +169,7 @@ function unhtmlspecialchars_ltgt($s)
 	elseif (is_object($s))
 	{
 		$ar = get_class_vars(get_class($s));
-		for (reset($ar); list($k, $v) = each($ar);)
-		{
+		foreach ($ar as $k => $v) {
 			$ar[$k] = unhtmlspecialchars_ltgt($s->$k);
 		}
 		return $ar;
@@ -299,8 +294,7 @@ function gw_stripslashes_array(&$ar)
 {
 	if (is_array($ar) || is_object($ar))
 	{
-		for (reset($ar); list($k, $v) = each($ar);)
-		{
+		foreach ($ar as $k => $v) {
 			$ar[$k] = gw_stripslashes($v);
 		}
 		reset($ar);
@@ -769,9 +763,7 @@ class gw_functions {
 		$str_temp = '';
 		$cur_length = 0;
 		$ar_words = explode(' ', $str.' ', 100);
-		//for (; list($k, $v) = each($ar_words);)
-    foreach($ar_words as $v)
-		{
+		foreach ($ar_words as $k => $v) {
 			$cur_length += $this->mb_strlen(' '.$v);
 			if ($cur_length >= $len)
 			{
@@ -783,8 +775,7 @@ class gw_functions {
 		/*
 		 too expensive
 		preg_match_all("/./u", $str.' ', $ar_letters);
-		for (; list($k, $v) = each($ar_letters[0]);)
-		{
+		foreach ($ar_letters[0] as $k => $v) {
 			if ( $k == ($len * (sizeof($arr) + 1) + $int_char) )
 			{
 				if ($isBinary)
@@ -1196,8 +1187,7 @@ class gw_functions {
 	/* */
 	function math_hexdec($ar)
 	{
-		for (reset($ar); list($k, $v) = each($ar);)
-		{
+		foreach ($ar as $k => $v) {
 			$ar[$k] = hexdec($v);
 		}
 		return $ar;
@@ -1207,8 +1197,7 @@ class gw_functions {
 	{
 		$arHex = $this->math_hex2ar($t);
 		$arDec = $this->math_hexdec($arHex);
-		for (reset($arDec); list($k, $v) = each($arDec);)
-		{
+		foreach ($arDec as $k => $v) {
 			$v2 = (255 - $v);
 			/* remove gray */
 			$v2 = (($v2 > 50) && ($v2 < 150)) ? 255 : $v2;

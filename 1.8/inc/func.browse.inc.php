@@ -496,10 +496,10 @@ function gw_custom_page($id_page)
 		{
 			$id_page_int = $arV['id_page'];
 			/* Process text filters */
-			while (!$sys['is_debug_output']
-					&& is_array($sys['filters_defn'])
-					&& list($k, $v) = each($sys['filters_defn']) )
-			{
+			foreach ($sys['filters_defn'] as $k => $v) {
+				if (!$sys['is_debug_output'] || !is_array($sys['filters_defn'])) {
+					break;
+				}
 				$arV['page_content'] = $v($arV['page_content']);
 			}
 			/* Custom content */
@@ -674,8 +674,7 @@ function getTop10($m, $amount = 10, $isItemOnly = 0, $order = 0, $top10_display 
 		{
 			$str_head .= '<tr>';
 			$str_head .= '<th class="gw" style="text-align:center;width:1%">N</th>';
-			for (reset($arThText); list ($kT, $vT)= each($arThText);)
-			{
+			foreach ($arThText as $kT => $vT) {
 				$str_width = '';
 				if (isset($arThWidth[$kT]) && $arThWidth[$kT])
 				{
@@ -1255,8 +1254,10 @@ function getLetterHtml($ar, $id_dict, $w1 = '', $w2 = '', $w3 = '')
 			/* current letter */
 			$int_utf2hex = (ord($k1) >= 127) ? ($oFunc->text_utf2hex($k1, 0)) : dechex(ord($k1));
 			reset($arUnicodeMap);
-			while (($arDictParam['id_custom_az'] == 1) && list($k2, $v2) = each($arUnicodeMap))
-			{
+			foreach ($arUnicodeMap as $k2 => $v2) {
+				if ($arDictParam['id_custom_az'] != 1) {
+					break;
+				}
 				/* next letter */
 				if (isset($arUnicodeMap[$k2+1]))
 				{

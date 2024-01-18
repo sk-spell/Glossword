@@ -55,8 +55,7 @@ class gw_topics_recounter
 				FROM `'.$this->sys['tbl_prefix'].'topics`
 				GROUP BY id_topic, id_parent';
 		$arSql = $this->oDb->sqlExec($sql);
-		while (is_array($arSql) && list($k, $arV) = each($arSql))
-		{
+		foreach ($arSql as $k => $arV) {
 			$this->ar_parents[$arV['id_parent']][] = $arV['id_topic'];
 		}
 		/* Count items for each topic */
@@ -64,8 +63,7 @@ class gw_topics_recounter
 				FROM `'.$this->sys['tbl_prefix'].'dict`
 				GROUP BY id_topic';
 		$arSql = $this->oDb->sqlExec($sql);
-		while (is_array($arSql) && list($k, $arV) = each($arSql))
-		{
+		foreach ($arSql as $k => $arV) {
 			$this->ar_items_counted[$arV['id_topic']] = $arV['cnt'];
 		}
 		/* Select only root topics */
@@ -74,13 +72,11 @@ class gw_topics_recounter
 				WHERE id_parent ="0"';
 		$arSql = $this->oDb->sqlExec($sql);
 		/* Count topics for each root */
-		while (is_array($arSql) && list($k, $arV) = each($arSql))
-		{
+		foreach ($arSql as $k => $arV) {
 			$this->get_subitems($arV['id_topic'], $this->ar_items_counted, $this->ar_parents);
 		}
 		/* Update database */
-		for (reset($this->ar_sum_totals); list($id_topic, $v) = each($this->ar_sum_totals);)
-		{
+		foreach ($this->ar_sum_totals as $id_topic => $v) {
 			$this->oDb->sqlExec( gw_sql_update(array('int_items' => $v), $this->sys['tbl_prefix'].'topics', 'id_topic = "'.$id_topic.'"') );
 		}
 	}
@@ -246,8 +242,7 @@ function gw_admin_menu($a, $t)
 	$arSql = $oDb->sqlRun($oSqlQ->getQ('get-components-actions', $ar_sql_like, '1=1', ' AND cm.is_active = "1" '));
 	$arMenu = array();
 	/* Re-arrange array */
-	for (; list($k1, $arV) = each($arSql);)
-	{
+	foreach ($arSql as $k1 => $arV) {
 		$arMenu[$arV['id_component_name']][] = $arV;
 		unset($arSql[$k1]);
 	}
@@ -263,8 +258,7 @@ function gw_admin_menu($a, $t)
 	/* */
 	$str = '<table id="admmenu" class="admmenu" cellspacing="0" cellpadding="1" border="0" width="100%">';
 	$str .= '<tbody>';
-	for (; list($id_component, $arV) = each($arMenu);)
-	{
+	foreach ($arMenu as $id_component => $arV) {
 		/* for each component */
 		$oL->getCustom('addon_'.$id_component, $gw_this['vars'][GW_LANG_I].'-'.$gw_this['vars']['lang_enc'], 'join');
 		/* background color */
@@ -282,8 +276,7 @@ function gw_admin_menu($a, $t)
 		$str .= '</tr><tr><td id="co-'.$ar_js_ids[$int_menu_el].'" class="actions-primary" style="text-align:' . $sys['css_align_left'] . '">';
 #		$str .= '<b>'.implode('</b> <b>', $arStr).'</b>';
 		/* for each component action */
-		for (; list($k2, $arV2) = each($arV);)
-		{
+		foreach ($arV as $k2 => $arV2) {
 			/* Include links to actions for a primary menu */
 			if ($arV2['is_in_menu'] == 1)
 			{
@@ -446,16 +439,14 @@ function gw_ParsePre($arParsed, $arPre)
 	if (isset($arPre['trsp'][0][0]['value']))
 	{
 		$tmp['arTrsp'] = explode(CRLF, trim($arPre['trsp'][0]['value']));
-		while(is_array($tmp['arTrsp']) && list($k, $v) = each($tmp['arTrsp']))
-		{
+		foreach ($tmp['arTrsp'] as $k => $v) {
 			$arPre['trsp'][0][$k]['value'] = $v;
 		}
 	}
 #	if (isset($arPre['see'][0][0]['value']))
 #	{
 #        $tmp['arSyn'] = explode(CRLF, trim($arPre['syn'][0]['value']));
-#        while(is_array($tmp['arSyn']) && list($k, $v) = each($tmp['arSyn']))
-#        {
+#        foreach ($tmp['arSyn'] as $k => $v) {
 #            $tmp['synText'] = preg_replace("'(.*)\[\[(.*?)\]\]'", ' \\2', $v);
 #            $v = preg_replace("'\[\[(.*?)\]\]'", '', $v );
 #            $tmp['synText'] = str_replace($v, '', $tmp['synText']);
@@ -467,13 +458,11 @@ function gw_ParsePre($arParsed, $arPre)
 	#prn_r($arPre['usg']);
 	//
 	//
-	for (reset($arPre); list($target_name, $arTarget) = each($arPre);) // for each target [ abbr | trns | defn | syn | .. ]
-	{
+	foreach ($arPre as $target_name => $arTarget) {  // for each target [ abbr | trns | defn | syn | .. ]
 		// replace structures
 		$arParsed[$target_name] = $arPre[$target_name];
 	}
-	for (reset($arPre); list($target_name, $arTarget) = each($arPre);) // for each target [ abbr | trns | defn | syn | .. ]
-	{
+	foreach ($arPre as $target_name => $arTarget) {  // for each target [ abbr | trns | defn | syn | .. ]
 		// is there any direct instructions for this tag?
 		if (isset($arControl[$target_name])) // defn | abbr | trns
 		{
@@ -575,8 +564,7 @@ function gw_ParsePre($arParsed, $arPre)
 				else
 				{
 					// Remove current key from definition and all related to key tags
-					for (reset($arParsed); list($targetK, $targetV) = each($arParsed);)
-					{
+					foreach ($arParsed as $targetK => $targetV) {
 						/* unset only existed keys */
 						if (isset($targetV[$tmp['elK']]) && is_array($arParsed[$targetK][$tmp['elK']]))
 						{
