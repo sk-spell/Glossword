@@ -28,8 +28,7 @@ class gw_addon_abbr_admin extends gw_addon
 		$arSql = $this->oDb->sqlRun($this->oSqlQ->getQ('get-abbr-lang'), $this->addon_name);
 		$ar_languages = array();
 		$id_lang = 'en-utf8';
-		while (list($k, $arV) = each($arSql))
-		{
+		foreach ($arSql as $k => $arV) {
 			if ($k == 0)
 			{
 				$id_lang = $arV['id_lang'];
@@ -51,8 +50,7 @@ class gw_addon_abbr_admin extends gw_addon
 			}
 		}
 		$ar_topics = array();
-		for (reset($this->ar_groups); list($k, $v) = each($this->ar_groups);)
-		{
+		foreach ($this->ar_groups as $k => $v) {
 			$ar_topics[] = $this->oHtml->a(
 					$this->sys['page_admin'] . '?'.GW_ACTION.'='.GW_A_BROWSE.'&'.GW_TARGET.'='.$this->addon_name.'&w1=' . $this->gw_this['vars']['w1'].'&w2=' . $k,
 					$v
@@ -92,8 +90,7 @@ class gw_addon_abbr_admin extends gw_addon
 		}
 		$ar_req = array_flip($ar_req);
 		/* mark fields as "Required" and display error message */
-		while (is_array($vars) && list($k, $v) = each($vars) )
-		{
+		foreach ($vars as $k => $v) {
 			$ar_req_msg[$k] = $ar_broken_msg[$k] = '';
 			if (isset($ar_req[$k])) { $ar_req_msg[$k] = '&#160;<span class="red"><b>*</b></span>'; }
 			if (isset($ar_broken[$k])) { $ar_broken_msg[$k] = '<span class="red"><b>' . $this->oL->m('reason_9') . '</b></span><br />'; }
@@ -146,8 +143,7 @@ class gw_addon_abbr_admin extends gw_addon
 
 		$ar_dict = array(0 => $this->oL->m('1113'));
 		/* Per each dictionary */
-		for (reset($this->gw_this['ar_dict_list']); list($k, $arDictParam) = each($this->gw_this['ar_dict_list']);)
-		{
+		foreach ($this->gw_this['ar_dict_list'] as $k => $arDictParam) {
 			$ar_dict[$arDictParam['id']] = $arDictParam['title'];
 		}
 		$str_form .= '<tr>'.
@@ -196,8 +192,7 @@ class gw_addon_abbr_admin extends gw_addon
 		/* The list of line feeds */
 		$arSql = $this->oDb->sqlExec($this->oSqlQ->getQ('get-abbr-adm', $this->gw_this['vars']['w1'], $this->gw_this['vars']['w2']), $this->addon_name);
 		$cnt_row = 1;
-		while (list($k, $arV) = each($arSql))
-		{
+		foreach ($arSql as $k => $arV) {
 			$isReset = 0;
 			if ($k == 0) { $isReset = 1; }
 			if (!$isUp && !$isDn) { $isReset = 0; }
@@ -288,8 +283,7 @@ class gw_addon_abbr_admin extends gw_addon
 			$arPost['abbr_long'] = trim($arPost['abbr_long']);
 			/* Fix on/off options */
 			$arIsV = array('is_active');
-			for (; list($k, $v) = each($arIsV);)
-			{
+			foreach ($arIsV as $k => $v) {
 				$arPost[$v] = isset($arPost[$v]) ? $arPost[$v] : 0;
 			}
 			/* Checking posted vars */
@@ -342,8 +336,7 @@ class gw_addon_abbr_admin extends gw_addon
 					 );
 			$strHelp = '';
 			$strHelp .= '<dl>';
-			for (; list($k, $v) = each($arHelpMap);)
-			{
+			foreach ($arHelpMap as $k => $v) {
 				$strHelp .= '<dt><b>' . $this->oL->m($k) . '</b></dt>';
 				$strHelp .= '<dd>' . $this->oL->m($v) . '</dd>';
 			}
@@ -356,8 +349,7 @@ class gw_addon_abbr_admin extends gw_addon
 			$arPost =& $this->gw_this['vars']['arPost'];
 			/* Fix on/off options */
 			$arIsV = array('is_active');
-			for (; list($k, $v) = each($arIsV);)
-			{
+			foreach ($arIsV as $k => $v) {
 				$arPost[$v] = isset($arPost[$v]) ? $arPost[$v] : 0;
 			}
 			/* Checking posted vars */
@@ -389,8 +381,7 @@ class gw_addon_abbr_admin extends gw_addon
 				$ar_languages = $this->gw_this['vars']['ar_languages'];
 				/* Add empty values for other languages */
 				unset($ar_languages[$q1['id_lang']]);
-				for (reset($ar_languages); list($kl, $vl) = each($ar_languages);)
-				{
+				foreach ($ar_languages as $kl => $vl) {
 					$q1['id_lang'] = $kl;
 					$q1['abbr_short'] = $q1['abbr_long'] = '';
 					$ar_query[] = gw_sql_replace($q1, $this->sys['tbl_prefix'].'abbr_phrase');

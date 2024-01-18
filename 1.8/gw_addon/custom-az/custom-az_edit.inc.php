@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008 Glossword.biz team
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  ï¿½ 2008 Glossword.biz team
+ *  ï¿½ 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -85,8 +85,7 @@ if (!empty($ar_sorted))
 {
 	ksort($ar_sorted);
 	$int_sort = 10;
-	for (; list($k, $id_item) = each($ar_sorted);)
-	{
+	foreach ($ar_sorted as $k => $id_item) {
 		$ar_query[] = gw_sql_update(array('int_sort' => $int_sort), $this->sys['tbl_prefix'].'custom_az', 'id_letter = "'.$id_item.'"');
 		$int_sort += 10;
 	}
@@ -178,8 +177,7 @@ else
 #	$arPost['profile_name'] = trim($arPost['profile_name']);
 	/* Fix on/off options */
 	$arIsV = array('is_active');
-	for (; list($k, $v) = each($arIsV);)
-	{
+	foreach ($arIsV as $k => $v) {
 		$arPost[$v] = isset($arPost[$v]) ? $arPost[$v] : 0;
 	}
 	/* Checking posted vars */

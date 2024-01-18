@@ -1,7 +1,7 @@
 <?php
 /**
  * Autolinks for Glossword
- * © 2004 Dmitry N. Shilnikov <dev at glossword dot info>
+ * ï¿½ 2004 Dmitry N. Shilnikov <dev at glossword dot info>
  * $Id: class.autolinks.php,v 1.5 2006/10/06 12:06:09 yrtimd Exp $
  * http://glossword.info/dev/
  * 
@@ -40,8 +40,7 @@ class gw_autolinks
 		{
 			$arLines = file($filename);
 		}
-		for (; list($k, $v) = each($arLines);)
-		{
+		foreach ($arLines as $k => $v) {
 			$arKV = explode($this->str_splitter, $v);
 			if (isset($arKV[0]) && isset($arKV[1]))
 			{
@@ -71,19 +70,16 @@ class gw_autolinks
 		$regexp_r = "([ \"\'\,\.\-\!\?\&<\/;:\)\]\[]|\'s|s|ed|es|$)";
 		/* Parse HTML or BBcode */
 		$ar_preg_no = preg_split("/".$this->regexp_no[$this->regexp_id]."/", $t);
-		for (; list($k1, $v1) = each($ar_preg_no);)
-		{
+		foreach ($ar_preg_no as $k1 => $v1) {
 			/* skip empty lines */
 			if (trim($v1) == '') { unset($ar_preg_no[$k1]); continue; }
 			/* copy line */
 			$new_v1 = $v1;
-			for (reset($this->arLinks); list($k2, $v2) = each($this->arLinks);)
-			{
+			foreach ($this->arLinks as $k2 => $v2) {
 				$k2 = substr($k2, 3);
 				if (preg_match_all("/".$regexp_l."($k2)".$regexp_r."/u", $new_v1, $ar_preg))
 				{
-					for (; list($k3, $v3) = each($ar_preg[2]);)
-					{
+					foreach ($ar_preg[2] as $k3 => $v3) {
 						#$new_v1 = str_replace($ar_preg[1][$k3].$k2.$ar_preg[3][$k3], $ar_preg[1][$k3].$v2.$ar_preg[3][$k3], $new_v1);
 						$t = str_replace($ar_preg[1][$k3].$k2.$ar_preg[3][$k3], $ar_preg[1][$k3].$v2.$ar_preg[3][$k3], $t);
 					}

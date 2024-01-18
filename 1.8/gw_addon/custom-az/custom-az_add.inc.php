@@ -1,7 +1,7 @@
 <?php
 /**
  * Glossword - glossary compiler (http://glossword.info/)
- * © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ * ï¿½ 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,8 +48,7 @@ else
 	$arPost =& $this->gw_this['vars']['arPost'];
 	/* Fix on/off options */
 	$arIsV = array('is_active');
-	for (; list($k, $v) = each($arIsV);)
-	{
+	foreach ($arIsV as $k => $v) {
 		$arPost[$v] = isset($arPost[$v]) ? $arPost[$v] : 0;
 	}
 	/* Checking posted vars */

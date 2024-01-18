@@ -73,8 +73,7 @@ if ($this->gw_this['vars']['tid'])
 	$arSql = $this->oDb->sqlExec($this->oSqlQ->getQ('get-custom_az-adm', $this->gw_this['vars']['tid']), $this->component);
 	$int_max_sort = sizeof($arSql);
 	$cnt_row = 1;
-	while (list($k, $arV) = each($arSql))
-	{
+	foreach ($arSql as $k => $arV) {
 		$isDn = $isUp = 1;
 		if ($k == 0){ $isUp = 0; }
 		if ($int_max_sort == $cnt_row){ $isDn = 0; }
