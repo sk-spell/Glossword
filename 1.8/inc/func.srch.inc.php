@@ -34,7 +34,6 @@ function gw_get_stopwords ( $arDictParam )
 	if ( $arDictParam['is_filter_stopwords'] && is_array( $arDictParam['ar_filter_stopwords'] ) )
 	{
 		foreach ($arDictParam['ar_filter_stopwords'] as $locale_id => $vS) {
-		{
 			$a_stopwords = array_merge( $a_stopwords, array_flip( $oL->getCustom( 'stop_words', $locale_id, 'return' ) ) );
 		}
 		$a_stopwords = array_keys( $a_stopwords );

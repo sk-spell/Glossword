@@ -222,7 +222,7 @@ function gwAddTerm($arPre, $id_dict, $arStop, $in_term, $is_specialchars, $is_ov
 	{
 		/* Term already exists */
 		$ar_matched_terms = array();
-		foreach ($arSql as $arK => $arV)
+		foreach ($arSql as $arK => $arV) {
 			$ar_matched_terms[]  = $oHtml->a($sys['page_admin'].'?'.GW_ACTION.'='.GW_A_EDIT.'&'.GW_TARGET.'='.GW_T_TERMS.'&id='.$id_dict.'&tid=' . $arV['id'],
 						 $arV['term'], '', '', $oL->m('3_edit'));
 		}
