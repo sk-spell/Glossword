@@ -149,7 +149,7 @@ class gwv_template
 	/* $ar - the list of files */
 	function define($ar = array())
 	{
-		foreach ($ar as $tplName => $filename)
+		foreach ($ar as $tplName => $filename) {
 			$tplName = sprintf("%u", crc32($filename));
 			if (isset($this->pairsC[$tplName]))
 			{
