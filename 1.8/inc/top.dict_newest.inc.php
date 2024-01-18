@@ -5,7 +5,7 @@ if (!defined('IN_GW'))
 }
 /**
  *  Glossword - glossary compiler (http://glossword.info/) 
- *  © 2002-2007 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  Â© 2002-2007 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -30,8 +30,7 @@ if (!defined('IN_GW'))
 	// Sets alignment for colums
 	$arThAlign = array($sys['css_align_left'], $sys['css_align_right']);
 	// for each dictionary
-	for (; list($arK, $arV) = each($arSql);)
-	{
+	foreach ($arSql as $arK => $arV) {
 		switch ($sys['pages_link_mode'])
 		{
 			case GW_PAGE_LINK_NAME:

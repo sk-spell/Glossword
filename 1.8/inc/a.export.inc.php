@@ -5,8 +5,8 @@ if (!defined('IN_GW'))
 }
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008 Glossword.biz team
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  Â© 2008 Glossword.biz team
+ *  Â© 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -37,8 +37,7 @@ function getTermDates($id_dict, $DBTABLE)
 
 	$arSql = $oDb->sqlExec( $oSqlQ->getQ('get-date-mm', $arDictParam['tablename']) );
 	$strA = array('max' => time(), 'min' => 0);
-	for (; list($arK, $arV) = each($arSql);)
-	{
+	foreach ($arSql as $arK => $arV) {
 		if (empty($arV['max']) && empty($arV['min']))
 		{
 			/* no date */
@@ -98,8 +97,7 @@ function getFormExport($vars, $runtime = 0, $arBroken = array(), $arReq = array(
 	// reverse array keys <-- values;
 	$arReq = array_flip($arReq);
 	// mark fields as "REQUIRED" and make error messages
-	while(is_array($vars) && list($key, $val) = each($vars) )
-	{
+	foreach ($vars as $key => $val) {
 		$arReqMsg[$key] = $arBrokenMsg[$key] = '';
 		if (isset($arReq[$key])) { $arReqMsg[$key] = ' <span style="color:#E30"><b>*</b></span>'; }
 		if (isset($arBroken[$key])) { $arBrokenMsg[$key] = ' <span class="'.$trClass.'" style="color:#E30"><b>' . $oL->m('reason_9') .'</b></span>'; }
@@ -145,8 +143,7 @@ function getFormExport($vars, $runtime = 0, $arBroken = array(), $arReq = array(
 
 		$strForm .= '<table class="gw2TableFieldset" width="100%">';
 		reset($vars['arFmt']);
-		for (; list($k, $v) = each($vars['arFmt']);)
-		{
+		foreach ($vars['arFmt'] as $k => $v) {
 			$strForm .= '<tr>';
 			$arBoxId['id'] = 'r_'.$v;
 			$checked = ($vars['fmt_default'] == $v) ? 1 : 0;

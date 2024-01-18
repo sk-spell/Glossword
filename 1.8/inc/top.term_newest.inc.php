@@ -5,7 +5,7 @@ if (!defined('IN_GW'))
 }
 /**
  *  Glossword - glossary compiler (http://glossword.info/) 
- *  © 2002-2007 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  Â© 2002-2007 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -44,8 +44,7 @@ if (!defined('IN_GW'))
 	{
 		global $oCase;
 		/* Sort the list of terms by name */
-		for (; list($arK, $arV) = each($arSql);)
-		{
+		foreach ($arSql as $arK => $arV) {
 			$arSqlSorted[urlencode($arV['term'])] = $arV;
 			unset($arSql[$arK]);
 		}
@@ -56,8 +55,7 @@ if (!defined('IN_GW'))
 	$arThAlign = array($sys['css_align_left'], $sys['css_align_right']);
 	$strTopicName = $oL->m('recent');
 	// for each item
-	for (; list($arK, $arV) = each($arSql);)
-	{
+	foreach ($arSql as $arK => $arV) {
 		$cnt % 2 ? ($bgcolor = $ar_theme['color_2']) : ($bgcolor = $ar_theme['color_1']);
 		$cnt++;
 		$strData .= '<tr style="background:' . $bgcolor . '">';

@@ -389,11 +389,12 @@ class gwv_template
 		{
 			$this->arBlockC[] = $dynName;
 		}
-		if (!(list($k, $this->varsRun[$dynName]) = @each($this->arBlockV[$dynName])) ||
-			$this->varsRun[$dynName] == 'end')
-		{
-			array_pop($this->arBlockC);
-			return false;
+		foreach ($this->arBlockV[$dynName] as $k => $value) {
+			$this->varsRun[$dynName] = $value;
+			if ($value == 'end') {
+				array_pop($this->arBlockC);
+				return false;
+			}
 		}
 		return true;
 	}

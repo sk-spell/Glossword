@@ -93,8 +93,7 @@ class gw_htmlforms extends gwForms
 		//
 		$jsToolbarOff = $jsToolbarSymbOff = $jsToolbarOn = '';
 		//
-		for (reset($arButtons); list($k, $v) = each($arButtons);)
-		{
+		foreach ($arButtons as $k => $v) {
 			$arParam = explode("||", $v);
 			$this->setTag('input', 'title', $this->oL->m($arParam[4]));
 			if ($oFunc->is_num($arParam[0]))
@@ -327,8 +326,7 @@ $tmp['strform'] .= '/*]]>*/</script>';
 		{
 			$this->arEl[$fieldname][0]['value'] = '';
 		}
-		while (list($elK, $elV) = each($this->arEl[$fieldname]))
-		{
+		foreach ($this->arEl[$fieldname] as $elK => $elV) {
 			// break table for each definition
 			$tmp['strform'] .= '</tbody></table>';
 			//
@@ -422,8 +420,7 @@ $tmp['strform'] .= '/*]]>*/</script>';
 			$tmp['strform'] .= '</tr>';
 			//
 			// Parse subtags
-			for (reset($this->arFields); list($fK, $fV) = each($this->arFields);)
-			{
+			foreach ($this->arFields as $fK => $fV) {
 				// not root elements only
 				if ((!isset($fV[4]) || !$fV[4]) && 
 					(isset($this->arDictParam['is_'.$fV[0]]) && $this->arDictParam['is_'.$fV[0]])
@@ -466,15 +463,13 @@ $tmp['strform'] .= '/*]]>*/</script>';
 		global $oSess;
 		/* The list of translations for the dictionary */
 		$arSql = $oDb->sqlRun($oSqlQ->getQ('get-abbr-list', $gw_this['vars']['locale_name'], 'AND a.id_group = "4" and a.id_dict = "'.$id_dict.'"'), 'st');
-		while (list($abrK, $abrV) = each($arSql))
-		{
+		foreach ($arSql as $abrK => $abrV) {
 			$tmp['arTmp'][sprintf("%03d", $abrV['id_abbr'])] = $abrV[$field_name];
 		}
 		$tmp['arTmp']['-- '] = '------------';
 		/* The list of common translations  */
 		$arSql = $oDb->sqlRun($oSqlQ->getQ('get-abbr-list', $gw_this['vars']['locale_name'], 'AND a.id_group = "4" and a.id_dict = "0"'), 'st');
-		while (list($abrK, $abrV) = each($arSql))
-		{
+		foreach ($arSql as $abrK => $abrV) {
 			$tmp['arTmp'][sprintf("%03d", $abrV['id_abbr'])] = $abrV[$field_name];
 		}
 		/* */
@@ -498,15 +493,13 @@ $tmp['strform'] .= '/*]]>*/</script>';
 #		$tmp['arTmp']['--  '] = '------------';
 		/* The list of abbreviations for the dictionary */
 		$arSql = $oDb->sqlRun($oSqlQ->getQ('get-abbr-list', $gw_this['vars']['locale_name'], 'AND a.id_group IN (1,2,3,5) and a.id_dict = "'.$id_dict.'"'), 'st');
-		while (list($abrK, $abrV) = each($arSql))
-		{
+		foreach ($arSql as $abrK => $abrV) {
 			$tmp['arTmp'][sprintf("%03d", $abrV['id_abbr'])] = $abrV[$field_name];
 		}
 		$tmp['arTmp']['--   '] = '------------';
 		/* The list of abbreviations */
 		$arSql = $oDb->sqlRun($oSqlQ->getQ('get-abbr-list', $gw_this['vars']['locale_name'], 'AND a.id_group IN (1,2,3,5) and a.id_dict = "0"'), 'st');
-		while (list($abrK, $abrV) = each($arSql))
-		{
+		foreach ($arSql as $abrK => $abrV) {
 			$tmp['arTmp'][sprintf("%03d", $abrV['id_abbr'])] = $abrV[$field_name];
 		}
 		/* */
@@ -544,8 +537,7 @@ $tmp['strform'] .= '/*]]>*/</script>';
 			$tmp['arEl'][0] = array('value' => '', 'attributes' => array('lang' => '--'));
 		}
 		//
-		while (list($chK, $chV) = each($tmp['arEl']))
-		{
+		foreach ($tmp['arEl'] as $chK => $chV) {
 			//
 			$tmp['attributes'] = $this->objDom->get_attribute('lang', '', $chV);
 			$tmp['str'] = $this->objDom->get_content( $chV );
@@ -639,8 +631,7 @@ $tmp['strform'] .= '/*]]>*/</script>';
 		$this->setTag('textarea', 'title', $this->oL->m('tip002'));
 		/* */
 		$tmp['isLink'] = 0;
-		while (list($elK, $elV) = each($tmp['arEl']))
-		{
+		foreach ($tmp['arEl'] as $elK => $elV) {
 			$tmp['str'] .= $elV['value'];
 			if (isset($elV['attributes']['text']))
 			{
@@ -698,8 +689,7 @@ $tmp['strform'] .= '/*]]>*/</script>';
 		//
 		$this->unsetTag('textarea'); // reset settings for <textarea>
 		//
-		while (list($elK, $elV) = each($tmp['arEl']))
-		{
+		foreach ($tmp['arEl'] as $elK => $elV) {
 			$tmp['str'] .= $elV['value'];
 			$tmp['str'] .= CRLF;
 		}
@@ -735,8 +725,7 @@ $tmp['strform'] .= '/*]]>*/</script>';
 		{
 			$ar['elK'] = 0;
 		}
-		for (reset($this->arEl[$fieldname]); list($elK, $elV) = each($this->arEl[$fieldname]);)
-		{
+		foreach ($this->arEl[$fieldname] as $elK => $elV) {
 			if (isset($elV['value']) && ($ar['elK'] == $elK))
 			{
 				$tmp['str'] .= $elV['value'];
@@ -744,8 +733,7 @@ $tmp['strform'] .= '/*]]>*/</script>';
 			}
 			elseif (intval($ar['elK']) == intval($elK)) // multiarray
 			{
-				while (list($k, $v) = each($elV))
-				{
+				foreach ($elV as $k => $v) {
 					$tmp['str'] .= $v['value'];
 					$tmp['str'] .= CRLF;
 				}

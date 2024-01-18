@@ -4,7 +4,7 @@
  */
 /**
  *  Glossword - glossary compiler (http://glossword.info/dev/) 
- *  © 2002-2004 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  Â© 2002-2004 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -29,8 +29,7 @@ function gwShuffle($maxBanners=1, $Array){
     if ($maxBanners > $ArrayC) {$maxBanners = $ArrayC - 1;}
     $str = "";
     $i2 = 0;
-	for (reset($Array); list($key, $val) = each($Array);)
-	{
+	foreach ($Array as $key => $val) {
 		if ($i2 < $maxBanners)
 		{
 			$numR = $randA[$i2];
