@@ -1,7 +1,7 @@
 <?php
 /**
  * Glossword - glossary compiler (http://glossword.info/)
- * © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ * Â© 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -80,8 +80,7 @@ else
 	$xml .= '<glossword version="'.$this->sys['version'].'">';
 	/* Serialize all parameters. */
 	$xml .= CRLF . '<custom_az profile_name="'.htmlspecialchars($this->ar_profile['profile_name']).'" is_active="'.$this->ar_profile['is_active'].'">';
-	for (; list($k, $arV) = each($arSql);)
-	{
+	foreach ($arSql as $k => $arV) {
 		$xml .= CRLF . "\t". '<entry>';
 		$xml .= '<az_value><![CDATA['.$arV['az_value'].']]></az_value>';
 		$xml .= '<az_value_lc><![CDATA['.$arV['az_value_lc'].']]></az_value_lc>';

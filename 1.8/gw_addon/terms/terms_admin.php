@@ -92,8 +92,7 @@ class gw_addon_terms_admin extends gw_addon
 	{
 		$arSql = $this->oDb->sqlExec( $this->oSqlQ->getQ('get-date-mm', $db_table) );
 		$strA = array('max' => time(), 'min' => 0);
-		for (; list($arK, $arV) = each($arSql);)
-		{
+		foreach ($arSql as $arK => $arV) {
 			if (empty($arV['max']) && empty($arV['min']))
 			{
 				/* no date */
@@ -263,8 +262,7 @@ function switch2edit(id)
 		$str_form .= '<table class="gw2TableFieldset" width="100%"><tbody>';
 		$oForm->Set('arFields', $arFields );
 		// Go for each configured root field.
-		for (reset($arFields); list($fK, $fV) = each($arFields);)
-		{
+		foreach ($arFields as $fK => $fV) {
 			if (isset($fV[4]) && $fV[4]) // select root elements only here
 			{
 				if ($fV[0] == 'term') // terms always presents

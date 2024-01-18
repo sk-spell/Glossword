@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008 Glossword.biz team
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  Â© 2008 Glossword.biz team
+ *  Â© 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -64,8 +64,7 @@ else
 	{
 		$this->gw_this['vars']['arPost']['ar_id'] = array($this->gw_this['vars']['tid']);
 	}
-	for (reset($this->gw_this['vars']['arPost']['ar_id']); list($k1, $id_term) = each($this->gw_this['vars']['arPost']['ar_id']);)
-	{
+	foreach ($this->gw_this['vars']['arPost']['ar_id'] as $k1 => $id_term) {
 		if (isset($this->gw_this['vars']['arPost']['is_save_history']))
 		{
 			$ar_query[] = 'UPDATE `' . $arDictParam['tablename']. '` SET is_active = "3" WHERE `id` = "' . $id_term . '"'.$sql_where;

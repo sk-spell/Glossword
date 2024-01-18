@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008 Glossword.biz team
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  Â© 2008 Glossword.biz team
+ *  Â© 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -196,9 +196,7 @@ function gw_login_form($ar_vars, $ar_broken = array(), $ar_req = array())
 
 	/* Mark fields as "REQUIRED" and make error messages */
 	$ar_req = array_flip($ar_req);
-	// while (is_array($ar_vars) && list($k, $v) = each($ar_vars) )
-	foreach ($ar_vars as $k => $v)
-	{
+	foreach ($ar_vars as $k => $v) {
 		$ar_req_m[$k] = isset($ar_req[$k]) ? '&#160;<span class="red"><strong>*</strong></span>' : '';
 		$ar_broken_m[$k] = isset($ar_broken[$k]) ? ' <span class="red"><strong>' . $oL->m('reason_9') .'</strong></span>' : '';
 	}

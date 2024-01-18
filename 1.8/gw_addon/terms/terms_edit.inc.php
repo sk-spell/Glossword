@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008 Glossword.biz team
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  Â© 2008 Glossword.biz team
+ *  Â© 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -59,8 +59,7 @@ if (isset($this->gw_this['vars']['arPost']['is_all']))
 		$sql = 'SELECT * FROM `%s` '.$sql_where;
 		$arSql = $this->oDb->sqlExec( sprintf($sql, $arDictParamSource['tablename']) );
 		$id_term = $this->oDb->MaxId( $arDictParam['tablename'], 'id' );
-		while (list($k1, $arV) = each($arSql))
-		{
+		foreach ($arSql as $k1 => $arV) {
 			$ar_q = array();
 			$id_term_prev = $arV['id'];
 			$arV['id'] = $id_term;
@@ -78,8 +77,7 @@ if (isset($this->gw_this['vars']['arPost']['is_all']))
 			else
 			{
 				/* Post queries */
-				for (reset($ar_q); list($qk, $qv) = each($ar_q);)
-				{
+				foreach ($ar_q as $qk => $qv) {
 					$this->oDb->sqlExec($qv);
 				}
 			}
@@ -100,8 +98,7 @@ elseif (isset($this->gw_this['vars']['arPost']['ar_id']))
 		$sql = 'UPDATE `%s` SET `is_active` = "1" WHERE `id` IN (%s)'.$sql_where;
 		$sql = sprintf($sql, $arDictParam['tablename'], implode(',', $this->gw_this['vars']['arPost']['ar_id']));
 		$ar_query[] = $sql;
-		for (reset($this->gw_this['vars']['arPost']['ar_id']); list($k1, $id_term) = each($this->gw_this['vars']['arPost']['ar_id']);)
-		{
+		foreach ($this->gw_this['vars']['arPost']['ar_id'] as $k1 => $id_term) {
 			/* -- History of changes -- */
 			/* Select History ID for the current term. Latest modification date. */
 			$arCurrent = $this->oDb->sqlExec($this->oSqlQ->getQ('get-history-by-term_id', $id_term, 'LIMIT 1'));
@@ -119,8 +116,7 @@ elseif (isset($this->gw_this['vars']['arPost']['ar_id']))
 		$sql = 'UPDATE `%s` SET `is_active` = "0" WHERE `id` IN (%s)'.$sql_where;
 		$sql = sprintf($sql, $arDictParam['tablename'], implode(',', $this->gw_this['vars']['arPost']['ar_id']));
 		$ar_query[] = $sql;
-		for (reset($this->gw_this['vars']['arPost']['ar_id']); list($k1, $id_term) = each($this->gw_this['vars']['arPost']['ar_id']);)
-		{
+		foreach ($this->gw_this['vars']['arPost']['ar_id'] as $k1 => $id_term) {
 			/* -- History of changes -- */
 			/* Select History ID for the current term. Latest modification date. */
 			$arCurrent = $this->oDb->sqlExec($this->oSqlQ->getQ('get-history-by-term_id', $id_term, 'LIMIT 1'));
@@ -146,8 +142,7 @@ elseif (isset($this->gw_this['vars']['arPost']['ar_id']))
 		$sql = 'SELECT * FROM `%s` WHERE `id` IN (%s)'.$sql_where;
 		$arSql = $this->oDb->sqlExec( sprintf($sql, $arDictParamSource['tablename'], implode(',', $this->gw_this['vars']['arPost']['ar_id'])) );
 		$id_term = $this->oDb->MaxId( $arDictParam['tablename'], 'id' );
-		while (list($k1, $arV) = each($arSql))
-		{
+		foreach ($arSql as $k1 => $arV) {
 			$ar_q = array();
 			$id_term_prev = $arV['id'];
 			$arV['id'] = $id_term;
@@ -165,8 +160,7 @@ elseif (isset($this->gw_this['vars']['arPost']['ar_id']))
 			else
 			{
 				/* Post queries */
-				for (reset($ar_q); list($qk, $qv) = each($ar_q);)
-				{
+				foreach ($ar_q as $qk => $qv) {
 					$this->oDb->sqlExec($qv);
 				}
 			}
@@ -253,8 +247,7 @@ if ($this->gw_this['vars']['w1'] == 'viewhistory')
 	$this->str .= '<th style="width:10%">'.$this->oL->m('action').'</th>';
 	$this->str .= '<th>'.$this->oL->m('term').', '.$this->oL->m('defn').'</th>';
 	$this->str .= '<th style="width:15%">'.$this->oL->m('date_modif').', '.$this->oL->m('user').'</th></thead><tbody>';
-	for (; list($arK, $arV) = each($arSql);)
-	{
+	foreach ($arSql as $arK => $arV) {
 		$cnt % 2 ? ($bgcolor = $this->ar_theme['color_2']) : ($bgcolor = $this->ar_theme['color_1']);
 		$cnt++;
 		$this->str .= '<tr class="gray" style="background:' . $bgcolor . '">';
@@ -367,8 +360,7 @@ if ($this->gw_this['vars']['post'] == '')
 		$ar_terms = array();
 		if (isset($this->gw_this['vars']['arPost']['ar_id']))
 		{
-			for (reset($this->gw_this['vars']['arPost']['ar_id']); list($k1, $id_term) = each($this->gw_this['vars']['arPost']['ar_id']);)
-			{
+			foreach ($this->gw_this['vars']['arPost']['ar_id'] as $k1 => $id_term) {
 				$arTermParam = getTermParam($id_term);
 				$ar_terms[] = $arTermParam['term'];
 			}
@@ -450,8 +442,7 @@ if ($this->gw_this['vars']['post'] == '')
 		/* Multiple terms selected */
 		if (isset($this->gw_this['vars']['arPost']['ar_id']))
 		{
-			for (reset($this->gw_this['vars']['arPost']['ar_id']); list($k1, $id_term) = each($this->gw_this['vars']['arPost']['ar_id']);)
-			{
+			foreach ($this->gw_this['vars']['arPost']['ar_id'] as $k1 => $id_term) {
 				$oConfirm->setField('hidden', 'arPost[ar_id][]', $id_term);
 			}
 		}
