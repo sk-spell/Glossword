@@ -33,7 +33,7 @@ function gw_get_stopwords ( $arDictParam )
 	}
 	if ( $arDictParam['is_filter_stopwords'] && is_array( $arDictParam['ar_filter_stopwords'] ) )
 	{
-		for ( reset( $arDictParam['ar_filter_stopwords'] ); list($locale_id, $vS) = each( $arDictParam['ar_filter_stopwords'] ); )
+		foreach ($arDictParam['ar_filter_stopwords'] as $locale_id => $vS) {
 		{
 			$a_stopwords = array_merge( $a_stopwords, array_flip( $oL->getCustom( 'stop_words', $locale_id, 'return' ) ) );
 		}
@@ -149,8 +149,7 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 		$a_stopwords = gw_get_stopwords( $arDictParam );
 		$a_keywords = gw_array_exclude( $a_keywords, $a_stopwords );
 	}
-	for ( reset( $arDict_Ids ); list($k, $dictK) = each( $arDict_Ids ); )
-	{
+	foreach ($arDict_Ids as $k => $dictK) {
 		$tmp['arDictParam'][$dictK] = getDictParam( $dictK );
 	}
 	$a_stopwords = array ( );
@@ -232,8 +231,7 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 				break;
 			default:
 				/* Search by fields */
-				for ( reset( $a_search_params['in'] ); list($inK, $inV) = each( $a_search_params['in'] ); )
-				{
+				foreach ($a_search_params['in'] as $inK => $inV) {
 					$tmp['arIn'][] = $inV;
 				}
 				$sql_term_match = 'AND m.term_match IN (' . implode( ', ', $tmp['arIn'] ) . ') AND t.is_active != "3"';
@@ -272,16 +270,13 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 				$arSql = $oDb->sqlExec( $sql );
 				/* Re-organize search results per dictionary . */
 				$i_cnt = 0;
-				for (; list($sqlK, $sqlV) = each( $arSql ); )
-				{
+				foreach ($arSql as $sqlK => $sqlV) {
 					$tmp['a_results_temp'][$arDictParam['id']][$sqlV['term_id']][] = $sqlV['term_id'];
 					unset( $arSql[$i_cnt] );
 					$i_cnt++;
 				}
-				for ( reset( $tmp['a_results_temp'] ); list($dictK, $resultsV) = each( $tmp['a_results_temp'] ); )
-				{
-					while ( list($rK, $rV) = each( $resultsV ) )
-					{
+				foreach ($tmp['a_results_temp'] as $dictK => $resultsV) {
+					foreach ($resultsV as $rK => $rV) {
 						$tmp['arResults'][$dictK][] = $rK;
 						$tmp['arCache']['found']++;
 						$i++;
@@ -293,11 +288,9 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 			}
 			else /* usual search */
 			{
-				for ( reset( $arDict_Ids ); list($kk, $id_dict) = each( $arDict_Ids ); )
-				{
+				foreach ($arDict_Ids as $kk => $id_dict) {
 					/* Go for each word */
-					for ( reset( $a_keywords ); list($k, $v) = each( $a_keywords ); )
-					{
+					foreach ($a_keywords as $k => $v) {
 						/* 11 April 2008: Enable like fulltext seach for Chinese, Japanese and Korean characters */
 						if ( preg_match( '/[\x{3040}-\x{312F}|\x{3400}-\x{9FFF}|\x{AC00}-\x{D7AF}]/u', $v, $ar_matches ) )
 						{
@@ -361,8 +354,10 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 						}
 #						prn_r( $arSql );
 						/* $arSql has always at least one item in array */
-						while ( $i_cnt < $i_max_search_results && list( $sqlK, $sqlV ) = each( $arSql ) )
-						{
+						foreach ($arSql as $sqlK => $sqlV)  {
+							if ($i_cnt >= $i_max_search_results) {
+								break;
+							}
 							/* Term */
 							if ( isset( $sqlV['term'] ) )
 							{
@@ -400,19 +395,17 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 						$arSql = array ( );
 					}
 				}
-#prn_r( $tmp );
-#exit;
+				#prn_r( $tmp );
+				#exit;
 				/* Now sort search results */
-				for ( reset( $tmp['a_results_temp'] ); list($dictK, $resultsV) = each( $tmp['a_results_temp'] ); )
-				{
+				foreach ($tmp['a_results_temp'] as $dictK => $resultsV) {
 					/* Get stopwords per dictionary */
 					$a_current_dict_params = getDictParam( $dictK );
 					$a_stopwords = gw_get_stopwords( $a_current_dict_params );
 					$a_keywordsD = gw_array_exclude( $a_keywords, $a_stopwords );
 					$tmp['intKeywords'] = sizeof( $a_keywordsD );
 					$tmp['arResults'][$dictK] = array ( );
-					while ( list($rK, $id_terms) = each( $resultsV ) )
-					{
+					foreach ($resultsV as $rK => $id_terms) {
 						if ( $a_search_params['adv'] != 'phrase'
 								&& sizeof( $id_terms ) != $tmp['intKeywords'] )
 						{
@@ -441,10 +434,10 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 			/* ----------------------------------------- */
 			/* 28 Sep 2010: Exact match */
 			/* ----------------------------------------- */
-			foreach ( $arDict_Ids as $kk => $id_dict )
+			foreach ($arDict_Ids as $kk => $id_dict )
 			{
 				/* Go for each keyword */
-				foreach ( $a_keywords as $k => $v )
+				foreach ($a_keywords as $k => $v )
 				{
 					/* 11 April 2008: Enable like fulltext seach for Chinese, Japanese and Korean characters */
 					if ( preg_match( '/[\x{3040}-\x{312F}|\x{3400}-\x{9FFF}|\x{AC00}-\x{D7AF}]/u', $v, $ar_matches ) )
@@ -505,7 +498,7 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 
 
 				/* Now sort search results */
-				foreach ( $tmp['a_results_temp'] as $id_dict_results => $a_results )
+				foreach ($tmp['a_results_temp'] as $id_dict_results => $a_results )
 				{
 					/* Get stopwords per dictionary */
 					$a_current_dict_params = getDictParam( $id_dict_results );
@@ -515,8 +508,7 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 					$tmp['intKeywords'] = sizeof( $a_keywords_diff );
 					$tmp['arResults'][$id_dict_results] = array ( );
 
-					while ( list( $rK, $id_terms) = each( $a_results ) )
-					{
+					foreach ($a_results as $rK => $id_terms) {
 						/* Collect matched Term IDs */
 						$tmp['arResults'][$id_dict_results][] = $rK;
 						$tmp['arCache']['found']++;
@@ -584,8 +576,7 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 	)
 	{
 		$tmp['arCache']['srch_settings'] = unserialize( $tmp['arCache']['srch_settings'] );
-		for ( reset( $tmp['arCache']['srch_settings']['results'] ); list($id_dict, $id_term) = each( $tmp['arCache']['srch_settings']['results'] ); )
-		{
+		foreach ($tmp['arCache']['srch_settings']['results'] as $id_dict => $id_term) {
 			gwtk_header( $sys['server_proto'] . $sys['server_host'] .
 					$oHtml->url_normalize(
 							$sys['page_index'] . '?' .
@@ -605,8 +596,7 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 		$tmp['redirect_url'][] = 'note_afterpost=' . urlencode( $gw_this['vars']['note_afterpost'] );
 	}
 	/* */
-	for ( reset( $sys['ar_url_append'] ); list($k, $v) = each( $sys['ar_url_append'] ); )
-	{
+	foreach ($sys['ar_url_append'] as $k => $v) {
 		$tmp['redirect_url'][] = $k . '=' . $v;
 	}
 #	prn_r( $tmp );
@@ -656,8 +646,7 @@ function gw_search_results ( $id_srch, $p, $id_dict = 0 )
 	$id_dict = in_array( $id_dict, $arSql['arDictIds'] ) ? $id_dict : 0;
 	$cnt_dict = 1;
 	/* Go for each dictionary */
-	for ( reset( $arSql['results'] ); list($dictK, $id_terms) = each( $arSql['results'] ); )
-	{
+	foreach ($arSql['results'] as $dictK => $id_terms) {
 		$tmp['arDictParam'][$dictK] = getDictParam( $dictK );
 		if ( $cnt_dict == 1 )
 		{
@@ -687,8 +676,7 @@ function gw_search_results ( $id_srch, $p, $id_dict = 0 )
 			/* A part of SQL-request for listing terms */
 			$sql_az = '';
 			$ar_az = array ( );
-			for (; list($k, $v) = each( $arAz ); )
-			{
+			foreach ($arAz as $k => $v) {
 				$ar_az[] = $v['value'];
 			}
 			if ( !empty( $ar_az ) )
@@ -794,8 +782,7 @@ function gw_search_results ( $id_srch, $p, $id_dict = 0 )
 	$oHtml->setTag( 'a', 'style', 'text-decoration:underline' );
 	/* Resort dictionaries in alphabetic order */
 	$arQ['arDictIdsSorted'] = array ( );
-	for ( reset( $arSql['arDictIds'] ); list($k, $v_id_dict) = each( $arSql['arDictIds'] ); )
-	{
+	foreach ($arSql['arDictIds'] as $k => $v_id_dict) {
 		$arSql['arDictIdsSorted'][$v_id_dict]['id'] = $tmp['arDictParam'][$v_id_dict]['id'];
 		$arSql['arDictIdsSorted'][$v_id_dict]['title'] = $tmp['arDictParam'][$v_id_dict]['title'];
 	}
@@ -806,8 +793,7 @@ function gw_search_results ( $id_srch, $p, $id_dict = 0 )
 	$tmp['dict_href'][3] = 'id_srch=' . $id_srch;
 	$tmp['dict_href'][4] = 'p=1';
 	$cnt = 1;
-	for ( reset( $arSql['arDictIdsSorted'] ); list($k1, $arV) = each( $arSql['arDictIdsSorted'] ); )
-	{
+	foreach ($arSql['arDictIdsSorted'] as $k1 => $arV) {
 		$str_found_dict = $k1;
 		/* prepare the list of dictionaries with link to search results */
 		$oTpl->tmp['d']['list_dict'][$k1]['v:found_dict'] = sizeof( explode( ',', $arSql['results'][$arV['id']] ) );
@@ -843,8 +829,7 @@ function gw_search_results ( $id_srch, $p, $id_dict = 0 )
 	$cnt = 0;
 #	prn_r( $arA );
 	/* For each re-formated results */
-	for ( reset( $arA ); list($k1, $v1) = each( $arA ); )
-	{
+	foreach ($arA as $k1 => $v1) {
 		$arDictParam = getDictParam( $v1['d_id'] );
 
 		/* Collect data for template */

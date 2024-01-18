@@ -99,8 +99,7 @@ function gwAddTerm($arPre, $id_dict, $arStop, $in_term, $is_specialchars, $is_ov
 #			prn_r($arSql, __LINE__ . '<br />' . $sql);
 			$isTermNotMatched = 1; // `No term found' by default
 
-			for (; list($arK, $arV) = each($arSql);) // compare founded values (Q) with imported (T)
-			{
+			foreach ($arSql as $arK => $arV) { // compare founded values (Q) with imported (T)
 				$id_old = $arV['id']; // get ID for existent keywords.
 				if ($id_old == $qT['id'])
 				{
@@ -176,8 +175,7 @@ function gwAddTerm($arPre, $id_dict, $arStop, $in_term, $is_specialchars, $is_ov
 	/* Select custom rules for uppercasing */
 	$sql = 'SELECT az_value, az_value_lc FROM `'.$sys['tbl_prefix'].'custom_az` WHERE `id_profile` = "'.$arDictParam['id_custom_az'].'"';
 	$arSqlAz = $oDb->sqlRun($sql, 'st');
-	for (; list($arK, $arV) = each($arSqlAz);)
-	{
+	foreach ($arSqlAz as $arK => $arV) {
 		$str_term_src = str_replace($arV['az_value_lc'], $arV['az_value'], $str_term_src);
 	}
 	/* Unicode uppercase */
@@ -193,8 +191,7 @@ function gwAddTerm($arPre, $id_dict, $arStop, $in_term, $is_specialchars, $is_ov
 	/* */
 	$ar_field_names = array('a','b','c','d','e','f');
 	preg_match_all("/./u", $qT['term_order'], $ar_letters);
-	for (; list($cnt_letter, $letter) = each($ar_letters[0]);)
-	{
+	foreach ($ar_letters[0] as $cnt_letter => $letter) {
 		if (isset($ar_field_names[$cnt_letter]))
 		{
 			$qT['term_'.$ar_field_names[$cnt_letter]] = text_str2ord($letter);
@@ -225,8 +222,7 @@ function gwAddTerm($arPre, $id_dict, $arStop, $in_term, $is_specialchars, $is_ov
 	{
 		/* Term already exists */
 		$ar_matched_terms = array();
-		for (reset($arSql); list($arK, $arV) = each($arSql);)
-		{
+		foreach ($arSql as $arK => $arV)
 			$ar_matched_terms[]  = $oHtml->a($sys['page_admin'].'?'.GW_ACTION.'='.GW_A_EDIT.'&'.GW_TARGET.'='.GW_T_TERMS.'&id='.$id_dict.'&tid=' . $arV['id'],
 						 $arV['term'], '', '', $oL->m('3_edit'));
 		}
@@ -242,8 +238,7 @@ function gwAddTerm($arPre, $id_dict, $arStop, $in_term, $is_specialchars, $is_ov
 	{
 		/* Prepare keywords per field */
 #		$ot = new gw_timer('addterm');
-		for (reset($arFields); list($fK, $fV) = each($arFields);)
-		{
+		foreach ($arFields as $fK => $fV) {
 			// Init
 			$arKeywords[$fK] = array();
 			//
@@ -283,8 +278,7 @@ function gwAddTerm($arPre, $id_dict, $arStop, $in_term, $is_specialchars, $is_ov
 #		print $ot->endp(__LINE__, __FILE__);
 #		exit;
 		/* Remove double keywords from definition */
-		for (reset($arFields); list($fK, $fV) = each($arFields);)
-		{
+		foreach ($arFields as $fK => $fV) {
 			if ($fK != 0)
 			{
 				$arKeywords[0] = gw_array_exclude( $arKeywords[0], $arKeywords[$fK]);
@@ -312,8 +306,7 @@ function gwAddTerm($arPre, $id_dict, $arStop, $in_term, $is_specialchars, $is_ov
 		// Turn on text parsers
 		// -------------------------------------------------
 		// Process automatic functions
-		for (; list($k, $v) = each($gw_this['vars']['funcnames'][GW_A_UPDATE . GW_T_TERM]);)
-		{
+		foreach ($gw_this['vars']['funcnames'][GW_A_UPDATE . GW_T_TERM] as $k => $v) {
 			if (function_exists($v))
 			{
 				$v();
@@ -369,8 +362,7 @@ function gwAddNewKeywords($id_dict, $id_term, $arKeywords, $termIdOld, $isClean,
 
 	// Adding search keywords
 	$arKeywordsJoin = array();
-	for (reset($arKeywords); list($k, $v) = each($arKeywords);)
-	{
+	foreach ($arKeywords as $k => $v) {
 		$arKeywordsJoin = array_merge($arKeywordsJoin, $v); // common array with all keywords
 	}
 	// unique keywords only, have to run second time
@@ -390,8 +382,7 @@ function gwAddNewKeywords($id_dict, $id_term, $arKeywords, $termIdOld, $isClean,
 	{
 		$cnt = 0;
 		// for each founded keyword
-		for (; list($arK, $arV) = each($arSql);)
-		{
+		foreach ($arSql as $arK => $arV) {
 			if ($isClean) // overwrite mode
 			{
 				$arQuery[0] = $oSqlQ->getQ('del-wordmap-by-term-dict', $termIdOld, $id_dict);
@@ -401,8 +392,7 @@ function gwAddNewKeywords($id_dict, $id_term, $arKeywords, $termIdOld, $isClean,
 			$q2['dict_id'] = $id_dict;
 			$q2['date_created'] = $date_created;
 			// Set Field ID
-			for (reset($arFields); list($id_field, $fV) = each($arFields);)
-			{
+			foreach ($arFields as $id_field => $fV) {
 				if (isset($arKeywords[$id_field]) && in_array($arV['word_text'], $arKeywords[$id_field]))
 				{
 					$q2['term_match'] = $id_field;
@@ -422,8 +412,7 @@ function gwAddNewKeywords($id_dict, $id_term, $arKeywords, $termIdOld, $isClean,
 	$q1['word_id'] = $q2['word_id'] = ($oDb->MaxId(TBL_WORDLIST, 'word_id') - 1);
 	$cnt = $cntMap = 0;
 	// for each new keyword
-	for (reset($arKeywordsJoin); list($newkeyword, $v2) = each($arKeywordsJoin);)
-	{
+	foreach ($arKeywordsJoin as $newkeyword => $v2) {
 		$q2['word_id']++;
 		$q2['dict_id'] = $id_dict;
 		$q2['term_id'] = $id_term;
@@ -432,8 +421,7 @@ function gwAddNewKeywords($id_dict, $id_term, $arKeywords, $termIdOld, $isClean,
 		$q1['word_text'] = '';
 		//
 		// Set index ID per field
-		for (reset($arFields); list($id_field, $fV) = each($arFields);)
-		{
+		foreach ($arFields as $id_field => $fV) {
 			if (isset($arKeywords[$id_field]) && in_array($newkeyword, $arKeywords[$id_field]))
 			{
 				$q2['term_match'] = $id_field;
@@ -465,8 +453,7 @@ function gwAddNewKeywords($id_dict, $id_term, $arKeywords, $termIdOld, $isClean,
 	}
 	else
 	{
-		for (; list($kq, $vq) = each($arQuery);)
-		{
+		foreach ($arQuery as $kq => $vq) {
 			if (!$oDb->sqlExec($vq))
 			{
 				print '<li class="xt">Error: cannot exec query: '.$arQuery[$i].';</li>';
@@ -555,8 +542,7 @@ function getTableStructure($tablename)
 	// check for table name
 	$isTable = 0;
 	$arDbTables = $oDb->table_names($tablename);
-	for (; list($k, $v) = each($arDbTables);)
-	{
+	foreach ($arDbTables as $k => $v) {
 		if ($tablename == $v) { $isTable = 1; break; }
 	}
 	if (!$isTable) { return ''; }
@@ -578,8 +564,7 @@ function gw_sql_replace($arData, $tbl_name, $isFields = 1)
 	$strFields = '';
 	if (is_array($arData))
 	{
-		for (reset($arData); list($k, $v) = each($arData);)
-		{
+		foreach ($arData as $k => $v) {
 			$v = gw_text_sql($v);
 			if ($v == ''){ $vF = "''"; }
 			elseif ( preg_match("/^0x[0-9a-f]/", $v)) { $vF = $v; }
@@ -642,8 +627,7 @@ function gw_sql_insert($SQLnamesA, $table, $isFields = 1, $intCnt = 0, $is_delay
 function gw_sql_update($SQLnamesA, $table, $where)
 {
 	$SQLratioA = array();
-	for (reset($SQLnamesA); list($key, $val) = each($SQLnamesA);)
-	{
+	foreach ($SQLnamesA as $key => $val) {
 		if (is_array($val)){
 			$val = implode(',', $val);
 		}
@@ -668,8 +652,7 @@ function gw_sql_update($SQLnamesA, $table, $where)
 function gw_sql_delete($table, $ar_where)
 {
 	$ar_w = array();
-	for (reset($ar_where); list($k, $v) = each($ar_where);)
-	{
+	foreach ($ar_where as $k => $v) {
 		if ($k)
 		{
 			$ar_w[] = '`'.$k.'` = "'.$v.'"';
