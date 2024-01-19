@@ -1061,8 +1061,7 @@ function getTermParam($tid = '', $name = '')
 			$sql = $oSqlQ->getQ('get-term-by-name', TBL_WORDLIST, TBL_WORDMAP, $arDictParam['tablename'], $gw_this['vars'][GW_ID_DICT], $word_srch_sql);
 		}
 		$arSql = $oDb->sqlExec($sql, sprintf("%05d", $gw_this['vars'][GW_ID_DICT]), 0);
-		foreach ($arSql as $arK => $arK) // compare founded values (Q) with imported (T)
-		{
+		foreach ($arSql as $arK => $arV) {  // compare founded values (Q) with imported (T)
 			$isTermExist = 0;
 			// first method, 08 july 2000
 			if (!$isTermExist && ($arV['term'] == $name))

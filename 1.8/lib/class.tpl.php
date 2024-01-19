@@ -219,7 +219,7 @@ class gwv_template
 				$arCmd[] = '<?xml';
 				$arRpl[] = '<?php echo "<","?xml"; ?>'; // parameter works faster that concatenation
 				/* */
-				foreach ($ar as $tplName => $filename) {
+				foreach ($tmp['tpl_matches'][2] as $k => $cmd_src) {
 					/* put command name into array */
 					/* $tmp['tpl_matches'][1] and $tmp['tpl_matches'][3] are open/close tags */
 					$arCmd[] = $tmp['tpl_matches'][1][$k].$cmd_src.$tmp['tpl_matches'][3][$k];
@@ -298,7 +298,7 @@ class gwv_template
 		$tpl = array();
 		$this->var_last_parsed = '';
 		$tpl['value'] = '';
-		foreach ($this->pairsC as $k => $v) {
+		foreach ($this->pairsC as $k => $arV) {
 			$tpl['value'] .= $arV['filedesc'];
 		}
 		$is_cached = 0;
@@ -306,7 +306,7 @@ class gwv_template
 		if (!$is_cached)
 		{
 			$this->is_cache_write = is_null($cacheKey) ? 0 : 1;
-			foreach ($this->pairsC as $k => $v) {
+			foreach ($this->pairsC as $k => $arV) {
 				$tmp['filename_c'] = './'.$this->path_cache.'/'.$arV['filename']. '.php';
 				if (file_exists($tmp['filename_c']))
 				{
