@@ -595,8 +595,10 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 		$tmp['redirect_url'][] = 'note_afterpost=' . urlencode( $gw_this['vars']['note_afterpost'] );
 	}
 	/* */
-	foreach ($sys['ar_url_append'] as $k => $v) {
-		$tmp['redirect_url'][] = $k . '=' . $v;
+	if (is_array($sys['ar_url_append'])) {
+		foreach ($sys['ar_url_append'] as $k => $v) {
+			$tmp['redirect_url'][] = $k . '=' . $v;
+		}
 	}
 #	prn_r( $tmp );
 #	exit;
