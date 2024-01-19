@@ -142,9 +142,10 @@ $oTpl->addVal( 'url:site_name', $oHtml->a( $sys['page_index'], strip_tags( $sys[
 
 /* Append URL for integration */
 $tmp['input_url_append'] = '';
-foreach( $sys['ar_url_append'] as $k => $v)
-{
+if (is_array($sys['ar_url_append'])) {
+	foreach( $sys['ar_url_append'] as $k => $v) {
 	$tmp['input_url_append'] .= '<input type="hidden" name="' . $k . '" value="' . $v . '" />';
+	}
 }
 $oTpl->addVal( 'v:input_url_append', $tmp['input_url_append'] );
 
@@ -383,12 +384,14 @@ switch ( $gw_this['vars']['layout'] )
 			//
 			$tmp['str_defn'] = $oRender->array_to_html( $arPre );
 			/* Process text filters */
-			foreach( $sys['filters_defn'] as $k => $v)
-			{
-				if (!$sys['is_debug_output'] || !is_array($sys['filters_defn'])) {
-					break;
+			if (is_array($sys['filters_defn'])) {
+				foreach( $sys['filters_defn'] as $k => $v)
+				{
+					if (!$sys['is_debug_output'] || !is_array($sys['filters_defn'])) {
+						break;
+					}
+					$tmp['str_defn'] = $v( $tmp['str_defn'] );
 				}
-				$tmp['str_defn'] = $v( $tmp['str_defn'] );
 			}
 			// -------------------------------------------------
 			/* $tag_stress_rule */
@@ -1119,8 +1122,9 @@ if ( sizeof( $gw_this['ar_themes_select'] ) > 1 )
 	$oTpl->addVal( 'v:select_visualtheme', $gw_this['select_themes'] );
 }
 $oTpl->addVal( 'l:visual_theme', $oL->m( 'visual_theme' ) );
-
-$oTpl->addVal( 'v:select_dict', getDictSrch( '', 1, 99, '', 1, $arDictParam['id'] ) );
+if (isset($arDictParam['id']) && $arDictParam['id'] !== null) {
+	$oTpl->addVal('v:select_dict', getDictSrch('', 1, 99, '', 1, $arDictParam['id']));
+}
 $oTpl->addVal( 'v:breadcrumb', implode( $sys['txt_sep_breadcrump'], $gw_this['ar_breadcrumb'] ) );
 $oTpl->addVal( 'v:html_title', strip_tags( implode( $sys['txt_sep_htmltitle'], $gw_this['arTitle'] ) ) );
 $oTpl->addVal( 'v:meta_keywords', strip_tags( searchkeys( array_merge( $k, $kw ) ) ) );

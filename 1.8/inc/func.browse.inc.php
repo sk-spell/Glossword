@@ -496,11 +496,13 @@ function gw_custom_page($id_page)
 		{
 			$id_page_int = $arV['id_page'];
 			/* Process text filters */
-			foreach ($sys['filters_defn'] as $k => $v) {
-				if (!$sys['is_debug_output'] || !is_array($sys['filters_defn'])) {
-					break;
+			if (is_array($sys['filters_defn'])) {
+				foreach ($sys['filters_defn'] as $k => $v) {
+					if (!$sys['is_debug_output']) {
+						break;
+					}
+					$arV['page_content'] = $v($arV['page_content']);
 				}
-				$arV['page_content'] = $v($arV['page_content']);
 			}
 			/* Custom content */
 			$oTpl->addVal( 'block:page_content', $arV['page_content']);

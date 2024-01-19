@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.info/)
- *  © 2008-2012 Glossword.biz team <team at glossword dot biz>
- *  © 2002-2008 Dmitry N. Shilnikov
+ *  Â© 2008-2012 Glossword.biz team <team at glossword dot biz>
+ *  Â© 2002-2008 Dmitry N. Shilnikov
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -246,31 +246,32 @@ class gwForms {
 			}
 			$extras = $this->htmlParamValue($this->tags[$formtype]);
 			$str = sprintf('<select%s>', $extras);
-			foreach ($array as $k => $v)
-			{
-				$s = '';
-				$title = '';
-				if (is_array($value))
-				{
-					/* Multiple */
-					foreach ($value as $kV => $vV)
+			if (is_array($array)) {
+				foreach ($array as $k => $v) {
+					$s = '';
+					$title = '';
+					if (is_array($value))
 					{
-						if (strval($k) == strval($kV))
+						/* Multiple */
+						foreach ($value as $kV => $vV)
 						{
-							$s = ' selected="selected"';
+							if (strval($k) == strval($kV))
+							{
+								$s = ' selected="selected"';
+							}
 						}
 					}
+					else if (strval($k) == strval($value))
+					{
+						/* Single */
+						$s = ' selected="selected"';
+					}
+					if (isset($textareaheight[$k]))
+					{
+						$title = ' title="'.$textareaheight[$k].'"';
+					}
+					$str .= sprintf(CRLF . "\t". '<option value="%s"%s%s>%s</option>', $k, $title, $s, $array[$k]);
 				}
-				else if (strval($k) == strval($value))
-				{
-					/* Single */
-					$s = ' selected="selected"';
-				}
-				if (isset($textareaheight[$k]))
-				{
-					$title = ' title="'.$textareaheight[$k].'"';
-				}
-				$str .= sprintf(CRLF . "\t". '<option value="%s"%s%s>%s</option>', $k, $title, $s, $array[$k]);
 			}
 			$str .= '</select>';
 		break;
