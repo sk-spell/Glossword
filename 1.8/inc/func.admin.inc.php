@@ -384,7 +384,7 @@ function postQuery($arQuery, $url = '', $isDebug = 0, $isPause = 1, $lock = '')
 	// Return status messages or redirect ofter post
 	if ($isPostError)
 	{
-		return '<span class="xt" class="red">ERROR:</span>' . $cntQ . htmlspecialchars3($arQuery);
+		return '<span class="xt" class="red">ERROR:</span>' . $cntQ . htmlspecialchars($arQuery);
 	}
 	/* Try to update dictionary settings */
 	global $arDictParam, $arPost;
