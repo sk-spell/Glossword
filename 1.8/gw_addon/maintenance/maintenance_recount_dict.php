@@ -22,8 +22,7 @@ class gw_addon_recount_dict extends gw_addon
 	{
 		$arQ = $qDict = array();
 		/* For each dictionary */
-		for (reset($this->gw_this['ar_dict_list']); list($k, $arDictParam) = each($this->gw_this['ar_dict_list']);)
-		{
+		foreach ($this->gw_this['ar_dict_list'] as $k => $arDictParam) {
 			/* */
 			$sql = 'SELECT sum(int_bytes) AS bytes FROM `' . $arDictParam['tablename'].'`';
 			$arSql = $this->oDb->sqlExec($sql);
@@ -35,8 +34,7 @@ class gw_addon_recount_dict extends gw_addon
 			$qDict['int_terms'] = isset($arSql[0]['n']) ? $arSql[0]['n'] : 0;
 			$arQ[] = gw_sql_update($qDict, TBL_DICT, "id = '".$arDictParam['id']."'");
 		}
-		for (; list($sqlk, $sqlv) = each($arQ);)
-		{
+		foreach ($arQ as $sqlk => $sqlv) {
 			$this->oDb->sqlExec($sqlv);
 		}
 	}

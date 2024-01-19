@@ -2,8 +2,8 @@
 
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008-2012 Glossword.biz team <team at glossword dot biz>
- *  © 2002-2008 Dmitry N. Shilnikov
+ *  Â© 2008-2012 Glossword.biz team <team at glossword dot biz>
+ *  Â© 2002-2008 Dmitry N. Shilnikov
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -51,8 +51,7 @@ if ( $this->gw_this['vars']['post'] == '' )
 	);
 	$strHelp = '';
 	$strHelp .= '<dl>';
-	for (; list($k, $v) = each( $arHelpMap ); )
-	{
+	foreach ($arHelpMap as $k => $v) {
 		$strHelp .= '<dt><b>' . $this->oL->m( $k ) . '</b></dt>';
 		$strHelp .= '<dd>' . $this->oL->m( $v ) . '</dd>';
 	}
@@ -81,12 +80,10 @@ else
 #$this->sys['isDebugQ'] = 1;
 		/* Fix on/off options */
 		$arIsV = array ( 'is_active', 'is_auth', 'is_post' );
-		for ( reset( $arFields ); list($k, $v) = each( $arFields ); )
-		{
+		foreach ($arFields as $k => $v) {
 			$arIsV[] = 'is_' . $v[0];
 		}
-		for (; list($k, $v) = each( $arIsV ); )
-		{
+		foreach ($arIsV as $k => $v) {
 			$arPost[$v] = isset( $arPost[$v] ) ? $arPost[$v] : 0;
 		}
 		/* Fixes for database name */

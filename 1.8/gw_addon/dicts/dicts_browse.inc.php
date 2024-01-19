@@ -34,8 +34,7 @@ $ar_allowed_dicts = $this->oSess->user_get('dictionaries');
 global $arTopicIDs, $arId;
 $arDictMap = array();
 $strGroupBy = 'tpname';
-for (reset($arSql); list($arK, $arV) = each($arSql);)
-{
+foreach ($arSql as $arK => $arV) {
 	$arDictMap[$arV['id_topic']][$arK] = $arV;
 }
 /* Select the first topic by default */
@@ -69,8 +68,7 @@ if (isset($ar[0]['ch'])) // Root branch ->
 		{
 			$tmp['int_subparent_total'] = sizeof($ar[$k]['ch']);
 			$cnt_sub = 0; // count subtopics
-			while (is_array($ar[$k]['ch']) && list($k2, $v2) = each($ar[$k]['ch']))
-			{
+			foreach ($ar[$k]['ch'] as $k2 => $v2) {
 				if (($cnt_sub < $dict_nmax) || ($dict_nmax == 0))
 				{
 					// read a few subtopics...
@@ -89,12 +87,11 @@ if (isset($ar[0]['ch'])) // Root branch ->
 				$arVar[$cnt]['tp_subparent'][$cnt_sub-1]['txt_sep_subparent'] = '';
 			}
 		} // end of subtopics
-		// now count the number of dictionairies in each topic
+		// now count the number of dictionaries in each topic
 		$arId = array();
 		$arTreeId = ctlgGetTree($ar, $k);
 		$arTreeId[$k] = $k;
-		while (is_array($arTreeId) && list($kn, $vn) = each($arTreeId))
-		{
+		foreach ($arTreeId as $kn => $vn) {
 			if (isset($arDictMap[$kn]))
 			{
 				$cnt_dict += sizeof( $arDictMap[$kn] );

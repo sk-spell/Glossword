@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008 Glossword.biz team
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  Â© 2008 Glossword.biz team
+ *  Â© 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -72,8 +72,7 @@ elseif (!$this->gw_this['vars']['id'])
 	$this->str .= '<ul class="gwsql">';
 	$cnt_dict = 0;
 	$ar_allowed_dicts = $this->oSess->user_get('dictionaries');
-	for (reset($this->gw_this['ar_dict_list']); list($k, $v) = each($this->gw_this['ar_dict_list']);)
-	{
+	foreach ($this->gw_this['ar_dict_list'] as $k => $v) {
 		if ( $this->oSess->is('is-sys-settings')
 			|| $this->oSess->is('is-dicts')
 			|| ($v['id_user'] == $this->oSess->id_user && $this->oSess->is('is-dicts-own'))

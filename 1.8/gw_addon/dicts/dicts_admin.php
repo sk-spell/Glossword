@@ -31,8 +31,7 @@ class gw_addon_dicts_admin extends gw_addon
 		$arSql = $this->oDb->sqlRun($this->oSqlQ->getQ('get-vkbd-profiles-adm'), $this->component);
 		$ar_profiles = array();
 		$this->ar_profiles = array();
-		while (is_array($arSql) && list($k, $arV) = each($arSql))
-		{
+		foreach ($arSql as $k => $arV) {
 			/* For <select> */
 			$this->ar_profiles[$arV['id_profile']] = $arV;
 		}
@@ -79,8 +78,7 @@ class gw_addon_dicts_admin extends gw_addon
 
 		$ar_req = array_flip($ar_req);
 		/* mark fields as "Required" and display error message */
-		while (is_array($vars) && list($k, $v) = each($vars) )
-		{
+		foreach ($vars as $k => $v) {
 			$ar_req_msg[$k] = $ar_broken_msg[$k] = '';
 			if (isset($ar_req[$k])) { $ar_req_msg[$k] = '&#160;<span class="red"><strong>*</strong></span>'; }
 			if (isset($ar_broken[$k])) { $ar_broken_msg[$k] = '<span class="red"><strong>' . $this->oL->m('reason_9') . '</strong></span><br />'; }
@@ -247,8 +245,7 @@ class gw_addon_dicts_admin extends gw_addon
 			/* 1.8.6: Custom alphabetic order */
 			$arSql = $this->oDb->sqlRun($this->oSqlQ->getQ('get-custom_az-profiles'), 'custom_az');
 			$ar_custom_az = array();
-			while (list($k, $arV) = each($arSql))
-			{
+			foreach ($arSql as $k => $arV) {
 				$ar_custom_az[$arV['id_profile']] = $arV['profile_name'];
 			}	
 			$str_form .= '<tr>'.
@@ -263,8 +260,7 @@ class gw_addon_dicts_admin extends gw_addon
 			/* 1.8.7: Virtual keyboards */
 			$arSql = $this->oDb->sqlRun($this->oSqlQ->getQ('get-vkbd-profiles'), 'vkbd');
 			$ar_vkbd = array(0 => $this->oL->m('is_0'));
-			while (list($k, $arV) = each($arSql))
-			{
+			foreach ($arSql as $k => $arV) {
 				$ar_vkbd[$arV['id_profile']] = $arV['vkbd_name'];
 			}
 			$str_form .= '<tr>'.
@@ -366,8 +362,7 @@ class gw_addon_dicts_admin extends gw_addon
 				'is_show_add_to_search' => '1271',
 				'is_show_printversion' => 'printversion'
 			);
-			for (; list($fieldname, $caption) = each($ar_page_options);)
-			{
+			foreach ($ar_page_options as $fieldname => $caption) {
 				$ar_page_options_cell[] = '<table cellspacing="0" cellpadding="0" border="0" width="100%">'.
 								 '<tbody><tr style="vertical-align:middle" class="xt">'.
 								 '<td class="td1" style="width:25%">' . $oForm->field('checkbox', 'arPost['.$fieldname.']', $vars[$fieldname]) . '</td>'.
@@ -394,8 +389,7 @@ class gw_addon_dicts_admin extends gw_addon
 			/* term is required by default */
 			unset($arFields[1], $arFields[-1], $arFields[-2], $arFields[-3], $arFields[-4], $arFields[-5]);
 			$arFieldsStr = array();
-			for (; list($k, $v) = each($arFields);)
-			{
+			foreach ($arFields as $k => $v) {
 				$fieldname = 'is_'.$v[0];
 				$vars[$fieldname] = isset($vars[$fieldname]) ? $vars[$fieldname] : 0;
 				$arFieldsStr[] = '<table cellspacing="0" cellpadding="0" border="0" width="100%">'.
@@ -424,8 +418,7 @@ class gw_addon_dicts_admin extends gw_addon
 						'</tr>';
 			/* Check for existent stopwords */
 			$ar_lang_stopwords = array();
-			for (; list($locale_code, $locale_name_origin) = each($this->gw_this['vars']['ar_languages']);)
-			{
+			foreach ($this->gw_this['vars']['ar_languages'] as $locale_code => $locale_name_origin) {
 				$arStop = $this->oL->getCustom('stop_words', $locale_code, 'return');
 				if (!empty($arStop))
 				{

@@ -1,7 +1,7 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.info/)
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  Â© 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -42,8 +42,7 @@ if ($this->gw_this['vars']['w2'])
 			/* Rebuild sorting index */
 			$arQ = array();
 			$int_sort = 10;
-			for (; list($k, $arV) = each($ar_sorted);)
-			{
+			foreach ($ar_sorted as $k => $arV) {
 				$arQ[] = 'UPDATE `'.$sql_table.'` SET int_sort = '.$int_sort.' WHERE `id_component` = "'.$arV['id_component'].'"';
 				$int_sort += 10;
 			}
@@ -58,8 +57,7 @@ if ($this->gw_this['vars']['w2'])
 			/* Rebuild sorting index */
 			$arQ = array();
 			$int_sort = 10;
-			for (; list($k, $arV) = each($ar_sorted);)
-			{
+			foreach ($ar_sorted as $k => $arV) {
 				$arQ[] = 'UPDATE `'.$sql_table.'` SET int_sort = '.$int_sort.' WHERE `id` = "'.$arV['id'].'"';
 				$int_sort += 10;
 			}
@@ -136,8 +134,7 @@ switch ($this->gw_this['vars']['w1'])
 			$arPost =& $this->gw_this['vars']['arPost'];
 			/* Fix on/off options */
 			$arIsV = array('is_active');
-			for (; list($k, $v) = each($arIsV);)
-			{
+			foreach ($arIsV as $k => $v) {
 				$arPost[$v] = isset($arPost[$v]) ? $arPost[$v] : 0;
 			}
 			/* Checking posted vars */
@@ -219,8 +216,7 @@ switch ($this->gw_this['vars']['w1'])
 			$arPost =& $this->gw_this['vars']['arPost'];
 			/* Fix on/off options */
 			$arIsV = array('is_active_map');
-			for (; list($k, $v) = each($arIsV);)
-			{
+			foreach ($arIsV as $k => $v) {
 				$arPost[$v] = isset($arPost[$v]) ? $arPost[$v] : 0;
 			}
 			/* Checking posted vars */

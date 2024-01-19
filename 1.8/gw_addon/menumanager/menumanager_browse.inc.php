@@ -1,7 +1,7 @@
 <?php
 /**
  * Glossword - glossary compiler (http://glossword.info/)
- * © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ * Â© 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,8 +20,7 @@ if (!defined('IN_GW'))
 $arSql = $this->oDb->sqlRun($this->oSqlQ->getQ('get-components-actions', '1=1', '1=1'));
 $arMenu = array();
 /* Re-arrange array */
-for (; list($k1, $arV) = each($arSql);)
-{
+foreach ($arSql as $k1 => $arV) {
 	$arMenu[$arV['id_component_name']][] = $arV;
 	unset($arSql[$k1]);
 }
@@ -38,8 +37,7 @@ $this->str .= '<th style="width:14%">' . $this->oL->m('1358') . '</th>';
 $this->str .= '<th style="width:25%">' . $this->oL->m('action') . '</th>';
 $this->str .= '</tr></thead>';
 $this->str .= '<tbody>';
-for (; list($id_component, $arV) = each($arMenu);)
-{
+foreach ($arMenu as $id_component => $arV) {
 	$is_up = ($int_primary > 0) ? 1 : 0;
 	$is_down = ($int_primary < sizeof($arMenu)-1) ? 1 : 0;
 
@@ -69,8 +67,7 @@ for (; list($id_component, $arV) = each($arMenu);)
 
 	$int_secondary = 0;
 	/* for each component action */
-	for (; list($k2, $arV2) = each($arV);)
-	{
+	foreach ($arV as $k2 => $arV2) {
 		if (!$arV2['id']){ continue; }
 		$is_up = ($int_secondary > 0) ? 1 : 0;
 		$is_down = ($int_secondary < sizeof($arV)-1) ? 1 : 0;

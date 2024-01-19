@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008 Glossword.biz team
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  Â© 2008 Glossword.biz team
+ *  Â© 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -129,8 +129,7 @@ else
 						'is_show_term_suggest', 'is_show_term_report', 'is_show_page_refresh', 'is_show_page_send',
 						'is_show_add_to_favorites', 'is_show_add_to_search', 'is_show_printversion'
 	);
-	for (; list($k, $v) = each($arOnOff);)
-	{
+	foreach ($arOnOff as $k => $v) {
 		$arPost[$v]  = isset($arPost[$v]) ? $arPost[$v] : 0;
 	}
 	/* */
@@ -167,8 +166,7 @@ else
 			'ar_filter_stopwords' => isset($arPost['ar_filter_stopwords']) ? array_flip($arPost['ar_filter_stopwords']) : array(),
 			'ar_filter_specials' => isset($arPost['ar_filter_specials']) ? array_flip($arPost['ar_filter_specials']) : array()
 		);
-		for (reset($arOnOff); list($k, $v) = each($arOnOff);)
-		{
+		foreach ($arOnOff as $k => $v) {
 			$arDictNewSettings[$v] = isset($arPost[$v]) ? $arPost[$v] : 0;
 		}
 		/* */
