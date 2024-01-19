@@ -1,7 +1,7 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008 Glossword.biz team
+ *  Â© 2008 Glossword.biz team
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -39,9 +39,11 @@ class gw_addon_clear_import_sessions extends gw_addon
 	/* */
 	function alpha()
 	{
-		if ((mt_rand() % 100) < $this->sys['prbblty_tasks'])
-		{
-			$this->_gw_clear();
+		if (isset($this->sys['prbblty_tasks']) && $this->sys['prbblty_tasks'] !== null) {
+			if ((mt_rand() % 100) < $this->sys['prbblty_tasks'])
+			{
+				$this->_gw_clear();
+			}
 		}
 	}
 	/* */

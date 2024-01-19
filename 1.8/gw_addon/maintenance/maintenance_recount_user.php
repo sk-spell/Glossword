@@ -36,9 +36,11 @@ class gw_addon_recount_user extends gw_addon
 	/* */
 	function alpha()
 	{
-		if ((mt_rand() % 100) < $this->sys['prbblty_tasks'])
-		{
-			$this->_recount();
+		if (isset($this->sys['prbblty_tasks']) && $this->sys['prbblty_tasks'] !== null) {
+			if ((mt_rand() % 100) < $this->sys['prbblty_tasks'])
+			{
+				$this->_recount();
+			}
 		}
 	}
 	/* */

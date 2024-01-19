@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008-2012 Glossword.biz team <team at glossword dot biz>
- *  © 2002-2008 Dmitry N. Shilnikov
+ *  Â© 2008-2012 Glossword.biz team <team at glossword dot biz>
+ *  Â© 2002-2008 Dmitry N. Shilnikov
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -59,9 +59,11 @@ class gw_addon_clear_history_terms extends gw_addon
 	/* */
 	function alpha()
 	{
-		if ((mt_rand() % 100) < $this->sys['prbblty_tasks'])
-		{
-			$this->_gw_clear();
+		if (isset($this->sys['prbblty_tasks']) && $this->sys['prbblty_tasks'] !== null) {
+			if ((mt_rand() % 100) < $this->sys['prbblty_tasks'])
+			{
+				$this->_gw_clear();
+			}
 		}
 	}
 	/* */
