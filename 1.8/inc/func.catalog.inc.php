@@ -225,7 +225,7 @@ function getDictWordList($w1, $w2, $w3, $id_dict, $p, $is_descr = true, $is_full
 	$tmp['href_term'] = array();
 	if (empty($arA[0]))
 	{
-		return;
+		return [];
 	}
 	foreach ($arA as $k1 => $v1)
 	{
@@ -426,7 +426,9 @@ function getDictList($language = '', $dict_nmax = 5, $x = 1, $y = 99, $qStrOrder
 	}
 	// get topics map
 	$ar =& $gw_this['ar_topics_list'];
-	if (empty($ar)){ return; }
+	if (empty($ar)) {
+		return ''; // Return an empty string instead of void
+	}
 	// display catalog in web mode
 	if (GW_IS_BROWSE_WEB)
 	{

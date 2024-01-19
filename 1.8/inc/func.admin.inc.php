@@ -403,7 +403,7 @@ function postQuery($arQuery, $url = '', $isDebug = 0, $isPause = 1, $lock = '')
 	{
 		global $strR;
 		$strR .= '<div class="center"><p class="actions-third xw">' .$oHtml->a($url_to, $str_continue.' <span id="countdown"></span>'). ' </p></div>';
-		return;
+		return "";
 	}
 	else
 	{
