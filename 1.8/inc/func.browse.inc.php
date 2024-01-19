@@ -1242,7 +1242,7 @@ function getLetterHtml($ar, $id_dict, $w1 = '', $w2 = '', $w3 = '')
 	$arTmp['href'][GW_TARGET] = GW_T_DICT;
 	$arTmp['href'][GW_ID_DICT] = $id_dict;
 	/* for each letter */
-	foreach ($ar as $k => $v)
+	foreach ($ar as $k1 => $v1)
 	{
 		$int_cnt++;
 		$cnt1_str = (isset($sys['is_print_toolbar_num']) && $sys['is_print_toolbar_num'] == 1) ? $int_cnt : '';
