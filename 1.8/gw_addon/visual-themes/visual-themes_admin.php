@@ -2,8 +2,8 @@
 
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008-2012 Glossword.biz team <team at glossword dot biz>
- *  © 2002-2008 Dmitry N. Shilnikov
+ *  Â© 2008-2012 Glossword.biz team <team at glossword dot biz>
+ *  Â© 2002-2008 Dmitry N. Shilnikov
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -97,16 +97,17 @@ class gw_addon_visual_themes_admin extends gw_addon
 		$oForm->Set( 'charset', $this->sys['internal_encoding'] );
 		$ar_req = array_flip( $ar_req );
 		/* mark fields as "Required" and display error message */
-		while ( is_array( $vars ) && list($k, $v) = each( $vars ) )
-		{
-			$ar_req_msg[$k] = $ar_broken_msg[$k] = '';
-			if ( isset( $ar_req[$k] ) )
-			{
-				$ar_req_msg[$k] = '&#160;<span class="red"><strong>*</strong></span>';
-			}
-			if ( isset( $ar_broken[$k] ) )
-			{
-				$ar_broken_msg[$k] = '<span class="red"><strong>' . $this->oL->m( 'reason_9' ) . '</strong></span><br />';
+		if ( is_array( $vars ))	{
+			foreach ($vars as $k => $v) {
+				$ar_req_msg[$k] = $ar_broken_msg[$k] = '';
+				if ( isset( $ar_req[$k] ) )
+				{
+					$ar_req_msg[$k] = '&#160;<span class="red"><strong>*</strong></span>';
+				}
+				if ( isset( $ar_broken[$k] ) )
+				{
+					$ar_broken_msg[$k] = '<span class="red"><strong>' . $this->oL->m( 'reason_9' ) . '</strong></span><br />';
+				}
 			}
 		}
 		/* */
@@ -117,8 +118,7 @@ class gw_addon_visual_themes_admin extends gw_addon
 		$str_form .= '<thead><tr><td style="width:' . $v_td1_width . '"></td><td></td></tr></thead><tbody>';
 
 		$int_sort = 0;
-		for ( reset( $vars ); list($k, $arV) = each( $vars ); )
-		{
+		foreach ($vars as $k => $arV) {
 			$int_sort += 10;
 			$str_form .= '<tr>' .
 					'<td class="td1">' . $arV['settings_key'] .
@@ -175,16 +175,17 @@ class gw_addon_visual_themes_admin extends gw_addon
 		$oForm->Set( 'charset', $this->sys['internal_encoding'] );
 		$ar_req = array_flip( $ar_req );
 		/* mark fields as "Required" and display error message */
-		while ( is_array( $vars ) && list($k, $v) = each( $vars ) )
-		{
-			$ar_req_msg[$k] = $ar_broken_msg[$k] = '';
-			if ( isset( $ar_req[$k] ) )
-			{
-				$ar_req_msg[$k] = '&#160;<span class="red"><b>*</b></span>';
-			}
-			if ( isset( $ar_broken[$k] ) )
-			{
-				$ar_broken_msg[$k] = '<span class="red"><b>' . $this->oL->m( 'reason_9' ) . '</b></span><br />';
+		if ( is_array( $vars ) ) {
+			foreach ($vars as $k => $arV) {
+				$ar_req_msg[$k] = $ar_broken_msg[$k] = '';
+				if ( isset( $ar_req[$k] ) )
+				{
+					$ar_req_msg[$k] = '&#160;<span class="red"><b>*</b></span>';
+				}
+				if ( isset( $ar_broken[$k] ) )
+				{
+					$ar_broken_msg[$k] = '<span class="red"><b>' . $this->oL->m( 'reason_9' ) . '</b></span><br />';
+				}
 			}
 		}
 		$str_form .= '<script type="text/javascript">/*<![CDATA[*/
@@ -207,8 +208,7 @@ function switch2edit(id)
 
 		$oForm->setTag( 'input', 'size', '25' );
 		$oForm->setTag( 'input', 'dir', 'ltr' );
-		for ( reset( $vars ); list($k, $arV) = each( $vars ); )
-		{
+		foreach ($vars as $k => $arV) {
 			$arV['settings_value'] = preg_replace( '/ $/', '&#32;', $arV['settings_value'] );
 #			$arV['settings_value'] = preg_replace('/{(\w)/', '{%\\1', $arV['settings_value']);
 #			$arV['settings_value'] = preg_replace('/(\w)}/', '\\1%}', $arV['settings_value']);
@@ -340,8 +340,7 @@ function switch2edit(id)
 		$str_form .= '<table class="gray" cellspacing="1" cellpadding="0" border="0" width="100%">';
 		$str_form .= '<tbody>';
 		/* Per each page */
-		for (; list($k, $page) = each( $vars['tpl_pages'] ); )
-		{
+		foreach ($vars['tpl_pages'] as $k => $page) {
 			$str_external_link = preg_replace( "/>(.*?)<\/a>/u", '>&gt;&gt;&gt;</a>', $page ) . ' ';
 			$str_external_link = str_replace( 'a href', 'a title="' . $this->oL->m( '3_edit' ) . '" href', $str_external_link );
 			$str_checkbox = $oForm->field( 'checkbox', 'arPost[tpl_page][' . $k . ']', 1 );

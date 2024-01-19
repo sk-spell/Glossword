@@ -31,8 +31,7 @@ $this->str .= '</tr></thead>';
 
 /* The list of keyboards */
 $cnt_row = 1;
-while (list($k, $arV) = each($this->ar_profiles))
-{
+foreach ($this->ar_profiles as $k => $arV) {
 	$arV['vkbd_letters'] = str_replace(',', ', ', $arV['vkbd_letters']);
 	$bgcolor = $cnt_row % 2 ? $this->ar_theme['color_1'] : $this->ar_theme['color_2'];
 	$this->str .= '<tr style="color:'.$this->ar_theme['color_5'].';background:'.$bgcolor.'">';

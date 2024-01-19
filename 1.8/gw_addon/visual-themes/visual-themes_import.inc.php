@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008-2012 Glossword.biz team <team at glossword dot biz>
- *  © 2002-2008 Dmitry N. Shilnikov
+ *  Â© 2008-2012 Glossword.biz team <team at glossword dot biz>
+ *  Â© 2002-2008 Dmitry N. Shilnikov
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -79,13 +79,11 @@ else
 	$is_error_xml = 1;
 	$cnt_themes = 0;
 	$this->str .= '<ul class="xt">';
-	for (; list($k1, $v1) = each($arXmlLine);)
-	{
+	foreach ($arXmlLine as $k1 => $v1) {
 		/* per each group */
 		if (!isset($v1['children'])) { continue; }
 		$id_group = $oDom->get_attribute('id', $v1['tag'], $v1);
-		for (reset($v1['children']); list($k2, $v2) = each($v1['children']);)
-		{
+		foreach ($v1['children'] as $k2 => $v2) {
 			if (!is_array($v2)){ continue; }
 			$q2 = array();
 			if ($id_group == 'settings')

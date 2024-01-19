@@ -98,8 +98,7 @@ else
 
 	/* Fix on/off options */
 	$arIsV = array( 'is_active', 'is_index_page' );
-	for (; list($k, $v) = each($arIsV);)
-	{
+	foreach ($arIsV as $k => $v) {
 		$arPost[$v]  = isset($arPost[$v]) ? $arPost[$v] : 0;
 	}
 #$this->sys['isDebugQ'] = 1;

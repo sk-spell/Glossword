@@ -2,8 +2,8 @@
 
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008-2012 Glossword.biz team <team at glossword dot biz>
- *  © 2002-2008 Dmitry N. Shilnikov
+ *  Â© 2008-2012 Glossword.biz team <team at glossword dot biz>
+ *  Â© 2002-2008 Dmitry N. Shilnikov
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -198,8 +198,7 @@ if ( $this->gw_this['vars']['post'] == '' )
 		$arSql = $this->gw_this['ar_themes'][$this->gw_this['vars']['tid']];
 		$arT = array ( );
 		$i = 0;
-		for (; list($arK, $arV) = each( $arSql ); )
-		{
+		foreach ($arSql as $arK => $arV) {
 			$arT[$i]['settings_key'] = $arK;
 			$arT[$i]['settings_value'] = $arV;
 			$i++;
@@ -233,8 +232,7 @@ else
 	{
 #		if (preg_match("/^is_/", $arV['settings_key']))
 		/* Group of theme settings */
-		for ( reset( $vars ); list($k, $v) = each( $vars ); )
-		{
+		foreach ($vars as $k => $v) {
 			$q = array ( );
 			$q['date_compiled'] = $this->sys['time_now_gmt_unix'] - 2;
 			$q['date_modified'] = $this->sys['time_now_gmt_unix'];
@@ -250,8 +248,7 @@ else
 	}
 	elseif ( $this->gw_this['vars']['w1'] == 'css' )
 	{
-		for ( reset( $vars ); list($k, $v) = each( $vars ); )
-		{
+		foreach ($vars as $k => $v) {
 			$vars[$k] = str_replace( '&#032;', '&#32;', $vars[$k] );
 			$vars[$k] = str_replace( array ( '{%', '%}' ), array ( '{', '}' ), $vars[$k] );
 		}
@@ -279,8 +276,7 @@ else
 		{
 			$vars['is_active'] = 1;
 		}
-		for ( reset( $vars ); list($k, $v) = each( $vars ); )
-		{
+		foreach ($vars as $k => $v) {
 			$q1[$k] = $v;
 		}
 		list($q1['v1'], $q1['v2'], $q1['v3']) = explode( '.', $q1['theme_version'] );

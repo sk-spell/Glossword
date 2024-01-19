@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008 Glossword.biz team
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  Â© 2008 Glossword.biz team
+ *  Â© 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -41,8 +41,7 @@ if ($this->gw_this['vars']['w2'])
 		$q1['int_sort'] = $arPost['new_template']['int_sort'];
 		$arQ[] = gw_sql_insert($q1, $this->sys['tbl_prefix'].'theme_group');
 		unset($arPost['new_template']);
-		for (; list($k, $v) = each($arPost);)
-		{
+		foreach ($arPost as $k => $v) {
 			$q2 = array();
 			$q2['int_sort'] = $v['int_sort'];
 			$q2['settings_key'] = $v['new'];
@@ -56,8 +55,7 @@ if ($this->gw_this['vars']['w2'])
 		/* And empty values to all visual themes */
 		/* The list of visual themes */
 		$arSql = $this->oDb->sqlExec($this->oSqlQ->getQ('get-themes-adm'), $this->component);
-		for (; list($arK, $arV) = each($arSql);)
-		{
+		foreach ($arSql as $arK => $arV) {
 			$q3 = array();
 			/*
 				When the selected theme is `gw_admin', add new template to `gw_admin' only.

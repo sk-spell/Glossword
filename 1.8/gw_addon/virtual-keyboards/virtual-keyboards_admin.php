@@ -37,10 +37,11 @@ class gw_addon_vkbd_admin extends gw_addon
 		$arSql = $this->oDb->sqlRun($this->oSqlQ->getQ('get-vkbd-profiles-adm'), $this->component);
 		$ar_profiles = array();
 		$this->ar_profiles = array();
-		while (is_array($arSql) && list($k, $arV) = each($arSql))
-		{
-			/* For <select> */
-			$this->ar_profiles[$arV['id_profile']] = $arV;
+		if (is_array($arSql)) {
+			foreach ($arSql as $k => $arV) {
+				/* For <select> */
+				$this->ar_profiles[$arV['id_profile']] = $arV;
+			}
 		}
 		return '<div class="actions-secondary">'.
 			implode(' ', $this->gw_this['ar_actions_list'][$this->component]).
@@ -77,11 +78,12 @@ class gw_addon_vkbd_admin extends gw_addon
 
 		$ar_req = array_flip($ar_req);
 		/* mark fields as "Required" and display error message */
-		while (is_array($vars) && list($k, $v) = each($vars) )
-		{
-			$ar_req_msg[$k] = $ar_broken_msg[$k] = '';
-			if (isset($ar_req[$k])) { $ar_req_msg[$k] = '&#160;<span class="red"><b>*</b></span>'; }
-			if (isset($ar_broken[$k])) { $ar_broken_msg[$k] = '<span class="red"><b>' . $this->oL->m('reason_9') . '</b></span><br />'; }
+		if (is_array($vars)) {
+			foreach ($vars as $k => $v) {
+				$ar_req_msg[$k] = $ar_broken_msg[$k] = '';
+				if (isset($ar_req[$k])) { $ar_req_msg[$k] = '&#160;<span class="red"><b>*</b></span>'; }
+				if (isset($ar_broken[$k])) { $ar_broken_msg[$k] = '<span class="red"><b>' . $this->oL->m('reason_9') . '</b></span><br />'; }
+			}
 		}
 		/* */
 		$str_form .= getFormTitleNav( $this->oL->m('1137'), '<span style="float:right">'.$oForm->get_button('submit').'</span>' );

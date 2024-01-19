@@ -2,8 +2,8 @@
 
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008-2012 Glossword.biz team <team at glossword dot biz>
- *  © 2002-2008 Dmitry N. Shilnikov
+ *  Â© 2008-2012 Glossword.biz team <team at glossword dot biz>
+ *  Â© 2002-2008 Dmitry N. Shilnikov
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -61,8 +61,7 @@ $this->str .= '<th style="width:39%">' . $this->oL->m( 'action' ) . '</th>';
 $this->str .= '<th style="width:5%">' . $this->oL->m( '1320' ) . '</th>';
 $this->str .= '</tr></thead><tbody>';
 $cnt_row = 1;
-while ( list($k, $arV) = each( $arSql ) )
-{
+foreach ($arSql as $k => $arV) {
 	$bgcolor = $cnt_row % 2 ? $this->ar_theme['color_1'] : $this->ar_theme['color_2'];
 	$this->str .= CRLF . CRLF . '<tr id="theme-'.$arV['id_theme'].'" style="background:' . $bgcolor . '">';
 	$this->str .= '<td style="text-align:' . $this->sys['css_align_right'] . '"><span class="xt">' . $cnt_row . '</span></td>';

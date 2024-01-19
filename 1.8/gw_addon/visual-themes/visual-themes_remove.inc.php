@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008 Glossword.biz team
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  ï¿½ 2008 Glossword.biz team
+ *  ï¿½ 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -46,8 +46,7 @@ else
 	$arQ[] = 'CHECK TABLE `'.$this->sys['tbl_prefix'].'theme_settings`';
 	$path_template = $this->sys['path_temporary'].'/t/'.$this->gw_this['vars']['tid'];
 	$ar_files = file_readDirF($path_template, '//');
-	for (; list($k, $filename) = each($ar_files);)
-	{
+	foreach ($ar_files as $k => $filename) {
 		@chmod ($path_template.'/'.$filename, 0777);
 		@unlink($path_template.'/'.$filename);
 	}
