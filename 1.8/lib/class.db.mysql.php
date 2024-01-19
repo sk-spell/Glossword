@@ -333,7 +333,7 @@ class gwtkDataBase
 			$ar = array();
 			if ($this->query_id)
 			{
-				while ($row = mysqli_fetch_array($this->query_id, MYSQL_NUM))
+				while ($row = mysqli_fetch_array($this->query_id, MYSQLI_NUM))
 				{
 					$ar[$row[0]] = $row[0];
 				}
@@ -352,7 +352,7 @@ class gwtkDataBase
 			$sql = 'SHOW TABLES FROM `' . $this->database . '` LIKE "' . $tablename . '"';
 		}
 		$this->query($sql);
-		while ($row = mysqli_fetch_array($this->query_id, MYSQL_NUM))
+		while ($row = mysqli_fetch_array($this->query_id, MYSQLI_NUM))
 		{
 			$ar[] = $row[0];
 		}
