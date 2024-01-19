@@ -1,7 +1,7 @@
 <?php
 /**
  * Translation Kit - (http://tkit.info/)
- * © 2002-2008 Dmitry N. Shilnikov <dev at wwwguru dot net>
+ * Â© 2002-2008 Dmitry N. Shilnikov <dev at wwwguru dot net>
  * File-based version.
  * 
  * Requires:
@@ -120,7 +120,9 @@ class tkit
 			if (file_exists($filename) && !isset($this->f[$filename]))
 			{
 				$a = @unserialize(file_get_contents($filename));
-				array_walk($a, create_function('&$v','$v=urldecode($v);'));
+				array_walk($a, function (&$v) {
+					$v=urldecode($v);
+				});
 				$this->f[$filename] = true;
 			}
 			$this->a = array_merge_clobber($a, $this->a);

@@ -44,8 +44,9 @@ function gw_get_virtual_keyboard( $id_profile = false, $id_dict = false ) {
 	}
 	
 	if ( !empty( $ar_letters ) ) {
-		array_walk( $ar_letters, create_function( '&$v', '$v = trim( addslashes( $v ) );' ) );
-		
+		array_walk($ar_letters, function (&$v) {
+			$v = trim(addslashes($v));
+		});
 		/* "Virtual keyboard" button */
 		$str .= '<a title="' . $oL->m( 'virtual_keyboard' ) . '" id="gwkbdcall" onclick="';
 		$str .= 'return gwJS.showKbd(\'gw\', ['; // <form id="gw"><input id="gwq">
