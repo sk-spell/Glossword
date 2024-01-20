@@ -59,7 +59,7 @@ if ($this->gw_this['vars']['mode'] == 'up' || $this->gw_this['vars']['mode'] == 
 	$sql = sprintf('SELECT `id_page` FROM `'.$this->sys['tbl_prefix'].'pages` WHERE id_parent = "%d" ORDER BY int_sort ASC', $this->ar[$this->gw_this['vars']['tid']]['p']);
 	$arSql = $this->oDb->sqlExec($sql);
 	$i = 10;
-	for (; list($arK, $arV) = each($arSql);)
+	foreach ($arSql as $arK => $arV)
 	{
 		$arQ[] = 'UPDATE `'.$this->sys['tbl_prefix'].'pages`
 						 SET `int_sort` = ' . $i . '
@@ -73,7 +73,7 @@ elseif ($this->gw_this['vars']['mode'] == 'reset')
 {
 	$i = 10;
 	$arSql = $this->oDb->sqlExec($this->oSqlQ->getQ('get-custompages_id-by-p', $this->ar[$this->gw_this['vars']['tid']]['p']));
-	for (; list($arK, $arV) = each($arSql);)
+	foreach ($arSql as $arK => $arV)
 	{
 		$arQ[] = sprintf('UPDATE `'.$this->sys['tbl_prefix'].'pages`
 						SET `int_sort` = "%d"
@@ -179,7 +179,7 @@ if ($this->gw_this['vars']['post'] == '')
 	);
 	$strHelp = '';
 	$strHelp .= '<dl>';
-	for (; list($k, $v) = each($arHelpMap);)
+	foreach ($arHelpMap as $k => $v)
 	{
 		$strHelp .= '<dt><strong>' . $this->oL->m($k) . '</strong></dt>';
 		$strHelp .= '<dd>' . $this->oL->m($v) . '</dd>';
@@ -196,7 +196,7 @@ else
 #$this->sys['isDebugQ'] = 1;
 	/* Fix on/off options */
 	$arIsV = array('is_active');
-	for (; list($k, $v) = each($arIsV);)
+	foreach ($arIsV as $k => $v)
 	{
 		$arPre[$v]  = isset($arPre[$v]) ? $arPre[$v] : 0;
 	}
@@ -213,7 +213,7 @@ else
 	if (isset($this->ar[$this->gw_this['vars']['tid']]['ch']))
 	{
 		$arKeys = ctlgGetTree($this->ar, $this->gw_this['vars']['tid']);
-		while (is_array($arKeys) && list($k, $v) = each($arKeys))
+		foreach ($arKeys as $k => $v)
 		{
 			$arQ[] = 'UPDATE `'.$this->sys['tbl_prefix'].'pages` SET `is_active` = "'.$q1['is_active'].'" WHERE id_parent = "' . $v . '"';
 		}
@@ -221,7 +221,7 @@ else
 	/* */
 	$arQ[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'pages_phrase` WHERE `id_page` = "'. $this->gw_this['vars']['tid'] .'"';
 	$id_page_phrase = $this->oDb->MaxId($this->sys['tbl_prefix'].'pages_phrase', 'id_page_phrase');
-	for (; list($elK, $arV) = each( $arPre['page']);)
+	foreach ($arPre['page'] as $elK => $arV)
 	{
 		$arV['page_title'] = gw_fix_input_to_db($arV['page_title']);
 		$arV['page_descr'] = gw_fix_input_to_db($arV['page_descr']);

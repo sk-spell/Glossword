@@ -60,7 +60,7 @@ class gw_addon_feedback extends gw_addon
 
 		$ar_req = array_flip( $ar_req );
 		/* mark fields as "Required" and display error message */
-		while ( is_array( $vars ) && list($k, $v) = each( $vars ) )
+		foreach ($vars as $k => $v)
 		{
 			$ar_req_msg[$k] = $ar_broken_msg[$k] = '';
 			if ( isset( $ar_req[$k] ) )
@@ -289,7 +289,7 @@ class gw_addon_feedback extends gw_addon
 			$vars['captcha'] = strtoupper( preg_replace( "/[^a-zA-Z0-9]/", '', $vars['captcha'] ) );
 			$arSql = $this->oDb->sqlExec( 'SELECT id FROM `' . $this->sys['tbl_prefix'] . 'captcha` WHERE `captcha` = "' . $vars['captcha'] . '"' );
 			$id_captcha = 0;
-			for (; list($arK, $arV) = each( $arSql ); )
+			foreach ($arSql as $arK => $arV)
 			{
 				$id_captcha = $arV['id'];
 			}
@@ -319,7 +319,7 @@ class gw_addon_feedback extends gw_addon
 				$vars['name'] = ($vars['name']) ? $vars['name'] : 'Anonymous';
 				$vars['email'] = ($vars['email']) ? $vars['email'] : 'anonymous@' . $this->sys['server_host'];
 				/* Limit the string length */
-				for ( reset( $vars ); list($k, $v) = each( $vars ); )
+				foreach ($vars as $k => $v)
 				{
 					$vars[$k] = $this->oFunc->mb_substr( $v, 0, $this->int_max_length );
 				}
@@ -391,7 +391,7 @@ class gw_addon_feedback extends gw_addon
 					$ar_query[] = gw_sql_replace( $q2, TBL_MAP_USER_TERM );
 				}
 				/* Post queries */
-				for ( reset( $ar_query ); list($qk, $qv) = each( $ar_query ); )
+				foreach ($ar_query as $qk => $qv)
 				{
 					$this->oDb->sqlExec( $qv );
 				}

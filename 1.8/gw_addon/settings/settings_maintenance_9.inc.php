@@ -57,18 +57,18 @@ function gw_clear_history()
 	}
 	if (!empty($arSql))
 	{
-		for (; list($k, $v) = each($arSql);)
+		foreach ($arSql as $k => $v)
 		{
 			$ar_term_ids_dltd[$v['id_dict']][] = $v['id_term'];
 		}
-		for (reset($ar_term_ids_dltd); list($id_dict, $v) = each($ar_term_ids_dltd);)
+		foreach ($ar_term_ids_dltd as $id_dict => $v)
 		{
 			$arQ[] = 'DELETE FROM `'.$gw_this['ar_dict_list'][$id_dict]['tablename'].'` WHERE `id` IN ('.implode(',', $v).')';
 			$arStatus[] = array( $gw_this['ar_dict_list'][$id_dict]['title'], sizeof($v) );
 		}
     }
     /* Step 2: Remove terms without history of changes */
-	for (reset($gw_this['ar_dict_list']); list($id_dict, $v) = each($gw_this['ar_dict_list']);)
+	foreach ($gw_this['ar_dict_list'] as $id_dict => $v)
 	{
 		$arQ[] = 'DELETE FROM `'.$v['tablename'].'` WHERE `is_active` = "3"';
 	}
@@ -76,14 +76,14 @@ function gw_clear_history()
 	$sql_one = 'SELECT `id`, `id_dict`, `id_term` FROM `'.$sys['tbl_prefix'].'history_terms` WHERE `is_active` != "3" ORDER BY `date_modified` DESC';
 	$arSql = $oDb->sqlExec($sql_one);
 	$ar_term_ids = array();
-	for (; list($k, $v) = each($arSql);)
+	foreach ($arSql as $k => $v)
 	{
 		if (!isset($ar_term_ids[$v['id_dict']][$v['id_term']]))
 		{
 			$ar_term_ids[$v['id_dict']][$v['id_term']] = $v['id'];
 		}
 	}
-	for (reset($ar_term_ids); list($id_dict, $v) = each($ar_term_ids);)
+	foreach ($ar_term_ids as $id_dict => $v)
 	{
 		$arQ[] = 'DELETE FROM `'.$sys['tbl_prefix'].'history_terms` WHERE `id` NOT IN ('.implode(',', $v).')';
 	}
@@ -96,7 +96,7 @@ function gw_clear_history()
 	{
 		/* */
 		$is_error = 0;
-		for (; list($sqlk, $sqlv) = each($arQ);)
+		foreach ($arQ as $sqlk => $sqlv)
 		{
 			if (!$oDb->sqlExec($sqlv))
 			{

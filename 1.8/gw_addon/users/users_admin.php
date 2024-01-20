@@ -364,8 +364,7 @@ document.forms[\'vbform\'][\'submit1\'].click();
 		$cnt = 0;
 		$ar_dict_ids = array();
 
-		for (reset($this->gw_this['ar_dict_list']); list($k, $arDictParam) = each($this->gw_this['ar_dict_list']);)
-		{
+		foreach ($this->gw_this['ar_dict_list'] as $k => $arDictParam) {
 			$is_assigned = 0;
 			/* $vars['dictionaries'] is flipped */
 			if (isset($vars['dictionaries'][$arDictParam['id']]))
@@ -462,16 +461,14 @@ document.forms[\'vbform\'][\'submit1\'].click();
 			$str_form .= '<table class="gw2TableFieldset" width="100%">';
 			$str_form .= '<thead><tr><td style="width:'.$v_td1_width.'"></td><td></td></tr></thead><tbody>';
 		}
-		for (; list($k, $arV) = each($ar_permissions_list);)
-		{
+		foreach ($ar_permissions_list as $k => $arV) {
 			if (!$this->ar_state['is_profile'])
 			{
 				$str_form .= '<fieldset class="admform"><legend class="xq">&#160;</legend>';
 				$str_form .= '<table class="gw2TableFieldset" width="100%">';
 				$str_form .= '<thead><tr><td style="width:'.$v_td1_width.'"></td><td></td></tr></thead><tbody>';
 			}
-			for (; list($fieldname, $caption) = each($arV);)
-			{
+			foreach ($arV as $fieldname => $caption) {
 				$str_checked = ((isset($ar_permissions_user[strtoupper($fieldname)]) && $ar_permissions_user[strtoupper($fieldname)]) 
 					? 'checked="checked" ' 
 					: '');

@@ -54,7 +54,7 @@ function htmlspecialchars_ltgt($s)
 	if (is_array($s))
 	{
 		/* can't use array_walk() on byself with reference */
-		for (reset($s); list($k, $v) = each($s);)
+		foreach ($s as $k => $v)
 		{
 			$s[$k] = htmlspecialchars_ltgt($v);
 		}
@@ -63,7 +63,7 @@ function htmlspecialchars_ltgt($s)
 	elseif (is_object($s))
 	{
 		$ar = get_class_vars(get_class($s));
-		for (reset($ar); list($k, $v) = each($ar);)
+		foreach ($ar as $k => $v)
 		{
 			$ar[$k] = htmlspecialchars_ltgt($s->$k);
 		}
@@ -80,7 +80,7 @@ function unhtmlspecialchars_ltgt($s)
 	if (is_array($s))
 	{
 		/* can't use array_walk() on byself with reference */
-		for (reset($s); list($k, $v) = each($s);)
+		foreach ($s as $k => $v)
 		{
 			$s[$k] = unhtmlspecialchars_ltgt($v);
 		}
@@ -89,7 +89,7 @@ function unhtmlspecialchars_ltgt($s)
 	elseif (is_object($s))
 	{
 		$ar = get_class_vars(get_class($s));
-		for (reset($ar); list($k, $v) = each($ar);)
+		foreach ($ar as $k => $v)
 		{
 			$ar[$k] = unhtmlspecialchars_ltgt($s->$k);
 		}
@@ -112,7 +112,7 @@ function gw_htmlspecialchars($s)
 	if (is_array($s))
 	{
 		/* can't use array_walk() on byself with reference */
-		for (reset($s); list($k, $v) = each($s);)
+		foreach ($s as $k => $v)
 		{
 			$s[$k] = gw_htmlspecialchars($v);
 		}
@@ -134,7 +134,7 @@ function gw_htmlspecialchars_decode($s)
 	if (is_array($s))
 	{
 		/* can't use array_walk() on byself with reference */
-		for (reset($s); list($k, $v) = each($s);)
+		foreach ($s as $k => $v)
 		{
 			$s[$k] = htmlspecialchars_decode($v, ENT_QUOTES);
 		}
@@ -162,7 +162,7 @@ function array_merge_clobber($a1, $a2)
 {
 	if (!is_array($a1) || !is_array($a2)) { return false; }
 	$arNew = $a1;
-	while (list($k, $v) = each($a2))
+	foreach ($a2 as $k => $v)
 	{
 		if (is_array($v) && isset($arNew[$k]) && is_array($arNew[$k]))
 		{

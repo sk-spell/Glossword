@@ -65,7 +65,7 @@ class gw_addon_topic_admin extends gw_addon
 		}
 		$ar_req = array_flip($ar_req);
 		/* mark fields as "Required" and display error message */
-		while (is_array($vars) && list($k, $v) = each($vars) )
+		foreach ($vars as $k => $v)
 		{
 			$ar_req_msg[$k] = $ar_broken_msg[$k] = '';
 			if (isset($ar_req[$k])) { $ar_req_msg[$k] = '&#160;<span class="red"><b>*</b></span>'; }
@@ -78,7 +78,7 @@ class gw_addon_topic_admin extends gw_addon
 
 		$str_form .= getFormTitleNav($this->oL->m('1061'), '<span style="float:right">'.$oForm->get_button('submit').'</span>');
 
-		for (; list($elK, $arV) = each($vars['topic']);)
+		foreach ($vars['topic'] as $elK => $arV)
 		{
 			$arV['topic_title'] = str_replace(array('{', '}'), array('{%', '%}'), $arV['topic_title']);
 			$arV['topic_descr'] = str_replace(array('{', '}'), array('{%', '%}'), $arV['topic_descr']);
@@ -231,7 +231,7 @@ class gw_addon_topic_admin extends gw_addon
 			$arPost =& $this->gw_this['vars']['arPost'];
 			/* Fix on/off options */
 			$arIsV = array('is_include_date', 'is_as_file');
-			for (; list($k, $v) = each($arIsV);)
+			foreach ($arIsV as $k => $v)
 			{
 				$arPost[$v]  = isset($arPost[$v]) ? $arPost[$v] : 0;
 			}
@@ -240,7 +240,7 @@ class gw_addon_topic_admin extends gw_addon
 			$xml .= '<glossword>';
 			/* */
 			$arSql = $this->oDb->sqlExec('SELECT * FROM `'.$this->sys['tbl_prefix'].'topics`');
-			for (; list($k, $arV) = each($arSql);)
+			foreach ($arSql as $k => $arV)
 			{
 				$style_attr = '';
 				$id_topic = $arV['id_topic'];
@@ -256,14 +256,14 @@ class gw_addon_topic_admin extends gw_addon
 				/* get topic names */
 				$xml .= CRLF . "\t". '<entry>';
 				$arSql2 = $this->oDb->sqlExec($this->oSqlQ->getQ('get-topics-lang-adm', $id_topic));
-				for (; list($k2, $arV2) = each($arSql2);)
+				foreach ($arSql2 as $k2 => $arV2)
 				{
 					/* remove encoding name */
 					$arV2['id_lang'] = preg_replace("/-([a-z0-9])+$/", '', $arV2['id_lang']);
 					/* start topic names */
 					$xml .= CRLF . "\t\t". '<lang xml:lang="'.$arV2['id_lang'].'">';
 					unset($arV2['id_lang']);
-					for (; list($attrK, $attrV) = each($arV2);)
+					foreach ($arV2 as $attrK => $attrV)
 					{
 						$xml .= CRLF . "\t\t\t<". $attrK.'>';
 						$xml .= ($attrV == '') ? '' : '<![CDATA['.$attrV.']]>';
@@ -433,13 +433,13 @@ class gw_addon_topic_admin extends gw_addon
 			$arQ[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'topics_phrase`';
 			/* */
 			$this->str .= '<ul class="xt">';
-			for (; list($k1, $v1) = each($arXmlLine);)
+			foreach ($arXmlLine as $k1 => $v1)
 			{
 				/* per each topic */
 				if (!isset($v1['children'])) { continue; }
 				$id_topic = $oDom->get_attribute('id', $v1['tag'], $v1);
 				/* <entry> */
-				for (reset($v1['children']); list($k2, $v2) = each($v1['children']);)
+				foreach ($v1['children'] as $k2 => $v2)
 				{
 					if (!is_array($v2)){ continue; }
 					switch($v2['tag'])
@@ -451,12 +451,12 @@ class gw_addon_topic_admin extends gw_addon
 						break;
 						case 'entry':
 							if (!isset($v2['children'])) { continue; }
-							for (reset($v2['children']); list($k3, $v3) = each($v2['children']);)
+							foreach ($v2['children'] as $k3 => $v3)
 							{
 								$id_lang = $oDom->get_attribute('xml:lang', 'lang', $v3);
 								/* for each element */
 								if (!is_array($v3) || !isset($v3['children'])) { continue; }
-								for (reset($v3['children']); list($k4, $v4) = each($v3['children']);)
+								foreach ($v3['children'] as $k4 => $v4)
 								{
 									if (trim($v4['tag']) == ''){ continue; }
 									$q2[$v4['tag']] = $v4['value'];
@@ -477,7 +477,7 @@ class gw_addon_topic_admin extends gw_addon
 			if ($this->sys['isDebugQ'])
 			{
 				$this->str .= '<ul class="gwsql">';
-				for (reset($arQ); list($k, $v) = each($arQ);)
+				foreach ($arQ as $k => $v)
 				{
 					$this->str .= '<li>'.htmlspecialchars_ltgt($this->oFunc->mb_wordwrap($v, 70, "\n", 1)).'</li>';
 				}
@@ -514,7 +514,7 @@ class gw_addon_topic_admin extends gw_addon
 			$arKeys = ctlgGetTree($ar, $this->gw_this['vars']['tid']);
 			/* Unset the current Topic ID from subtopics tree */
 			unset($arKeys[$this->gw_this['vars']['tid']]);
-			while (is_array($arKeys) && list($k, $v) = each($arKeys))
+			foreach ($arKeys as $k => $v)
 			{
 				$arQ[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'topics` WHERE id_topic = "' . $v . '"';
 				$arQ[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'topics_phrase` WHERE id_topic = "' . $v . '"';
@@ -523,7 +523,7 @@ class gw_addon_topic_admin extends gw_addon
 		/* can't delete last root topic */
 		$sql = sprintf('SELECT count(*) AS n FROM `'.$this->sys['tbl_prefix'].'topics` WHERE id_parent != "%d"', $this->gw_this['vars']['tid']);
 		$arSql = $this->oDb->sqlExec($sql);
-		for (; list($arK, $arV) = each($arSql);)
+		foreach ($arSql as $arK => $arV)
 		{
 			if($arV['n'] == 1)
 			{

@@ -217,7 +217,7 @@ class gw_addon_log_search_admin extends gw_addon
 		}
 
 		$cnt_row = 1;
-		while (list($k, $arV) = each($arSql))
+		foreach ($arSql as $k => $arV)
 		{
 			$bgcolor = $cnt_row % 2 ? $this->ar_theme['color_1'] : $this->ar_theme['color_2'];
 			$num_class = ($arV['found'] == 0) ? ' red' : '';
@@ -287,7 +287,7 @@ class gw_addon_log_search_admin extends gw_addon
 		}
 		
 		$cnt_row = 1;
-		while (list($k, $arV) = each($arSql))
+		foreach ($arSql as $k => $arV)
 		{
 			$bgcolor = $cnt_row % 2 ? $this->ar_theme['color_1'] : $this->ar_theme['color_2'];
 			$num_class = ($arV['found'] == 0) ? ' red' : '';
@@ -349,7 +349,7 @@ class gw_addon_log_search_admin extends gw_addon
 		}
 		
 		$cnt_row = 1;
-		while (list($k, $arV) = each($arSql))
+		foreach ($arSql as $k => $arV)
 		{
 			$bgcolor = $cnt_row % 2 ? $this->ar_theme['color_1'] : $this->ar_theme['color_2'];
 			$num_class = ($arV['found'] == 0) ? ' red' : '';

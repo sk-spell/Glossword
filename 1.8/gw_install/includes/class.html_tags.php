@@ -62,7 +62,7 @@ class gw2_html_tags
 		{
 			/* Do sort attributes in a good manner. */
 			ksort($ar);
-			for (reset($ar); list($k, $v) = each($ar);)
+			foreach ($ar as $k => $v)
 			{
 				$str .= (strval($v) == '') ? '' : ($pairs.$k.$values_sep.$enclose.$v.$enclose);
 			}
@@ -136,7 +136,7 @@ class gw2_html_tags
 #		prn_r( $ar_url );
 		$rule = str_replace(array('/', ',', '.'), array('/$', ',$', '.$'), $rule);
 		/* @todo: Optimize */
-		for (reset($ar_url); list($k, $v) = each($ar_url);)
+		foreach ($ar_url as $k => $v)
 		{
 			$rule = preg_replace('/\$'.$k.'\b/', urlencode($v), $rule);
 		}

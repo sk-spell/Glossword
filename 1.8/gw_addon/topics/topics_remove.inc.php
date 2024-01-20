@@ -51,7 +51,7 @@ if (!empty($arSql))
 /* can't delete last root topic */
 $sql = sprintf('SELECT count(*) AS n FROM `'.$this->sys['tbl_prefix'].'topics` WHERE id_parent != "%d"', $this->gw_this['vars']['tid']);
 $arSql = $this->oDb->sqlExec($sql);
-for (; list($arK, $arV) = each($arSql);)
+foreach ($arSql as $arK => $arV)
 {
 	if($arV['n'] == 1)
 	{

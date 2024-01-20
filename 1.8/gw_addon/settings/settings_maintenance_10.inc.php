@@ -43,7 +43,7 @@ function gw_show_form($vars, $runtime = 0, $arBroken = array(), $arReq = array()
 	// reverse array keys <-- values;
 	$arReq = array_flip($arReq);
 	// mark fields as "REQUIRED" and make error messages
-	while (is_array($vars) && list($key, $val) = each($vars) )
+	foreach ($vars as $key => $val)
 	{
 		$arReqMsg[$key] = $arBrokenMsg[$key] = '';
 		if (isset($arReq[$key])) { $arReqMsg[$key] = '&#160;<span class="red"><strong>*</strong></span>'; }
@@ -60,7 +60,7 @@ function gw_show_form($vars, $runtime = 0, $arBroken = array(), $arReq = array()
 	$strForm .= '<tr><td style="width:25%"></td><td></td></tr>';
 
 	$arDictMap = array();
-	for (reset($gw_this['ar_dict_list']); list($arK, $arV) = each($gw_this['ar_dict_list']);)
+	foreach ($gw_this['ar_dict_list'] as $arK => $arV)
 	{
 		$arDictMap[$arV['id']] = '[ID: ' .$arV['id'].'] ' . strip_tags($arV['title']);
 	}
@@ -126,7 +126,7 @@ function gw_do_task($id_old, $id_new, $is_visible = 1)
 	else
 	{
 		/* */
-		for (; list($sqlk, $q) = each($arQ);)
+		foreach ($arQ as $sqlk => $q)
 		{
 			$oDb->sqlExec($q);
 		}

@@ -45,7 +45,7 @@ function getFormSql($vars, $runtime = 0, $arBroken = array(), $arReq = array())
 	// reverse array keys <-- values;
 	$arReq = array_flip($arReq);
 	// mark fields as "REQUIRED" and make error messages
-	while(is_array($vars) && list($key, $val) = each($vars) )
+	foreach ($vars as $key => $val)
 	{
 		$arReqMsg[$key] = $arBrokenMsg[$key] = "";
 		if (isset($arReq[$key])) { $arReqMsg[$key] = ' <span style="color:#E30"><b>*</b></span>'; }
@@ -288,11 +288,11 @@ else
 			$strQ .= '# <!-- ' . $filename . ' -->' . CRLF;
 			$sql = sprintf('SELECT * FROM `' . TBL_DICT . '` WHERE id = %d', $this->gw_this['vars']['id']);
 			$arSql = $oDb->sqlExec($sql, '', 0);
-			for (; list($arK, $arV) = each($arSql);)
+			foreach ($arSql as $arK => $arV)
 			{
 				if ($vars['is_hex'])
 				{
-					for (reset($arV); list($kV, $vV) = each($arV);)
+					foreach ($arV as $kV => $vV)
 					{
 						if (($arV[$kV] != '')
 							&& (($kV == 'dict_settings')||($kV == 'title')||($kV == 'description')||($kV == 'announce'))
@@ -320,7 +320,7 @@ else
 			$strQ .= '# <!-- ' . $filename . ' -->' . CRLF;
 			$sql = sprintf('SELECT * FROM `' . $sys['tbl_prefix'] . 'stat_dict` WHERE id = "%d"', $this->gw_this['vars']['id']);
 			$arSql = $oDb->sqlExec($sql);
-			for (; list($arK, $arV) = each($arSql);)
+			foreach ($arSql as $arK => $arV)
 			{
 				$strQ .= gw_sql_replace($arV, $sys['tbl_prefix'] . 'stat_dict', 0) . ';';
 			}
@@ -368,7 +368,7 @@ else
 				$strQ .= '# <!--' . $filename . ' -->' . CRLF;
 				$strQ .= '# <!--' . sizeof($arSql) . ' record(s) -->';
 				$arTermIDs = array();
-				for (; list($arK, $arV) = each($arSql);)
+				foreach ($arSql as $arK => $arV)
 				{
 #					for (reset($arV); list($kV, $vV) = each($arV);)
 #					{
@@ -376,7 +376,7 @@ else
 #					}
 					if ($vars['is_hex'])
 					{
-						for (reset($arV); list($kV, $vV) = each($arV);)
+						foreach ($arV as $kV => $vV)
 						{
 							if (($arV[$kV] != '')
 							   && (($kV == 'defn')||($kV == 'term')||($kV == 'term_1')||($kV == 'term_2')||($kV == 'term_3'))
@@ -419,7 +419,7 @@ else
 						WHERE dict_id = "%d" AND term_id IN (%s)', $this->gw_this['vars']['id'], implode(',', $arTermIDs)
 					);
 				$arSql = $oDb->sqlExec($sql);
-				for (; list($arK, $arV) = each($arSql);)
+				foreach ($arSql as $arK => $arV)
 				{
 					$strQ .= gw_sql_replace($arV, $sys['tbl_prefix'] . 'map_user_to_term', 0) . ';';
 				}
@@ -474,7 +474,7 @@ else
 					$strQdelete .= CRLF . 'DELETE FROM `' . TBL_WORDMAP . '` WHERE dict_id="' . $this->gw_this['vars']['id'] . '";';
 				}
 				// collect data for wordmap
-				for (; list($arK, $arV) = each($arSql);)
+				foreach ($arSql as $arK => $arV)
 				{
 					if ($int_split != $arDictParam['int_terms'])
 					{
@@ -484,7 +484,7 @@ else
 					$arKeywordsId[$arV['word_id']] = $arV['word_id'];
 					$strQmap .= gw_sql_insert($arV, TBL_WORDMAP, 0) . ';';
 				} // clear existent terms
-				for (; list($kTerm, $vTerm) = each($arTermIds);)
+				foreach ($arTermIds as $kTerm => $vTerm)
 				{
 					$strQdelete .= CRLF . $oSqlQ->getQ('del-term_id-dict_d', TBL_WORDMAP, $vTerm, $this->gw_this['vars']['id']).';';
 				}
@@ -516,11 +516,11 @@ else
 				$strQ = '';
 				$strQ .= '# <!--' . $filename .' -->'. CRLF;
 				$strQ .= '# <!--' . sizeof($arSql) . ' records -->';
-				for (; list($arK, $arV) = each($arSql);)
+				foreach ($arSql as $arK => $arV)
 				{
 				if ($vars['is_hex'])
 				{
-						for (reset($arV); list($kV, $vV) = each($arV);)
+						foreach ($arV as $kV => $vV)
 						{
 							if (($arV[$kV] != '')
 								&& (($kV == 'word_text'))

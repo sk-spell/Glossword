@@ -47,7 +47,7 @@ else
 		'is_log_search', 'is_log_ref', 'is_log_mail', 'is_show_topic_descr',
 		'is_use_xhtml', 'is_mod_rewrite'
 	);
-	for (; list($k, $v) = each($arIsV);)
+	foreach ($arIsV as $k => $v)
 	{
 		$arPost[$v] = isset($arPost[$v]) ? $arPost[$v] : 0;
 	}
@@ -72,7 +72,7 @@ else
 		$arPost['time_upd'] = preg_replace("/[^0-9]/", '', $arPost['time_upd']);
 		$arPost['int_max_char_defn'] = preg_replace("/[^0-9]/", '', $arPost['int_max_char_defn']);
 		/* */
-		for (reset($arPost); list($k, $v) = each($arPost);)
+		foreach ($arPost as $k => $v)
 		{
 			$q = array();
 			$q['settings_key'] = $k;

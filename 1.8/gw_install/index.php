@@ -256,7 +256,7 @@ class gw_mini_site
 		$a =& $this->oTkit->get_phrases_all();
 		if (is_array($a))
 		{
-			for (reset($a); list($k, $v) = each($a);)
+			foreach ($a as $k => $v)
 			{
 				$this->oTpl->addVal('l:'.$k, $v);
 				unset($a[$k]);
@@ -302,10 +302,10 @@ class gw_mini_site
 		$this->oDb->truncate('topics_phrase');
 		$this->oXml->is_skip_root = true;
 		$arData = $this->oXml->get( $filename );
-		for (reset($arData['topic']); list($k1, $arV1) = each($arData['topic']);)
+		foreach ($arData['topic'] as $k1 => $arV1)
 		{
 			$id_topic = $arV1['attributes']['id'];
-			for (reset($arV1['value']); list($k2, $arV2) = each($arV1['value']);)
+			foreach ($arV1['value'] as $k2 => $arV2)
 			{
 				$arV2 = $arV2[0];
 				switch ($arV2['tag'])
@@ -315,12 +315,12 @@ class gw_mini_site
 						$q1['id_topic'] = $q2['id_topic'] = $id_topic;
 					break;
 					case 'entry':
-						for (reset($arV2['value']); list($k3, $arV3) = each($arV2['value']);)
+						foreach ($arV2['value'] as $k3 => $arV3)
 						{
-							for (reset($arV3); list($k4, $arV4) = each($arV3);)
+							foreach ($arV3 as $k4 => $arV4)
 							{
 								$id_lang = $arV4['attributes']['xml:lang'];
-								for (reset($arV4['value'] ); list($k5, $arV5) = each($arV4['value'] );)
+								foreach ($arV4['value'] as $k5 => $arV5)
 								{
 									$arV5 = $arV5[0];
 									$q2[$arV5['tag']] = $arV5['value'];
@@ -346,10 +346,10 @@ class gw_mini_site
 		$this->oDb->truncate('pages_phrase');
 		$this->oXml->is_skip_root = true;
 		$arData = $this->oXml->get( $filename );
-		for (reset($arData['custom_page']); list($k1, $arV1) = each($arData['custom_page']);)
+		foreach ($arData['custom_page'] as $k1 => $arV1)
 		{
 			$id_page = $arV1['attributes']['id'];
-			for (reset($arV1['value']); list($k2, $arV2) = each($arV1['value']);)
+			foreach ($arV1['value'] as $k2 => $arV2)
 			{
 				$arV2 = $arV2[0];
 				switch ($arV2['tag'])
@@ -360,12 +360,12 @@ class gw_mini_site
 						$q1['id_page'] = $q2['id_page'] = $id_page;
 					break;
 					case 'entry':
-						for (reset($arV2['value']); list($k3, $arV3) = each($arV2['value']);)
+						foreach ($arV2['value'] as $k3 => $arV3)
 						{
-							for (reset($arV3); list($k4, $arV4) = each($arV3);)
+							foreach ($arV3 as $k4 => $arV4)
 							{
 								$id_lang = $arV4['attributes']['xml:lang'];
-								for (reset($arV4['value'] ); list($k5, $arV5) = each($arV4['value'] );)
+								foreach ($arV4['value'] as $k5 => $arV5)
 								{
 									$arV5 = $arV5[0];
 									$q2[$arV5['tag']] = $arV5['value'];
@@ -425,12 +425,12 @@ class gw_mini_site
 		/* Insert new */
 		$this->oDb->insert( 'theme', $q1 );
 		
-		for (reset($arData['style'][0]['value']['group']); list($k1, $arV1) = each($arData['style'][0]['value']['group']);)
+		foreach ($arData['style'][0]['value']['group'] as $k1 => $arV1)
 		{
 			$id_group = $arV1['attributes']['id'];
-			for (reset($arV1['value']); list($k2, $arV2) = each($arV1['value']);)
+			foreach ($arV1['value'] as $k2 => $arV2)
 			{
-				for (reset($arV2); list($k3, $arV3) = each($arV2);)
+				foreach ($arV2 as $k3 => $arV3)
 				{
 					switch ($id_group)
 					{
@@ -478,12 +478,12 @@ class gw_mini_site
 		$q1['id_profile'] = $id_profile;
 		$this->oDb->insert('custom_az_profiles', $q1);
 		/* */
-		for (reset($arData['custom_az'][0]['value']['entry']); list($k1, $arV1) = each($arData['custom_az'][0]['value']['entry']);)
+		foreach ($arData['custom_az'][0]['value']['entry'] as $k1 => $arV1)
 		{
 			$q2[$k1]['id_profile'] = $id_profile;
-			for (reset($arV1['value']); list($k2, $arV2) = each($arV1['value']);)
+			foreach ($arV1['value'] as $k2 => $arV2)
 			{
-				for (reset($arV2); list($k3, $arV3) = each($arV2);)
+				foreach ($arV2 as $k3 => $arV3)
 				{
 					$q2[$k1][$arV3['tag']] = $arV3['value'];
 				}
@@ -572,13 +572,13 @@ class gw_mini_site
 				/* Set HTML-templates */
 				$this->oTpl->set_tpl(GW2_TPL_WEB_INDEX);
 				/* Parse dynamic blocks */
-				for (reset($this->oTpl->tmp['d']); list($id_dynamic, $arV) = each($this->oTpl->tmp['d']);)
+				foreach ($this->oTpl->tmp['d'] as $id_dynamic => $arV)
 				{
 					if (is_array($arV))
 					{
-						for (reset($arV); list($k2, $v2) = each($arV);)
+						foreach ($arV as $k2 => $v2)
 						{
-							for (reset($v2); list($k, $v) = each($v2);)
+							foreach ($v2 as $k => $v)
 							{
 								$this->oTpl->assign(array($k => $v));
 							}
@@ -601,7 +601,7 @@ class gw_mini_site
 					$query_count = $this->oDb->query_count;
 					if ($this->g('is_show_debug_db') )
 					{
-						for (;list($k, $v) = each($this->oDb->queries);)
+						foreach ($this->oDb->queries as $k => $v)
 						{
 							$this->oDb->queries[$k] = str_replace('{', '&#123;', $v);
 						}

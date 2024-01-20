@@ -54,7 +54,7 @@ class tkit_template extends gwv_template
 			break;
 		}
 		/* Load files */
-		while (list($k, $tplname) = each($ar_files))
+		foreach ($ar_files as $k => $tplname)
 		{
 			$arSql[$k]['settings_key'] = $tplname;
 			$arSql[$k]['date_modified'] = $arSql[$k]['date_compiled'] = 0;
@@ -82,7 +82,7 @@ class tkit_template extends gwv_template
 			}
 		}
 		/* */
-		while (is_array($arSql) && list($k, $arV) = each($arSql))
+		foreach ($arSql as $k => $arV)
 		{
 			$arBlockI = array();
 			$tkey = sprintf("%u", crc32($arV['settings_key']));
@@ -136,7 +136,7 @@ class tkit_template extends gwv_template
 				$arCmd = array();
 				$arCmd[] = '<?xml';
 				$arRpl[] = '<?'.'php echo "<","?xml"; ?'.'>';
-				while (list($k, $cmd_src) = each($tmp['tpl_matches'][2]))
+				foreach ($tmp['tpl_matches'][2] as $k => $cmd_src)
 				{
 					$arCmd[] = $tmp['tpl_matches'][1][$k].$cmd_src.$tmp['tpl_matches'][3][$k];
 					$tmp['cmd'] = trim($cmd_src);
@@ -174,7 +174,7 @@ class tkit_template extends gwv_template
 		$tpl = array();
 		$this->var_last_parsed = '';
 		$str_code = '';
-		for (reset($this->pairsC); list($tkey, $arV) = each($this->pairsC);)
+		foreach ($this->pairsC as $tkey => $arV)
 		{
 			if ($this->is_tpl_show_names)
 			{

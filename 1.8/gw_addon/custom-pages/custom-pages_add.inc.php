@@ -28,7 +28,7 @@ if ($this->gw_this['vars']['post'] == '')
 {
 	/* set default values */
 	$cnt = 0;
-	for (; list($id_lang, $arV) = each($this->gw_this['vars']['ar_languages']);)
+	foreach ($this->gw_this['vars']['ar_languages'] as $id_lang => $arV)
 	{
 		$arParsed['page'][$cnt]['id_page_phrase'] = '';
 		$arParsed['page'][$cnt]['page_title'] = '';
@@ -65,7 +65,7 @@ if ($this->gw_this['vars']['post'] == '')
 	);
 	$strHelp = '';
 	$strHelp .= '<dl>';
-	for (; list($k, $v) = each($arHelpMap);)
+	foreach ($arHelpMap as $k => $v)
 	{
 		$strHelp .= '<dt><strong>' . $this->oL->m($k) . '</strong></dt>';
 		$strHelp .= '<dd>' . $this->oL->m($v) . '</dd>';
@@ -79,7 +79,7 @@ else
 	$arQ = array();
 	/* Fix on/off options */
 	$arIsV = array('is_active');
-	for (; list($k, $v) = each($arIsV);)
+	foreach ($arIsV as $k => $v)
 	{
 		$arPre[$v]  = isset($arPre[$v]) ? $arPre[$v] : 0;
 	}
@@ -95,7 +95,7 @@ else
 	$q1['page_php_2'] =& $arPre['page_php_2'];
 	$q1['date_modified'] = $q1['date_created'] = $this->sys['time_now_gmt_unix'];
 	/* */
-	for (; list($elK, $arV) = each($arPre['page']);)
+	foreach ($arPre['page'] as $elK => $arV)
 	{
 		$q2['page_title'] = $arV['page_title'];
 		$q2['page_descr'] = $arV['page_descr'];

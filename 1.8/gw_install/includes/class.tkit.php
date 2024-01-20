@@ -113,7 +113,7 @@ class tkit
 		/* Load phrases */
 		$path = $this->path_locale.'/'.$lang.'-%s.php';
 		$a = array();
-		for (; list($k, $v) = each($ar);)
+		foreach ($ar as $k => $v)
 		{
 			$filename = sprintf($path, $v);
 			/* Serialized version */
@@ -150,7 +150,7 @@ class tkit
 		$arg = func_get_args();
 		unset($arg[0]);
 		$value = isset($this->a[$pid]) ? $this->a[$pid] : $pid;
-		for (;list($arg_num, $arg_val) = each($arg);)
+		foreach ($arg as $arg_num => $arg_val)
 		{
 			$value = str_replace('%'.$arg_num, $arg_val, $value);
 		}

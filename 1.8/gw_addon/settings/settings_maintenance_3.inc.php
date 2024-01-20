@@ -46,7 +46,7 @@ function gw_dict_list_cnt($vars)
 	$ar_dict_ids = array();
 
 	/* Per each dictionary */
-	for (reset($gw_this['ar_dict_list']); list($id_dict, $arDictParam) = each($gw_this['ar_dict_list']);)
+	foreach ($gw_this['ar_dict_list'] as $id_dict => $arDictParam)
 	{
 		$arDictParam = getDictParam($id_dict);
 		$ar_dict_ids[] = $arDictParam['id'];
@@ -104,7 +104,7 @@ function gw_dict_recount($vars)
 	$str = '';
 	$str .= '<ul class="xt">';
 	/* Per each dictionary */
-	for (; list($id_dict, $v) = each($vars['dictionaries']);)
+	foreach ($vars['dictionaries'] as $id_dict => $v)
 	{
 		$arQ = array();
 		global $arDictParam;
@@ -121,7 +121,7 @@ function gw_dict_recount($vars)
 		$arQ[] = 'ALTER TABLE `'. $arDictParam['tablename'] .'` PACK_KEYS=1 CHECKSUM=0 DELAY_KEY_WRITE=1';
 		$arQ[] = 'OPTIMIZE TABLE `'. $arDictParam['tablename'] .'`';
 		/* */
-		for (; list($sqlk, $sqlv) = each($arQ);)
+		foreach ($arQ as $sqlk => $sqlv)
 		{
 			$oDb->sqlExec($sqlv);
 		}
@@ -142,7 +142,7 @@ if ($this->gw_this['vars']['isConfirm'] == '1')
 else
 {
 	/* Check all dictionaries by default */
-	for (reset($this->gw_this['ar_dict_list']); list($k, $arDictParam) = each($this->gw_this['ar_dict_list']);)
+	foreach ($this->gw_this['ar_dict_list'] as $k => $arDictParam)
 	{
 		$arPost['dictionaries'][$arDictParam['id']] = 1;
 	}

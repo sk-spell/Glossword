@@ -68,7 +68,7 @@ class gw_addon_custom_pages_admin extends gw_addon
 		$oForm->Set('isButtonSubmit', 1);
 		$ar_req = array_flip($ar_req);
 		/* mark fields as "Required" and display error message */
-		while (is_array($vars) && list($k, $v) = each($vars) )
+		foreach ($vars as $k => $v)
 		{
 			$ar_req_msg[$k] = $ar_broken_msg[$k] = '';
 			if (isset($ar_req[$k])) { $ar_req_msg[$k] = '&#160;<span class="red"><strong>*</strong></span>'; }
@@ -82,7 +82,7 @@ class gw_addon_custom_pages_admin extends gw_addon
 		$int_custom_pages = sizeof($vars['page']);
 
 		$str_form .= getFormTitleNav($this->oL->m('1061'), '<span style="float:right">'.$oForm->get_button('submit').'</span>');
-		for (; list($elK, $arV) = each($vars['page']);)
+		foreach ($vars['page'] as $elK => $arV)
 		{
 			$tmp['strBtnRemove'] = '';
 			$tmp['strBtnAdd'] = '<input type="submit" style="text-align:center;width:24px;height:24px" class="submitcancel" name="'.
@@ -202,7 +202,7 @@ class gw_addon_custom_pages_admin extends gw_addon
 	{
 		$arSql = $this->oDb->sqlExec( $this->oSqlQ->getQ('get-date-mm', $this->sys['tbl_prefix'].'pages') );
 		$ar = array('max' => time(), 'min' => 0);
-		for (; list($arK, $arV) = each($arSql);)
+		foreach ($arSql as $arK => $arV)
 		{
 			if (empty($arV['max']) && empty($arV['min']))
 			{

@@ -134,7 +134,7 @@ class gw2_html
 		$preg = "/({)([ A-Za-z0-9:\/\-_]+)(})/i";
 		if (preg_match_all($preg, $t, $tmp['tpl_matches']))
 		{
-			while (list($k, $cmd_src) = each($tmp['tpl_matches'][2]))
+			foreach ($tmp['tpl_matches'][2] as $k => $cmd_src)
 			{
 				$arCmd[$k] = $tmp['tpl_matches'][1][$k].$cmd_src.$tmp['tpl_matches'][3][$k];
 				$tmp['cmd'] = trim($cmd_src);
