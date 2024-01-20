@@ -1,7 +1,7 @@
 <?php
 /**
  * Autolinks for Glossword
- * � 2004 Dmitry N. Shilnikov <dev at glossword dot info>
+ * © 2004 Dmitry N. Shilnikov <dev at glossword dot info>
  * $Id: class.autolinks.php,v 1.5 2006/10/06 12:06:09 yrtimd Exp $
  * http://glossword.info/dev/
  * 

@@ -1,8 +1,8 @@
 <?php
 /*
  * Query storage
- *  � 2008-2012 Glossword.biz team <team at glossword dot biz>
- *  � 2002-2008 Dmitry N. Shilnikov
+ *  © 2008-2012 Glossword.biz team <team at glossword dot biz>
+ *  © 2002-2008 Dmitry N. Shilnikov
  * $Id: query_storage_global-mysql410.php 491 2008-06-13 10:05:06Z glossword_team $
  */
 

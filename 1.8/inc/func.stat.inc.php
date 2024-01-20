@@ -5,7 +5,7 @@ if (!defined('IN_GW'))
 }
 /**
  *  Glossword - glossary compiler (http://glossword.info/)
- *  � 2002-2007 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  © 2002-2007 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
