@@ -592,7 +592,7 @@ if ($sys['is_log_ref'])
 	{
 		$oLog = new gw_logwriter($sys['path_logs']);
 	}
-	if ( ($HTTP_REF != '') && (!preg_match("/" . HTTP_HOST . '/', $HTTP_REF) ) )
+	if ( ($HTTP_REF != '') && (!preg_match("/" . preg_quote(HTTP_HOST, '/') . "/", $HTTP_REF) ) )
 	{
 		$oLog->remote_ua = REMOTE_UA;
 		$oLog->remote_ip = $oFunc->ip2int(REMOTE_IP);
