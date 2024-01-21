@@ -389,12 +389,11 @@ class gwv_template
 		{
 			$this->arBlockC[] = $dynName;
 		}
-		foreach ($this->arBlockV[$dynName] as $k => $value) {
-			$this->varsRun[$dynName] = $value;
-			if ($value == 'end') {
-				array_pop($this->arBlockC);
-				return false;
-			}
+		// Use array_shift to get the first element of the array
+		list($k, $v) = array_shift($this->arBlockV[$dynName]);
+		if (!$k || $v == 'end') {
+			array_pop($this->arBlockC);
+			return false;
 		}
 		return true;
 	}
