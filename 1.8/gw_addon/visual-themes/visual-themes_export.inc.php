@@ -82,7 +82,7 @@ if ($this->gw_this['vars']['post'] == '')
 		if (!empty($ar_files))
 		{
 			$xml .= CRLF . "\t". '<group id="binary">';
-			foreach ($ar_files as $k => $v) 
+			foreach ($ar_files as $k => $v) {
 				$xml .= CRLF . "\t\t" . '<setting key="';
 				$xml .= $v;
 				$xml .= '">';
