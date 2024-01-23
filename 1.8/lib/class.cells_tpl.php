@@ -145,7 +145,7 @@ class gw_cells_tpl
                 if ($column_tr == 1) {
                     $tmp['int_td_width'] += intval(100 / $tmp['x']);
                     if ($column_td == $tmp['x']) {
-                        $tmp['auto_td_width'] = $tmp['auto_td_width'] + (100 - $tmp['int_td_width']) . '%';
+                        $tmp['auto_td_width'] = rtrim($tmp['auto_td_width'], '%') + (100 - $tmp['int_td_width']) . '%';
                     }
                     $oTpl->assign(array('cells_td:attr' => ' style="width:' . $tmp['auto_td_width'] . '"'));
                 }
