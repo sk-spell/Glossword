@@ -31,9 +31,11 @@ class gw_addon_dicts_admin extends gw_addon
 		$arSql = $this->oDb->sqlRun($this->oSqlQ->getQ('get-vkbd-profiles-adm'), $this->component);
 		$ar_profiles = array();
 		$this->ar_profiles = array();
-		foreach ($arSql as $k => $arV) {
-			/* For <select> */
-			$this->ar_profiles[$arV['id_profile']] = $arV;
+		if (is_array($arSql)) {
+			foreach ($arSql as $k => $arV) {
+				/* For <select> */
+				$this->ar_profiles[$arV['id_profile']] = $arV;
+			}
 		}
 		return '<div class="actions-secondary">'.
 			implode(' ', $this->gw_this['ar_actions_list'][$this->component]).
