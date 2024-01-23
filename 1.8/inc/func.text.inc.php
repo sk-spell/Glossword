@@ -270,12 +270,16 @@ function gw_bbcode_htmlspecialchars($t)
 /* */
 function gw_bbcode_html($t)
 {
-	$regexfind[] = '/\&lt;(.+)\&gt;/esiU';
+	$regexfind[] = '/\&lt;(.+)\&gt;/siU';
 	$t = str_replace('&amp;', '&', $t);
 	$t = str_replace('&quot;', '"', $t);
 	$t = str_replace('&039;', '\'', $t);
 	$regexreplace[] = "gw_bbcode_html_tag(gw_bbcode_htmlspecialchars('\\1'))";
-	$t = preg_replace($regexfind, $regexreplace, $t);
+	$t = preg_replace_callback($regexfind,
+		function ($matches) {
+		    return gw_bbcode_html_tag(gw_bbcode_htmlspecialchars($matches[1]));
+		},
+		$t);
 #	$t = str_replace('&#', '&amp;#', $t);
 	$t = str_replace('![cdata', '![CDATA', $t);
 	$t = str_replace('!doctype', '!DOCTYPE', $t);
