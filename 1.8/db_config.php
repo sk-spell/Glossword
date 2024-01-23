@@ -8,6 +8,7 @@ $sys['tbl_prefix'] = 'gw_';
 $sys['db_type'] = 'mysql';
 /* Path names for Glossword */
 $sys['server_proto'] = 'http://';
+/* server_host must be without trailing "/", otherwise login will not work! */
 $sys['server_host'] = '127.0.0.1';
 $sys['server_dir'] = '/glossword/1.8';
 /* Path to sources */
