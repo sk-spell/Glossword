@@ -504,7 +504,7 @@ class gw_functions {
 					: $charN.$charL.$charU)))
 				);
 		$len = strlen($charN);
-		mt_srand( (int) microtime()*1_000_000);
+		mt_srand( (int) microtime()*1000000);
 		for ($i = 0; $i < $maxchar; $i++)
 		{
 			$sed = mt_rand(0, $len-1);

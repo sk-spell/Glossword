@@ -66,12 +66,12 @@ function gw_make_captcha()
         for ($i = 0; $i < $fontfile_width[$k] && $symbol < $alphabet_length; $i++) {
             $transparent = (imagecolorat($font_resource[$k], $i, 0) >> 24) == 127;
             if (!$reading_symbol && !$transparent) {
-                $font_metrics[$k][$alphabet{$symbol}] = array('start' => $i);
+                $font_metrics[$k][$alphabet[$symbol]] = array('start' => $i);
                 $reading_symbol = true;
                 continue;
             }
             if ($reading_symbol && $transparent) {
-                $font_metrics[$k][$alphabet{$symbol}]['end'] = $i;
+                $font_metrics[$k][$alphabet[$symbol]]['end'] = $i;
                 $reading_symbol = false;
                 $symbol++;
                 continue;
@@ -84,7 +84,7 @@ function gw_make_captcha()
     /* Create text */
     for ($i = 0; $i < $len; $i++) {
         $font_file_id = mt_rand(0, sizeof($ar_fonts) - 1);
-        $m = $font_metrics[$font_file_id][$chars{$i}];
+        $m = $font_metrics[$font_file_id][$chars[$i]];
         $y = mt_rand(-$fluctuation_amplitude, $fluctuation_amplitude) + ($height - $fontfile_height[$font_file_id]) / 2 + 2;
         /* Font size -6 big .. 6 small */
         $shift = $resize = mt_rand(-6, 6);
