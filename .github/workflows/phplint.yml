@@ -6,7 +6,7 @@ on:
    branches: [ "stand-alone" ]
  pull_request:
    branches: [ "stand-alone" ]
-  workflow_dispatch:
+ workflow_dispatch:
   
 jobs:
   phplint:
