@@ -10,7 +10,7 @@
         "ext-xml": "*",
         "ext-xmlrpc": "*",
         "ext-xsl": "*",
-        "ext-zip": "*",
+        "ext-zip": "*"
     },
     "license": "GPL-2.0-or-later",
     "prefer-stable": true,
