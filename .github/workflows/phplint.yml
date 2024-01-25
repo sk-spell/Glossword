@@ -2,10 +2,10 @@ name: PHP Linting
 # https://github.com/michaelw90/PHP-Lint
 
 on:
-  push:
-    branches: [ "stand-alone" ]
-  pull_request:
-    branches: [ "stand-alone" ]
+#  push:
+#    branches: [ "stand-alone" ]
+#  pull_request:
+#    branches: [ "stand-alone" ]
   workflow_dispatch:
   
 jobs:
