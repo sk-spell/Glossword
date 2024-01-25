@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008 Glossword.biz team
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  ï¿½ 2008 Glossword.biz team
+ *  ï¿½ 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -29,7 +29,8 @@ if (!$this->gw_this['vars']['isConfirm'])
 /* Check permission to edit the topic */
 $arSql = $this->oDb->sqlExec($this->oSqlQ->getQ('get-topics-adm', $this->gw_this['vars']['tid']), 'page');
 $arParsed = isset($arSql[0]) ? $arSql[0] : array();
-$is_allow_edit = ($this->oSess->is('is-topics') ? 1 : ($this->oSess->is('is-topics-own') && ($arParsed['id_user'] == $this->oSess->id_user)) ? 1 : 0);
+$is_allow_edit = ($this->oSess->is('is-topics') ? 1 :
+	(($this->oSess->is('is-topics-own') && ($arParsed['id_user'] == $this->oSess->id_user)) ? 1 : 0));
 if (!$is_allow_edit)
 {
 	$this->str .= '<p class="xu">'.$this->oL->m('reason_13').'</p>';

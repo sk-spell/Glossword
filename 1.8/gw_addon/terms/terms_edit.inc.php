@@ -200,9 +200,9 @@ if ( isset($ar_allowed_dicts[$this->gw_this['vars']['id']]) )
 	/* Conditions 1a, 1b, 1c. */ 
 	$is_allow_edit = ($this->oSess->is('is-terms')
 		? 1 
-		: (($arTermParam['id_user'] == $this->oSess->id_guest)
+		: ((($arTermParam['id_user'] == $this->oSess->id_guest)
 			|| ($this->oSess->is('is-terms-own') && ($arTermParam['id_user'] == $this->oSess->id_user))) 
-			? 1 : 0
+			? 1 : 0)
 	);
 }
 /* Condition 2. */ 

@@ -1,7 +1,7 @@
 <?php
 /**
  * Glossword - glossary compiler (http://glossword.info/)
- * © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ * ï¿½ 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,7 +42,8 @@ if (!$this->gw_this['vars']['tid'])
 #$this->sys['isDebugQ'] = 1;
 
 
-$is_allow_edit = ($this->oSess->is('is-cpages') ? 1 : ($this->oSess->is('is-cpages-own') && ($arParsed['id_user'] == $this->oSess->id_user)) ? 1 : 0);
+$is_allow_edit = ($this->oSess->is('is-cpages') ? 1 :
+	(($this->oSess->is('is-cpages-own') && ($arParsed['id_user'] == $this->oSess->id_user)) ? 1 : 0));
 if (!$is_allow_edit)
 {
 	$this->str .= '<p class="xu">'.$this->oL->m('reason_13').'</p>';
@@ -209,7 +210,7 @@ else
 	$q1['page_uri'] = $arPre['page_uri'];
 	$q1['id_user'] = $this->oSess->id_user;
 	$q1['date_modified'] = $this->sys['time_now_gmt_unix'];
-	/* Set ‘is_active' for subpages */
+	/* Set ï¿½is_active' for subpages */
 	if (isset($this->ar[$this->gw_this['vars']['tid']]['ch']))
 	{
 		$arKeys = ctlgGetTree($this->ar, $this->gw_this['vars']['tid']);

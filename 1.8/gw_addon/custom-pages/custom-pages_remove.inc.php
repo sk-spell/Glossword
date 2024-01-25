@@ -1,7 +1,7 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.info/)
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  ï¿½ 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -27,7 +27,8 @@ if (!$this->gw_this['vars']['isConfirm'])
 /* Check permission for the page */
 $arSql = $this->oDb->sqlExec($this->oSqlQ->getQ('get-custompages-adm', $this->gw_this['vars']['tid']));
 $arParsed = isset($arSql[0]) ? $arSql[0] : array('id_user' => -1);
-$is_allow_edit = ($this->oSess->is('is-cpages') ? 1 : ($this->oSess->is('is-cpages-own') && ($arParsed['id_user'] == $this->oSess->id_user)) ? 1 : 0);
+$is_allow_edit = ($this->oSess->is('is-cpages') ? 1 :
+	(($this->oSess->is('is-cpages-own') && ($arParsed['id_user'] == $this->oSess->id_user)) ? 1 : 0));
 if (!$is_allow_edit)
 {
 	$this->str .= '<p class="xu">'.$this->oL->m('reason_13').'</p>';
