@@ -600,7 +600,10 @@ if ($gw_this['vars'][GW_ACTION] == GW_A_SEARCH)
 	{
 		$ar_theme['split_pagenumbers'] = ' &#8226; ';
 		$oTpl->addVal( 'v:nav_pages',
-				getNavToolbar($intSumPages, $gw_this['vars']['p'], $sys['page_admin'] . '?'.GW_ACTION.'='.GW_A_SEARCH.'&id_srch='.$id_srch.'&d='.$d.'&p=')
+				getNavToolbar(
+					$intSumPages,
+					$sys['page_admin'] . '?'.GW_ACTION.'='.GW_A_SEARCH.'&id_srch='.$id_srch.'&d='.$d.'&p=',
+					$gw_this['vars']['p'])
 				);
 	}
 	if ($gw_this['arSrchResults']['found'] == 0) // nothing was found

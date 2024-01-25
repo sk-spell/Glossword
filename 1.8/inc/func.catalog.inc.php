@@ -433,7 +433,7 @@ function getDictList($language = '', $dict_nmax = 5, $x = 1, $y = 99, $qStrOrder
 	if (GW_IS_BROWSE_WEB)
 	{
 		$page_index =& $sys['page_index'];
-		$str = getCatalogTitle($ar, $arDictMap, 0, 1, $dict_nmax);
+		$str = getCatalogTitle($ar, $arDictMap, $dict_nmax, 0, 1);
 	}
 	return $str;
 }
@@ -445,7 +445,7 @@ function getDictList($language = '', $dict_nmax = 5, $x = 1, $y = 99, $qStrOrder
  *
  * @return  array
  */
-function getCatalogTitle($ar, $arDictMap, $p = 0, $depth = 1, $dict_nmax, $runtime = 0)
+function getCatalogTitle($ar, $arDictMap, $dict_nmax, $p = 0, $depth = 1, $runtime = 0)
 {
 	global $curDateMk, $curDate, $oL, $sys, $oFunc, $oHtml, $gw_this, $ar_theme;
 
@@ -583,7 +583,7 @@ function getCatalogTitle($ar, $arDictMap, $p = 0, $depth = 1, $dict_nmax, $runti
 				}
 #				if (GW_IS_BROWSE_ADMIN || $gw_this['vars'][GW_ACTION] == '' || $gw_this['vars'][GW_ACTION] == 'catalog') // catalog page
 #				{
-					$str .= getCatalogTitle($ar, $arDictMap, $k, $depth + 1, $dict_nmax, $runtime);
+					$str .= getCatalogTitle($ar, $arDictMap, $dict_nmax, $k, $depth + 1, $runtime);
 #				}
 				if (isset($ar[$k]['ch']))
 				{
@@ -1196,7 +1196,7 @@ function gw_breadcrumbs_pages_ar($ar, $tid = 0, $ar_bc = array())
 	return $ar_bc;
 }
 /* */
-function gw_breadcrumbs_is_in_root($ar, $tid = 0, $id_root)
+function gw_breadcrumbs_is_in_root($ar, $id_root, $tid = 0)
 {
 	$id_parent = isset($ar[$tid]['p']) ? $ar[$tid]['p'] : 0;
 	if ($id_parent == $id_root)
@@ -1206,7 +1206,7 @@ function gw_breadcrumbs_is_in_root($ar, $tid = 0, $id_root)
 	/* There is some Parent ID... */
 	if ($id_parent)
 	{
-		return gw_breadcrumbs_is_in_root($ar, $id_parent, $id_root);
+		return gw_breadcrumbs_is_in_root($ar, $id_root, $id_parent);
 	}
 	return false;
 }

@@ -19,7 +19,7 @@
 // --------------------------------------------------------
 
 
-function gwShuffle($maxBanners=1, $Array){
+function gwShuffle($Array, $maxBanners=1){  /* TODO: Unused? */
     $ArrayC = count($Array);
     ### init new array
     for ($i=0; $i < $ArrayC; $i++) { $randA[$i] = $i; }

@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008 Glossword.biz team
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  Â© 2008 Glossword.biz team
+ *  Â© 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -186,13 +186,15 @@ class gw_addon_log_search_admin extends gw_addon
 		/* */
 		global $strR;
 
-		$str_pages = getNavToolbar($this->int_pages, $this->gw_this['vars']['p'],
-					$this->sys['page_admin'].'?'.GW_ACTION.'='.$this->gw_this['vars'][GW_ACTION].'&'.GW_TARGET.'='.$this->addon_name.'&'.
-					'q='.$this->gw_this['vars']['q'].'&'.
-					'w1='.$this->gw_this['vars']['w1'].'&'.
-					'w2='.$this->gw_this['vars']['w2'].'&'.
-					'id='.$this->gw_this['vars']['id'].'&'.
-					'uid='.$this->gw_this['vars']['uid'].'&p='
+		$str_pages = getNavToolbar(
+			$this->int_pages,
+			$this->sys['page_admin'].'?'.GW_ACTION.'='.$this->gw_this['vars'][GW_ACTION].'&'.GW_TARGET.'='.$this->addon_name.'&'.
+				'q='.$this->gw_this['vars']['q'].'&'.
+				'w1='.$this->gw_this['vars']['w1'].'&'.
+				'w2='.$this->gw_this['vars']['w2'].'&'.
+				'id='.$this->gw_this['vars']['id'].'&'.
+				'uid='.$this->gw_this['vars']['uid'].'&p=',
+			$this->gw_this['vars']['p']
 		);
 
 		$strR .= '<table cellspacing="1" cellpadding="3" border="0" width="100%"><tbody><tr class="xt gray">';
@@ -256,13 +258,15 @@ class gw_addon_log_search_admin extends gw_addon
 		/* */
 		global $strR;
 
-		$str_pages = getNavToolbar($this->int_pages, $this->gw_this['vars']['p'],
-					$this->sys['page_admin'].'?'.GW_ACTION.'='.$this->gw_this['vars'][GW_ACTION].'&'.GW_TARGET.'='.$this->addon_name.'&'.
-					'q='.$this->gw_this['vars']['q'].'&'.
-					'w1='.$this->gw_this['vars']['w1'].'&'.
-					'w2='.$this->gw_this['vars']['w2'].'&'.
-					'id='.$this->gw_this['vars']['id'].'&'.
-					'uid='.$this->gw_this['vars']['uid'].'&p='
+		$str_pages = getNavToolbar(
+			$this->int_pages,
+			$this->sys['page_admin'].'?'.GW_ACTION.'='.$this->gw_this['vars'][GW_ACTION].'&'.GW_TARGET.'='.$this->addon_name.'&'.
+				'q='.$this->gw_this['vars']['q'].'&'.
+				'w1='.$this->gw_this['vars']['w1'].'&'.
+				'w2='.$this->gw_this['vars']['w2'].'&'.
+				'id='.$this->gw_this['vars']['id'].'&'.
+				'uid='.$this->gw_this['vars']['uid'].'&p=',
+			$this->gw_this['vars']['p']
 		);
 
 		$strR .= '<table cellspacing="1" cellpadding="3" border="0" width="100%"><tbody><tr class="xt gray">';
@@ -316,13 +320,15 @@ class gw_addon_log_search_admin extends gw_addon
 	function _print_report($arSql)
 	{
 		global $strR;
-		$str_pages = getNavToolbar($this->int_pages, $this->gw_this['vars']['p'],
-					$this->sys['page_admin'].'?'.GW_ACTION.'='.$this->gw_this['vars'][GW_ACTION].'&'.GW_TARGET.'='.$this->addon_name.'&'.
+		$str_pages = getNavToolbar(
+				$this->int_pages,
+				$this->sys['page_admin'].'?'.GW_ACTION.'='.$this->gw_this['vars'][GW_ACTION].'&'.GW_TARGET.'='.$this->addon_name.'&'.
 					'q='.$this->gw_this['vars']['q'].'&'.
 					'w1='.$this->gw_this['vars']['w1'].'&'.
 					'w2='.$this->gw_this['vars']['w2'].'&'.
 					'id='.$this->gw_this['vars']['id'].'&'.
-					'uid='.$this->gw_this['vars']['uid'].'&p='
+					'uid='.$this->gw_this['vars']['uid'].'&p=',
+				$this->gw_this['vars']['p']
 		);
 	
 		$strR .= '<table cellspacing="1" cellpadding="0" border="0" width="100%"><tbody>';

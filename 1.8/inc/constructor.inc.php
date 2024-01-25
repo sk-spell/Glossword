@@ -196,7 +196,11 @@ switch ( $gw_this['vars']['layout'] )
 			$oTpl->addVal( 'v:dict_date_modified', sprintf( '<span class="gray">%s:</span> %s', $oL->m( 'date_modif' ), date_extract_int( $arDictParam['date_modified'], "%d %F %Y" ) ) );
 			$oTpl->addVal( 'l:pages', $oL->m( 'L_pages' ) );
 			$gw_this['vars']['p'] = 0;
-			$oTpl->addVal( 'v:nav_pages', getNavToolbar( $intSumPages, $gw_this['vars']['p'], $sys['page_index'] . '?' . GW_ACTION . '=' . GW_A_LIST . '&d=' . $arDictParam['uri'] . '&p=' ) );
+			$oTpl->addVal( 'v:nav_pages', getNavToolbar(
+				$intSumPages,
+				$sys['page_index'] . '?' . GW_ACTION . '=' . GW_A_LIST . '&d=' . $arDictParam['uri'] . '&p=' ),
+				$gw_this['vars']['p']
+			);
 			$gw_this['href_add_a_term'] = $oHtml->url_normalize( $sys['page_index'] . '?' . GW_ACTION . '=' . GW_A_CUSTOMPAGE . '&id=1&d=' . $arDictParam['uri'] . '&uid=newterm' );
 			$oHtml->setTag( 'a', 'onclick', "self.location='" . $gw_this['href_add_a_term'] . "';return false" );
 			$gw_this['url_add_a_term'] = $oHtml->a( 'javascript:void(0)', $oL->m( '1095' ) );
@@ -287,7 +291,12 @@ switch ( $gw_this['vars']['layout'] )
 			}
 			if ( $intSumPages > 1 )
 			{
-				$oTpl->addVal( 'v:nav_pages', getNavToolbar( $intSumPages, $gw_this['vars']['p'], $sys['page_index'] . '?' . GW_ACTION . '=' . $gw_this['vars']['layout'] . '&strict=' . $strict . '&d=' . $gw_this['vars'][GW_ID_DICT] . '&w1=' . urlencode( $w1 ) . '&w2=' . urlencode( $w2 ) . '&w3=' . urlencode( $w3 ) . '&p=' ) );
+				$oTpl->addVal( 'v:nav_pages',
+					getNavToolbar(
+						$intSumPages,
+						$sys['page_index'] . '?' . GW_ACTION . '=' . $gw_this['vars']['layout'] . '&strict=' . $strict . '&d=' . $gw_this['vars'][GW_ID_DICT] . '&w1=' . urlencode( $w1 ) . '&w2=' . urlencode( $w2 ) . '&w3=' . urlencode( $w3 ) . '&p=' ),
+						$gw_this['vars']['p']
+					);
 			}
 			$gw_this['id_tpl_page'] = GW_TPL_TERM_LIST;
 		}
@@ -690,7 +699,11 @@ switch ( $gw_this['vars']['layout'] )
 			{
 				$oTpl->addVal( 'l:pages', $oL->m( 'L_pages' ) . ':' );
 				$oTpl->addVal( 'v:nav_pages',
-						getNavToolbar( $intSumPages, $gw_this['vars']['p'], $sys['page_index'] . '?' . GW_ACTION . '=' . $gw_this['vars'][GW_ACTION] . '&id_srch=' . $id_srch . '&d=' . $arDictParam['id'] . '&visualtheme=' . $gw_this['vars']['visualtheme'] . '&p=' )
+						getNavToolbar(
+							$intSumPages, 
+							$sys['page_index'] . '?' . GW_ACTION . '=' . $gw_this['vars'][GW_ACTION] . '&id_srch=' . $id_srch . '&d=' . $arDictParam['id'] . '&visualtheme=' . $gw_this['vars']['visualtheme'] . '&p=',
+							$gw_this['vars']['p']
+						)
 				);
 			}
 			/* */
@@ -905,7 +918,7 @@ foreach( $arSql2 as $k => $arV)
 	if ( isset( $gw_this['ar_pages'] )
 			&& (($gw_this['vars']['id'] == $arV['id_page'])
 			|| ($gw_this['vars']['id'] == $str_cur_page)
-			|| gw_breadcrumbs_is_in_root( $gw_this['ar_pages'], $gw_this['id_page_int'], $arV['id_page'] )) )
+			|| gw_breadcrumbs_is_in_root( $gw_this['ar_pages'], $arV['id_page'], $gw_this['id_page_int'])) )
 	{
 		/* One of a custom page */
 		$oHtml->setTag( 'a', 'class', 'on' );

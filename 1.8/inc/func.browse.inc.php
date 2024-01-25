@@ -773,7 +773,7 @@ function getSettings()
  *
  * @return   string  simple HTML-code, ready to put inside a table or else.
  */
-function getNavToolbar($page_total, $page_current = 1, $url)
+function getNavToolbar($page_total, $url, $page_current = 1)
 {
 	global $sys, $oHtml, $ar_theme;
 	if ($page_total == 1 || $page_total == 0)

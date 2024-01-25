@@ -106,7 +106,7 @@ class tkit
 		$this->arL =& $a;
 	}
 	/* Load phrases by tag */
-	function import_tag($ar = array(), $lang)
+	function import_tag($lang, $ar = array())
 	{
 		settype($ar, 'array');
 		$this->load_lang_settings($lang);

@@ -1124,7 +1124,7 @@ function searchkeys($ar)
 		$wordsA[$k] = $v;
 		if ($v == '') { unset($wordsA[$k]); }
 	}
-#	$wordsA = gwShuffle(50, $wordsA);
+#	$wordsA = gwShuffle($wordsA, 50);
 	$str = implode(", ", $wordsA);
 	return $str;
 }

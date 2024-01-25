@@ -121,7 +121,7 @@ class gw_render extends gw_htmlforms
 	//
 	function make_xml_trsp($fieldname, $ar = array(), $tag = 'trsp')
 	{
-		return $this->make_xml_set_array2textarea($fieldname, $ar, 'trsp');
+		return $this->make_xml_set_array2textarea($fieldname, 'trsp', $ar);
 	}
 	//
 	function make_html_trsp($fieldname, $ar = array(), $tag = 'trsp')
@@ -506,38 +506,38 @@ class gw_render extends gw_htmlforms
 	//
 	function make_xml_usg($fieldname, $ar = array())
 	{
-		return $this->make_xml_set_array2textarea($fieldname, $ar, 'usg');
+		return $this->make_xml_set_array2textarea($fieldname, 'usg', $ar);
 	}
 	function make_html_usg($fieldname, $ar = array())
 	{
-		return $this->make_html_set_array2textarea($fieldname, $ar, 'usg');
+		return $this->make_html_set_array2textarea($fieldname, 'usg', $ar);
 	}
 	//
 	function make_xml_src($fieldname, $ar = array())
 	{
-		return $this->make_xml_set_textarea($fieldname, $ar, 'src');
+		return $this->make_xml_set_textarea($fieldname, 'src', $ar);
 	}
 	function make_html_src($fieldname, $ar = array())
 	{
-		return $this->make_html_set_textarea($fieldname, $ar, 'src');
+		return $this->make_html_set_textarea($fieldname, 'src', $ar);
 	}
 	//
 	function make_xml_address($fieldname, $ar = array())
 	{
-		return $this->make_xml_set_textarea($fieldname, $ar, 'address');
+		return $this->make_xml_set_textarea($fieldname, 'address', $ar);
 	}
 	function make_html_address($fieldname, $ar = array())
 	{
-		return $this->make_html_set_textarea($fieldname, $ar, 'address');
+		return $this->make_html_set_textarea($fieldname, 'address', $ar);
 	}
 	//
 	function make_xml_phone($fieldname, $ar = array())
 	{
-		return $this->make_xml_set_textarea($fieldname, $ar, 'phone');
+		return $this->make_xml_set_textarea($fieldname, 'phone', $ar);
 	}
 	function make_html_phone($fieldname, $ar = array())
 	{
-		return $this->make_html_set_textarea($fieldname, $ar, 'phone');
+		return $this->make_html_set_textarea($fieldname, 'phone', $ar);
 	}
 	//
 	function make_xml_see($fieldname, $ar = array(), $tag = 'see')
@@ -643,7 +643,7 @@ class gw_render extends gw_htmlforms
 		return $this->make_html_see($fieldname, $ar, $tag);
 	}
 	//
-	function make_xml_set_textarea($fieldname, $ar = array(), $tag)
+	function make_xml_set_textarea($fieldname, $tag, $ar = array())
 	{
 		$tmp['strxml'] = $tmp['str'] = '';
 		$tmp['arEl'] = isset($this->arEl[$fieldname][$ar['elK']]) ? $this->arEl[$fieldname][$ar['elK']] : array();
@@ -664,7 +664,7 @@ class gw_render extends gw_htmlforms
 		return $tmp['strxml'];
 	}
 	//
-	function make_html_set_textarea($fieldname, $ar = array(), $tag)
+	function make_html_set_textarea($fieldname, $tag, $ar = array())
 	{
 		$tmp['str'] = '';
 		$tmp['arEl'] = isset($this->arEl[$fieldname][$ar['elK']]) ? $this->arEl[$fieldname][$ar['elK']] : array();
@@ -692,7 +692,7 @@ class gw_render extends gw_htmlforms
 		return $tmp['str'];
 	}
 	//
-	function make_xml_set_array2textarea($fieldname, $ar = array(), $tag)
+	function make_xml_set_array2textarea($fieldname, $tag, $ar = array())
 	{
 		/* */
 		$tmp['strform'] = $tmp['str'] = '';
@@ -721,7 +721,7 @@ class gw_render extends gw_htmlforms
 		return $tmp['str'];
 	}
 
-	function make_html_set_array2textarea($fieldname, $ar = array(), $tag)
+	function make_html_set_array2textarea($fieldname, $tag, $ar = array())
 	{
 		/* */
 		$tmp['str'] = '';

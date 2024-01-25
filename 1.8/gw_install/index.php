@@ -145,7 +145,7 @@ class gw_mini_site
 		$o->path_locale = $this->g('path_locale');
 		$o->is_debug = $this->g('is_debug_tkit');
 		/* Tkit: Load phrases */
-		$o->import_tag($ar_tkit_profiles, $il);
+		$o->import_tag($il, $ar_tkit_profiles);
 		return $o;
 	}
 	/* */

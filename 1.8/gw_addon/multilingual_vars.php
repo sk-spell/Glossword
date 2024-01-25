@@ -18,7 +18,7 @@ if (!defined('IN_GW')) {
  * and for the whole website
  */
 /* */
-function gw_addon_multilingual_vars_load($filename = '', $obj_tpl)
+function gw_addon_multilingual_vars_load($obj_tpl, $filename = '')
 {
 	global $oFunc, ${$obj_tpl};
 	global $sys, $gw_this, $arDictParam;
@@ -61,10 +61,10 @@ function gw_addon_multilingual_vars($id_dict = 0, $obj_tpl = 'oTpl')
 {
 	if ($id_dict > 0) {
 		$filename = sprintf("gw_xml/multilingual_vars/%d.xml", $id_dict);
-		gw_addon_multilingual_vars_load($filename, $obj_tpl);
+		gw_addon_multilingual_vars_load($obj_tpl, $filename);
 	}
 	$filename = sprintf("gw_xml/multilingual_vars/common.xml", $id_dict);
-	gw_addon_multilingual_vars_load($filename, $obj_tpl);
+	gw_addon_multilingual_vars_load($obj_tpl, $filename);
 }
 
 /* Load multilingual vars per dictionary */
