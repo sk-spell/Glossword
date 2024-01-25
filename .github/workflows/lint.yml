@@ -23,13 +23,9 @@ jobs:
         name: Checkout code
         uses: actions/checkout@v4
 
-      -   # https://github.com/ramsey/composer-install
-        name: Install Composer dependencies
-        uses: ramsey/composer-install@v2
-        with:
-          composer-options: "--prefer-dist --no-scripts"
-
       - name: Check PHP syntax errors
         uses: overtrue/phplint@9.1.0
-
+        with:
+          path: 1.8
+          options: --exclude=*.log
 
