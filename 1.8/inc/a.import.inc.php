@@ -478,10 +478,7 @@ function gw_import_xml()
 				break;
 				case 'defn':
 					$ar_keywords_raw[$v2['tag']][] = $v2['value'];
-					if (!isset($v2['children']))
-					{
-						continue;
-					}
+					if (!isset($v2['children'])) { continue 2; }
 					foreach ($v2['children'] as $k3 => $v3) {
 						/* no contents for definition */
 						if (!is_array($v3) && trim($v3) == '')

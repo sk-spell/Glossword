@@ -1,7 +1,7 @@
 <?php
 /**
  * Glossword - glossary compiler (http://glossword.info/)
- * © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ * Â© 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -111,7 +111,7 @@ else
 					$cnt_pages++;
 				break;
 				case 'entry':
-					if (!isset($v2['children'])) { continue; }
+					if (!isset($v2['children'])) { continue 2; }
 					foreach ($v2['children'] as $k3 => $v3)
 					{
 						$id_lang = $oDom->get_attribute('xml:lang', 'lang', $v3);

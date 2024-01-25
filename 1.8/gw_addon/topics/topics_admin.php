@@ -1,8 +1,8 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.biz/)
- *  © 2008 Glossword.biz team
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  Â© 2008 Glossword.biz team
+ *  Â© 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -450,7 +450,7 @@ class gw_addon_topic_admin extends gw_addon
 							$q1['id_topic'] = $q2['id_topic'] = $id_topic;
 						break;
 						case 'entry':
-							if (!isset($v2['children'])) { continue; }
+							if (!isset($v2['children'])) { continue 2; }
 							foreach ($v2['children'] as $k3 => $v3)
 							{
 								$id_lang = $oDom->get_attribute('xml:lang', 'lang', $v3);
