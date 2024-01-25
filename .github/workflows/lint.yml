@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false     
       matrix:  
-        php-version: ['7.2', '8.2']
+        php-version: ['8.2'] # '7.2', 
         experimental: [false]
 
     steps:
@@ -23,7 +23,14 @@ jobs:
         name: Checkout code
         uses: actions/checkout@v4
         
-      - uses: php-actions/composer@v6
+      - name: Install dependencies
+        uses: php-actions/composer@v6
+        with:
+          dev: yes
+          args: --prefer-dist --no-interaction
+          php_version: ${{ matrix.php-version }}
+          php_extensions: xml 
+          version: 2
 
       - name: Check PHP syntax errors
         uses: overtrue/phplint@9.1.0
