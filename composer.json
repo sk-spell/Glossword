@@ -1,5 +1,5 @@
 {
-    "name": "glossword",
+    "name": "sk-spell/glossword",
     "description": "multilingual dictionary, glossary, or encyclopedia",
     "type": "library",
     "require": {
