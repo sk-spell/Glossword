@@ -22,6 +22,8 @@ jobs:
       -   # https://github.com/actions/checkout
         name: Checkout code
         uses: actions/checkout@v4
+        
+      - uses: php-actions/composer@v6
 
       - name: Check PHP syntax errors
         uses: overtrue/phplint@9.1.0
