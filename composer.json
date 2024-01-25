@@ -1,0 +1,18 @@
+{
+    "name": "Glossword",
+    "description": "multilingual dictionary, glossary, or encyclopedia",
+    "type": "library",
+    "require": {
+        "php": ">=7.4",
+        "ext-mbstring": "*",
+        "ext-gd": "*",
+        "ext-mysql": "*",
+        "ext-xml": "*",
+        "ext-xmlrpc": "*",
+        "ext-xsl": "*",
+        "ext-zip": "*",
+    },
+    "license": "GPL-2.0-or-later",
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}
