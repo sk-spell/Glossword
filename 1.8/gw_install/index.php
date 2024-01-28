@@ -673,7 +673,40 @@ class gw_var_store {
 	}
 }
 
-class gw_mini_timer{public $p,$a;function gw_mini_timer($p=''){$this->start($p);}function start($p=''){$this->p=$p?$p:mktime();$this->a[$this->p.'s']=array_sum(explode(' ',microtime()));}function end($p=''){$p=$p?$p:$this->p;$this->a[$p.'e']=array_sum(explode(' ',microtime()));if(isset($this->a[$p.'s'])){$this->a[$p]=sprintf("%1.5f",$this->a[$p.'e']-$this->a[$p.'s']);return $this->a[$p];}return 0;}function _($p=''){return $this->get($p);}function get($p=''){if(isset($this->a[$p])){return $this->a[$p];}return $this->a;}}
+class gw_mini_timer
+{
+	public $p, $a;
+	function __construct($p = '')
+	{
+		$this->start($p);
+	}
+	function start($p = '')
+	{
+		$this->p = $p ? $p : time();
+		$this->a[$this->p . 's'] = array_sum(explode(' ', microtime()));
+	}
+	function end($p = '')
+	{
+		$p = $p ? $p : $this->p;
+		$this->a[$p . 'e'] = array_sum(explode(' ', microtime()));
+		if (isset($this->a[$p . 's'])) {
+			$this->a[$p] = sprintf("%1.5f", $this->a[$p . 'e'] - $this->a[$p . 's']);
+			return $this->a[$p];
+		}
+		return 0;
+	}
+	function _($p = '')
+	{
+		return $this->get($p);
+	}
+	function get($p = '')
+	{
+		if (isset($this->a[$p])) {
+			return $this->a[$p];
+		}
+		return $this->a;
+	}
+}
 
 
 /* */

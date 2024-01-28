@@ -471,7 +471,7 @@ class gwv_template
 class gwv_template_cmd extends gwv_template
 {
 	/* */
-	function gwv_template_cmd()
+	function __construct()
 	{
 		$this->_reset();
 	}
