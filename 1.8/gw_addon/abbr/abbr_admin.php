@@ -9,7 +9,7 @@ class gw_addon_abbr_admin extends gw_addon
 	var $addon_name = 'abbr';
 	var $ar_groups;
 	/* Autoexec */
-	function gw_addon_abbr_admin()
+	function __construct()
 	{
 		$this->init();
 		$this->oL->setHomeDir($this->sys['path_locale']);

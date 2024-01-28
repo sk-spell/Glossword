@@ -13,7 +13,7 @@ class gw_addon_recount_dict extends gw_addon
 {
 	var $addon_name = 'recount_dict';
 	/* Autoexec */
-	function gw_addon_recount_dict()
+	function __construct()
 	{
 		$this->init_m();
 	}

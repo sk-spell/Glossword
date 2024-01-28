@@ -57,7 +57,7 @@ class gwv_template
 // --------------------------------------------------------
 // Autostart
 // --------------------------------------------------------
-	function gwv_template()
+	function __construct()
 	{
 		$this->namespace_default = 'GW';
 		$this->oCmd = new gwv_template_cmd();

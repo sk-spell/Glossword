@@ -21,7 +21,7 @@ if (!defined('IN_GW'))
 class gw_addon_topic_admin extends gw_addon
 {
 	/* Autoexec */
-	function gw_addon_topic_admin()
+	function __construct()
 	{
 		$this->init();
 		/* */

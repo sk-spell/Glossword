@@ -25,7 +25,7 @@ class gw_mini_site
 {
 	public $oTkit, $oHtml, $oTimer;
 	/* Autoexec */
-	function gw_mini_site()
+	function __construct()
 	{
 		$this->V = new gw_var_store(array(
 			'is_debug_time' => 0,

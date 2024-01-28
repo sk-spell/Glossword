@@ -23,7 +23,7 @@ class gw_addon_vkbd_admin extends gw_addon
 	var $ar_profile;
 	var $ar_profiles;
 	/* Autoexec */
-	function gw_addon_vkbd_admin()
+	function __construct()
 	{
 		$this->init();
 	}

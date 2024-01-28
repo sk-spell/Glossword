@@ -21,7 +21,7 @@ class gw_addon_log_search_admin extends gw_addon
 	var $int_found;
 	var $int_pages;
 	/* Autoexec */
-	function gw_addon_log_search_admin()
+	function __construct()
 	{
 		$this->init();
 		$this->oL->getCustom('export', $this->oSess->user_get('locale_name'), 'join');

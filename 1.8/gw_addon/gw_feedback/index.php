@@ -29,7 +29,7 @@ class gw_addon_feedback extends gw_addon
 	/* Autoexec */
 
 
-	function gw_addon_feedback ()
+	function __construct()
 	{
 		$this->init();
 	}

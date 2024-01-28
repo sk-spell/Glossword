@@ -25,7 +25,7 @@ class gw_addon_visual_themes_admin extends gw_addon
 	/* Autoexec */
 
 
-	function gw_addon_visual_themes_admin ()
+	function __construct()
 	{
 		$this->init();
 	}

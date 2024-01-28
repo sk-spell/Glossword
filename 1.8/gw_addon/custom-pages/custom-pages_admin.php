@@ -22,7 +22,7 @@ class gw_addon_custom_pages_admin extends gw_addon
 	/* Current component name */
 	var $component;
 	/* Autoexec */
-	function gw_addon_custom_pages_admin()
+	function __construct()
 	{
 		$this->init();
 #		$this->oL->setHomeDir($this->sys['path_locale']);

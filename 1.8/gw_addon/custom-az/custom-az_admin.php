@@ -23,7 +23,7 @@ class gw_addon_custom_az_admin extends gw_addon
 	var $ar_profiles_browse;
 	var $left_td_width = '25%';
 	/* Autoexec */
-	function gw_addon_custom_az_admin()
+	function __construct()
 	{
 		$this->init();
 		/* The list of subsections */
