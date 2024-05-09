@@ -375,6 +375,24 @@ class gwv_template
 			}
 		}
 	}
+
+	/**
+	 * PHP 8 compatibility hack
+	 * local reimplementation of each() for _dRun
+	 */
+	function myeach(&$arr)
+	{
+		if (!is_array($arr) || empty($arr))
+		{
+			return false;
+		}
+		$key = key($arr);
+		if ($key === null) return false;
+		$val = current($arr);
+		next($arr);
+		return [1 => $val, 'value' => $val, 0 => $key, 'key' => $key];
+	}
+
 	/* */
 	function _dRun($dynName)
 	{
@@ -385,13 +403,13 @@ class gwv_template
 			print '<br/>cache run';
 			exit;
 		}
-		if (@end($this->arBlockC) != $dynName)
+		if (end($this->arBlockC) != $dynName)
 		{
 			$this->arBlockC[] = $dynName;
 		}
-		// Use array_shift to get the first element of the array
-		list($k, $v) = array_shift($this->arBlockV[$dynName]);
-		if (!$k || $v == 'end') {
+		if (!(list($k, $this->varsRun[$dynName]) = $this->myeach($this->arBlockV[$dynName])) ||
+			$this->varsRun[$dynName] == 'end')
+		{
 			array_pop($this->arBlockC);
 			return false;
 		}
