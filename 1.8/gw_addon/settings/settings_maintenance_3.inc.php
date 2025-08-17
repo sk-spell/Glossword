@@ -134,6 +134,11 @@ function gw_dict_recount($vars)
 
 $arPost =& $this->gw_this['vars']['arPost'];
 
+// Ensure $arPost is an array
+if (!is_array($arPost)) {
+	$arPost = array();
+}
+
 $this->str .= getFormTitleNav($this->oL->m(1003));
 if ($this->gw_this['vars']['isConfirm'] == '1')
 {
@@ -142,6 +147,11 @@ if ($this->gw_this['vars']['isConfirm'] == '1')
 else
 {
 	/* Check all dictionaries by default */
+	// Ensure dictionaries key exists as an array
+	if (!isset($arPost['dictionaries']) || !is_array($arPost['dictionaries'])) {
+		$arPost['dictionaries'] = array();
+	}
+	
 	foreach ($this->gw_this['ar_dict_list'] as $k => $arDictParam)
 	{
 		$arPost['dictionaries'][$arDictParam['id']] = 1;
