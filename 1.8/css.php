@@ -37,7 +37,7 @@ if (!isset($sys['server_dir']))
 	}
 	/* allow to login when the script is not installed */
 	if (preg_match("/\/gw_admin/", $sys['server_dir']))
-	{	
+	{
 		$sys['server_dir'] = str_replace('/gw_admin', '', $sys['server_dir']);
 	}
 }
@@ -122,7 +122,7 @@ function gw_get_theme($theme_name)
 		$arSql = $oDb->sqlRun($oSqlQ->getQ('get-theme', gw_text_sql($theme_name), '1'), 'theme');
 		if (empty($arSql))
 		{
-			die('Unable to load visual theme `' . $theme_name.'` from table `'.$sys['tbl_prefix'].'themes`. Check database settings or re-install the software.');
+			die('Unable to load visual theme `' . $theme_name.'` from table `'.$sys['tbl_prefix'].'theme`. Check database settings or re-install the software.');
 		}
 	}
 	else

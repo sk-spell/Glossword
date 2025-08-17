@@ -80,7 +80,7 @@ function gw_get_theme($theme_name)
 		$arSql = $oDb->sqlRun($oSqlQ->getQ('get-theme', gw_text_sql($theme_name), '1,2'), 'theme');
 		if (empty($arSql))
 		{
-			die('Unable to load visual theme `' . $theme_name.'` from table `'.$sys['tbl_prefix'].'themes`. Check database settings or re-install the software.');
+			die('Unable to load visual theme `' . $theme_name.'` from table `'.$sys['tbl_prefix'].'theme`. Check database settings or re-install the software.');
 		}
 	}
 	else
