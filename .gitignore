@@ -1,8 +1,18 @@
 1.8/gw_temp/gw_export
 1.8/gw_temp/gw_logs
 
+
 *.txt
 *.bak
 *.bak-*
 *.my
 *.org
+*.log
+*.new
+*.phplint.c*
+
+var/*
+notes/*
+vendor/*
+1.8/gw_install/temp/*
+1.8/gw_temp*
