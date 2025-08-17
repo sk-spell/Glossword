@@ -152,13 +152,12 @@ class gw_session_1_9
 	{
 		if ($id_sess)
 		{
-			/* Search Session ID in database. Load user settings also */
+			/* Search Session ID in database using prepared statements */
 			$this->id_sess = $id_sess;
-			$sql = 'SELECT s.*, u.* ';
-			$sql .= 'FROM `'.$this->db_table_sessions.'` AS s, `'.$this->db_table_users.'` AS u ';
-			$sql .= 'WHERE u.id_user = s.id_user AND s.id_sess = "'.$this->id_sess.'" ';
-			$sql .= 'LIMIT 1';
-			$arSql = $this->oDb->sqlExec($sql);
+			$sql = 'SELECT s.*, u.* '
+				. 'FROM `'.$this->db_table_sessions.'` AS s, `'.$this->db_table_users.'` AS u '
+				. 'WHERE u.id_user = s.id_user AND s.id_sess = :session_id LIMIT 1';
+			$arSql = $this->oDb->sqlExecSafe($sql, array('session_id' => $this->id_sess));
 			$arSql = isset($arSql[0]) ? $arSql[0] : array();
 			if (empty($arSql))
 			{
@@ -176,6 +175,16 @@ class gw_session_1_9
 					$this->time_changed = $arSql['date_changed'];
 					$this->error(1);
 				}
+				
+				/* Validate IP address to prevent session hijacking */
+				$session_ip = long2ip($arSql['ip']);
+				if ($session_ip !== $this->remote_ip)
+				{
+					/* IP mismatch - potential session hijacking */
+					$this->sess_delete($this->id_sess);
+					$this->error(2);
+				}
+				
 				$this->id_user = $arSql['id_user'];
 				$this->ar_sess['date_changed'] = $arSql['date_changed'];
 				$this->ar_sess['ip'] = $this->remote_ip;
@@ -427,13 +436,58 @@ class gw_session_1_9
 	 */
 	function logout()
 	{
-		$sql = 'DELETE ';
-		$sql .= 'FROM `'.$this->db_table_sessions.'` ';
-		$sql .= 'WHERE `id_sess` = "'.$this->id_sess.'" ';
-		$sql .= 'LIMIT 1';
-		$this->oDb->sqlExec($sql);
+		$this->sess_delete($this->id_sess);
 		/* "You have logged out" */
 		$this->error(3); 
+	}
+	
+	/**
+	 * Delete a specific session by ID using prepared statements.
+	 */
+	function sess_delete($session_id)
+	{
+		if (empty($session_id)) return;
+		
+		$sql = 'DELETE FROM `'.$this->db_table_sessions.'` WHERE `id_sess` = :session_id LIMIT 1';
+		$this->oDb->sqlExecSafe($sql, array('session_id' => $session_id));
+	}
+	
+	/**
+	 * Generate CSRF token for form protection.
+	 */
+	function generate_csrf_token()
+	{
+		$token = hash('sha256', $this->id_sess . $this->remote_ip . mt_rand() . time());
+		$this->user_set('csrf_token', $token);
+		return $token;
+	}
+	
+	/**
+	 * Validate CSRF token from form submission.
+	 */
+	function validate_csrf_token($submitted_token)
+	{
+		$stored_token = $this->user_get('csrf_token');
+		if (empty($stored_token) || empty($submitted_token)) {
+			return false;
+		}
+		
+		// Use hash_equals to prevent timing attacks
+		if (function_exists('hash_equals')) {
+			return hash_equals($stored_token, $submitted_token);
+		} else {
+			// Fallback for older PHP versions
+			return $stored_token === $submitted_token;
+		}
+	}
+	
+	/**
+	 * Generate hidden input field with CSRF token.
+	 */
+	function csrf_input_field()
+	{
+		$token = $this->generate_csrf_token();
+		return '<input type="hidden" name="csrf_token" value="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '" />';
 	}
 
 	/* */
