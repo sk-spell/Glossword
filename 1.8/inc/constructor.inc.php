@@ -355,7 +355,7 @@ switch ( $gw_this['vars']['layout'] )
 			// Process automatic functions
 			if ( !empty( $gw_this['vars']['funcnames'][GW_T_TERM] ) )
 			{
-				foreach( $$gw_this['vars']['funcnames'][GW_T_TERM] as $k => $v )
+				foreach( ${$gw_this['vars']['funcnames'][GW_T_TERM]} as $k => $v )
 				{
 					if ( function_exists( $v ) )
 					{

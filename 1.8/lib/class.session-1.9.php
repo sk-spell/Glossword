@@ -15,6 +15,10 @@
  */
 class gw_session_1_9
 {
+	/* Property declarations for PHP 8.2 compatibility */
+	public $remote_ip;
+	public $time_now;
+	
 	var $oDb;
 	var $oL;
 	var $sys;

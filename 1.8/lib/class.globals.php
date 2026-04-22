@@ -118,7 +118,7 @@ if ( ! class_exists('gw_register_globals')) {
 
         public function do_default(&$t, $v)
         {
-            $t = (trim($t) == '') ? $v : $t;
+            $t = (trim($t ?? '') == '') ? $v : $t;
         }
 
         public function do_numeric(&$t)

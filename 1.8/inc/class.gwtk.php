@@ -34,6 +34,16 @@ if (!defined('IS_CLASS_GWTK'))
 
 class gwtk
 {
+	/* Property declarations for PHP 8.2 compatibility */
+	public $lang_actions;
+	public $lang_admin;
+	public $lang_err;
+	public $lang_options;
+	public $lang_status;
+	public $lang_tdb;
+	public $lang_tht;
+	public $lang_tol;
+	
 	var $pathHomeDir = 'locale';
 	var $pathLocale  = 'en';
 	var $pathFile    = 'global';

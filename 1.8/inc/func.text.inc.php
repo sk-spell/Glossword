@@ -71,6 +71,16 @@ function gw_get_note_afterpost($text, $status = 0)
 /* */ 
 class gw_restore_quotes
 {
+	/* Property declarations for PHP 8.2 compatibility */
+	public $is_strip_tags;
+	public $rule_proto;
+	public $rule_ahref;
+	public $rule_atext;
+	public $rule_abracket;
+	public $rule_attr;
+	public $rule_spaces;
+	public $rule_attr_regex;
+	
 	/* */
 	function init()
 	{

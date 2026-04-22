@@ -39,6 +39,8 @@ if (!defined('IS_CLASS_TPL'))
 class gwv_template
 {
 	/* all variables are internal */
+	/* Property declaration for PHP 8.2 compatibility */
+	public $oCmd;
 	var $path_source = 'tpl';
 	var $path_cache = 'cache/tpl';
 	var $pairsC = array();

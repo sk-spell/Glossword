@@ -16,11 +16,7 @@ Stand-alone version with the latest updates.
 
 Update to PHP 7
 ---------------
-This fork has been provisionally fixed to work with PHP 7.4...
-  
-## Requirements
-php7.4-fpm php7.4-cli php7.4 php7.4-gd php7.4-mbstring php7.4-mysql php7.4-zip php7.4-xml php7.4-xmlrpc php7.4-xsl
-
+This fork has been provisionally fixed to work with PHP 7.1.x and below.
 
 Not yet fixed
 -------------
