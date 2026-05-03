@@ -8,7 +8,7 @@ CREATE TABLE `{prefix}dict_example` (
  `date_modified` int(10) unsigned NOT NULL default '0',
  `date_created` int(10) unsigned NOT NULL default '0',
  `int_bytes` mediumint(8) unsigned NOT NULL default '0',
- `crc32u` int(10) NOT NULL default '0',
+ `crc32u` int(10) unsigned NOT NULL default '0',
  `term_a` int(9) unsigned NOT NULL default '0',
  `term_b` int(9) unsigned NOT NULL default '0',
  `term_c` int(9) unsigned NOT NULL default '0',

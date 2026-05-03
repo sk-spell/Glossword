@@ -292,7 +292,7 @@ function gwAddTerm($arPre, $id_dict, $arStop, $in_term, $is_specialchars, $is_ov
 		gwAddNewKeywords($id_dict, $qT['id'], $arKeywords, $id_old, $isCleanMap, $qT['date_created']);
 		$qT['int_bytes'] = strlen($qT['defn']);
 		/* Checksum */
-		$qT['crc32u'] = crc32($str_term_src_uc);
+		$qT['crc32u'] = sprintf('%u', crc32($str_term_src_uc));
 		/* Add User ID to term */
 		if ($gw_this['vars'][GW_ACTION] == GW_A_ADD)
 		{

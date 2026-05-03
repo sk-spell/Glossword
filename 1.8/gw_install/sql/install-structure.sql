@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `{prefix}history_terms` (
   `date_modified` int(10) unsigned NOT NULL DEFAULT '0',
   `date_created` int(10) unsigned NOT NULL DEFAULT '0',
   `int_bytes` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `crc32u` int(10) NOT NULL DEFAULT '0',
+  `crc32u` int(10) unsigned NOT NULL DEFAULT '0',AULT '0',
   `term_a` int(9) unsigned NOT NULL DEFAULT '0',
   `term_b` int(9) unsigned NOT NULL DEFAULT '0',
   `term_c` int(9) unsigned NOT NULL DEFAULT '0',

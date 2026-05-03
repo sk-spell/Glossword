@@ -462,8 +462,8 @@ function gw_import_xml()
 					$qT['term_3'] = gw_htmlspecialamp(gw_unhtmlspecialamp($qT['term_3']));
 
 					$qT['int_bytes'] = strlen($qT['defn']);
-					/* 1.8.10: Create checksum for terms only. Not unsigned. */
-					$qT['crc32u'] = crc32($str_term_src_uc);
+					/* 1.8.10: Create checksum for terms only. */
+					$qT['crc32u'] = sprintf('%u', crc32($str_term_src_uc));
 
 					$qT['id_user'] = $oSess->id_user;
 
@@ -1038,7 +1038,7 @@ function gw_import_csv()
 		$qT['int_bytes'] = strlen($qT['defn']);
 #prn_r( $qT );
 #$oTimer = new gw_timer('a');
-		$qT['crc32u'] = crc32($str_term_src_uc);
+		$qT['crc32u'] = sprintf('%u', crc32($str_term_src_uc));
 #print $oTimer->endp('a');
 
 		/* Add relation `user to term' */
