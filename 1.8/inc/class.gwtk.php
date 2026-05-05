@@ -45,6 +45,12 @@ class gwtk
 	public $lang_tol;
 	public $lang_addon_topics;
 	public $lang_mail;
+	public $lang_addon_abbr;
+	public $lang_addon_custom_az;
+	public $lang_addon_custom_pages;
+	public $lang_addon_log_search;
+	public $lang_addon_virtual_keyboards;
+	public $lang_addon_visual_themes;
 	
 	var $pathHomeDir = 'locale';
 	var $pathLocale  = 'en';
