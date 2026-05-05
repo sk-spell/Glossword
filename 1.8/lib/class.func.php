@@ -1010,7 +1010,7 @@ class gw_functions {
 		}
 		else
 		{
-			return strlen(utf8_decode($t));
+			return mb_strlen($t, 'UTF-8');
 		}
 	}
 	/**
@@ -1094,7 +1094,7 @@ class gw_functions {
 			   after parsing through utf8_decode() */
 			$s_new = "\x01";
 			$t = str_replace($s, $s_new, $t);
-			return strpos(utf8_decode($t), $s_new);
+			return mb_strpos($t, $s_new, 0, 'UTF-8');
 		}
 	}
 	/**
