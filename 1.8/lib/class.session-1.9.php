@@ -382,7 +382,7 @@ class gw_session_1_9
 		}
 		else
 		{
-			if (empty($this->ar_user) || is_string($this->ar_user)){ return; }
+			if (empty($this->ar_user) || is_string($this->ar_user)){ return false; }
 			foreach( $this->ar_user as $k => $v )
 			{
 				if ($k == $varname)

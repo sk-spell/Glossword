@@ -194,14 +194,22 @@ global $arTermParam;
  */
 $is_allow_edit = 0;
 $ar_allowed_dicts = $this->oSess->user_get('dictionaries');
-/* Condition 1. */ 
-if ( isset($ar_allowed_dicts[$this->gw_this['vars']['id']]) )
+if (!is_array($ar_allowed_dicts)) {
+	$ar_allowed_dicts = array();
+}
+/* Condition 1. Check if user has access to this dictionary */
+$is_dict_allowed = isset($ar_allowed_dicts[$this->gw_this['vars']['id']]);
+
+/* User with is-terms-own can edit their own terms even without dict permission */
+$is_own_term = ($arTermParam['id_user'] == $this->oSess->id_user);
+
+if ( $is_dict_allowed || ($this->oSess->is('is-terms-own') && $is_own_term) )
 {
-	/* Conditions 1a, 1b, 1c. */ 
+	/* Conditions 1a, 1b, 1c. */
 	$is_allow_edit = ($this->oSess->is('is-terms')
 		? 1 
 		: ((($arTermParam['id_user'] == $this->oSess->id_guest)
-			|| ($this->oSess->is('is-terms-own') && ($arTermParam['id_user'] == $this->oSess->id_user))) 
+			|| ($this->oSess->is('is-terms-own') && $is_own_term))
 			? 1 : 0)
 	);
 }
