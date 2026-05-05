@@ -46,6 +46,9 @@ $bSuccess = true;
 
 /* correct unknown settings */
 $ar_user_settings = array('is_dst' => @date('I'), 'locale_name' => $this->gw_this['vars']['locale_name'], 'visualtheme' => 'gw_brand', 'location' => '', 'avatar_img' => '', 'is_use_avatar' => 0, 'is_htmled' => '1', 'gmt_offset' => 0, 'date_format' => 'F j, Y, g:i a');
+if (!isset($arSql['user_settings']) || !is_array($arSql['user_settings'])) {
+	$arSql['user_settings'] = array();
+}
 foreach ($ar_user_settings as $k => $v) {
 	if (!isset($arSql['user_settings'][$k])) { $arSql['user_settings'][$k] = $v; }
 }
