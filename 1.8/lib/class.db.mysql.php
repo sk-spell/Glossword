@@ -154,6 +154,93 @@ class gwtkDataBase
 		} // query is not empty
 		return false;
 	} // end of query();
+
+	/**
+	 * Prepared statement method to prevent SQL injection
+	 * @param string $query SQL query with ? placeholders
+	 * @param array $params Parameters to bind
+	 * @param string $types Parameter types (s=string, i=integer, d=double, b=blob)
+	 * @return array|bool Query result or false on failure
+	 */
+	function prepare_execute($query, $params = array(), $types = '')
+	{
+		if (!$this->connect()) {
+			return false;
+		}
+
+		$stmt = mysqli_prepare($this->link_id, $query);
+		if (!$stmt) {
+			$this->halt('Prepare failed: ' . $query, $this->on_error_default);
+			return false;
+		}
+
+		if (!empty($params)) {
+			if (empty($types)) {
+				$types = '';
+				foreach ($params as $param) {
+					if (is_int($param)) {
+						$types .= 'i';
+					} elseif (is_float($param)) {
+						$types .= 'd';
+					} else {
+						$types .= 's';
+					}
+				}
+			}
+
+			mysqli_stmt_bind_param($stmt, $types, ...$params);
+		}
+
+		if (!mysqli_stmt_execute($stmt)) {
+			$this->halt('Execute failed: ' . mysqli_stmt_error($stmt), $this->on_error_default);
+			mysqli_stmt_close($stmt);
+			return false;
+		}
+
+		$result = mysqli_stmt_get_result($stmt);
+		$data = array();
+
+		if ($result) {
+			while ($row = mysqli_fetch_assoc($result)) {
+				$data[] = $row;
+			}
+		}
+
+		mysqli_stmt_close($stmt);
+		return $data;
+	}
+
+	/**
+	 * Safe SQL execution method using prepared statements
+	 * @param string $query SQL query with named placeholders (:param)
+	 * @param array $params Associative array of parameters
+	 * @return array|bool Query result or false on failure
+	 */
+	function sqlExecSafe($query, $params = array())
+	{
+		if (empty($params)) {
+			return $this->sqlExec($query);
+		}
+
+		$indexed_params = array();
+		$param_order = array();
+
+		$query = preg_replace_callback('/:([a-zA-Z0-9_]+)/', function($matches) use (&$param_order) {
+			$param_order[] = $matches[1];
+			return '?';
+		}, $query);
+
+		foreach ($param_order as $param_name) {
+			if (isset($params[$param_name])) {
+				$indexed_params[] = $params[$param_name];
+			} else {
+				throw new Exception("Parameter $param_name not found in params array");
+			}
+		}
+
+		return $this->prepare_execute($query, $indexed_params);
+	}
+
 	/**
 	 *
 	 */
