@@ -383,11 +383,13 @@ class gw_session_1_9
 					return $v;
 				}
 			}
-			foreach ($this->ar_user['user_settings'] as $k => $v)
-			{
-				if ($k == $varname)
+			if (isset($this->ar_user['user_settings']) && is_array($this->ar_user['user_settings'])) {
+				foreach ($this->ar_user['user_settings'] as $k => $v)
 				{
-					return $v;
+					if ($k == $varname)
+					{
+						return $v;
+					}
 				}
 			}
 		}
