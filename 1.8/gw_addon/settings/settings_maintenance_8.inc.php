@@ -14,6 +14,8 @@ if (!defined('IN_GW'))
 {
 	die('<!-- $Id: settings_maintenance_8.inc.php 492 2008-06-13 22:58:27Z glossword_team $ -->');
 }
+/* Increase memory limit for backup operations */
+ini_set('memory_limit', '512M');
 /* Included from $oAddonAdm->alpha(); */
 
 
@@ -240,7 +242,7 @@ else
 	$str_proc .= html_array_to_table_multi(gw_show_form(), 0);
 }
 $int_steps_total = 8 + sizeof($this->gw_this['ar_dict_list']);
-$int_step = $this->gw_this['vars']['w2'] + (sizeof($this->gw_this['ar_dict_list']) - $gw_cnt_dicts);
+$int_step = intval($this->gw_this['vars']['w2']) + (sizeof($this->gw_this['ar_dict_list']) - $gw_cnt_dicts);
 $int_pbar = intval( (100/$int_steps_total)*$int_step );
 /* Set background color for progress bar */
 $color_bg = ($int_pbar == 100) ? $this->ar_theme['color_4'] : $this->ar_theme['color_5'];
