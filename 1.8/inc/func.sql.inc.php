@@ -566,8 +566,9 @@ function gw_sql_replace($arData, $tbl_name, $isFields = 1)
 	{
 		foreach ($arData as $k => $v) {
 			$v = gw_text_sql($v);
-			if ($v == ''){ $vF = "''"; }
+			if ($v === '' || $v === null) { $vF = "''"; }
 			elseif ( preg_match("/^0x[0-9a-f]/", $v)) { $vF = $v; }
+			elseif ( is_numeric($v) ) { $vF = $v; }
 			else { $vF = "'" . $v . "'"; }
 			$arFields[] = $k;
 			$arValues[] = $vF;

@@ -148,6 +148,11 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 		$a_stopwords = gw_get_stopwords( $arDictParam );
 		$a_keywords = gw_array_exclude( $a_keywords, $a_stopwords );
 	}
+	else
+	{
+		/* Default to 0 if no dictionary selected */
+		$tmp['arCache']['id_d'] = 0;
+	}
 	foreach ($arDict_Ids as $k => $dictK) {
 		$tmp['arDictParam'][$dictK] = getDictParam( $dictK );
 	}
@@ -545,6 +550,10 @@ function gw_search ( $q, $arDict_Ids, $a_search_params )
 
 		/* ----------------------------------------------- */
 		/* Save search results */
+		// Ensure id_d is always an integer
+		if (!isset($tmp['arCache']['id_d']) || $tmp['arCache']['id_d'] === '' || $tmp['arCache']['id_d'] === null) {
+			$tmp['arCache']['id_d'] = 0;
+		}
 #		prn_r( $tmp['arCache'] );
 		$oDb->sqlExec( gw_sql_replace( $tmp['arCache'], $sys['tbl_prefix'] . 'search_results' ), '', 0 );
 	}
