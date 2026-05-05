@@ -86,9 +86,10 @@ if ($this->gw_this['vars']['post'] == '')
 	$arParsed['is_parse_url'] = $this->oSess->user_get('is_parse_url');
 
 	/* Restore term settings */
-	if ($this->oSess->user_get('form_term_'.$this->gw_this['vars']['id']))
+	$saved_settings = $this->oSess->user_get('form_term_'.$this->gw_this['vars']['id']);
+	if (!empty($saved_settings) && is_array($saved_settings))
 	{
-		$arParsed = $this->oSess->user_get('form_term_'.$this->gw_this['vars']['id']);
+		$arParsed = array_merge($arParsed, $saved_settings);
 	}
 	/* 1.8.6 */
 	$arParsed['is_active'] = 1;
@@ -209,19 +210,12 @@ else
 		$this->oSess->user_set('is_parse_url', $arPre['is_parse_url'] );
 		$this->oSess->user_set('after_is_save', $arPre['after_is_save'] );
 
-		if ($arPre['after_is_save'])
-		{
-			/* Save, but clear keys */
-			$arPre['term'][0]['attributes']['t1'] = '';
-			$arPre['term'][0]['attributes']['t2'] = '';
-			$arPre['term'][0]['attributes']['t3'] = '';
-			$arPre['term'][0]['attributes']['uri'] = '';
-			$this->oSess->user_set('form_term_'. $this->gw_this['vars']['id'], array_clear_key($arPre, 'value') );
-		}
-		else
-		{
-			$this->oSess->user_unset('form_term_'. $this->gw_this['vars']['id']);
-		}
+		/* Always save last used form settings */
+		$arPre['term'][0]['attributes']['t1'] = '';
+		$arPre['term'][0]['attributes']['t2'] = '';
+		$arPre['term'][0]['attributes']['t3'] = '';
+		$arPre['term'][0]['attributes']['uri'] = '';
+		$this->oSess->user_set('form_term_'. $this->gw_this['vars']['id'], array_clear_key($arPre, 'value') );
 		if (empty($strR))
 		{
 			/* Redirect to... */
