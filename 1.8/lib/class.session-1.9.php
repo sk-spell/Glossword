@@ -336,7 +336,10 @@ class gw_session_1_9
 	/* */
 	function user_register_permissions($sp)
 	{
-		$ar_user_perm = unserialize($sp);
+		$ar_user_perm = @unserialize($sp);
+		if ($ar_user_perm === false) {
+			$ar_user_perm = array();
+		}
 		/* No permissions found */
 		if (empty($ar_user_perm))
 		{

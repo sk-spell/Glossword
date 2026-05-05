@@ -453,7 +453,10 @@ document.forms[\'vbform\'][\'submit1\'].click();
 			)
 		);
 		$str_form .= getFormTitleNav($this->oL->m('1037'));
-		$ar_permissions_user = unserialize($vars['user_perm']);
+		$ar_permissions_user = @unserialize($vars['user_perm']);
+		if ($ar_permissions_user === false) {
+			$ar_permissions_user = array();
+		}
 		$ar_permissions_ids = array();
 		if ($this->ar_state['is_profile'])
 		{
