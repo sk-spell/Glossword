@@ -231,7 +231,7 @@ $tmp['ar_queries'] = array(
 						WHERE u.id_user != "%d"
 						AND u.id_user != "%d"
 						ORDER BY u.user_fname ASC, u.user_sname ASC, u.user_email ASC
-						%
+						%s
 					',
 	'get-users-by-dict_id' => 'SELECT u.id_user, CONCAT(u.user_fname, " ", u.user_sname) AS user_name
 						FROM '.$sys['tbl_prefix'].'users AS u, '.$sys['tbl_prefix'].'map_user_to_term AS mut

@@ -1,8 +1,8 @@
 <?php
 /**
  * Glossword - glossary compiler (http://glossword.biz/)
- * © 2008-2021 Glossword.biz team <team at glossword dot biz>
- * © 2002-2008 Dmitry N. Shilnikov
+ * ï¿½ 2008-2021 Glossword.biz team <team at glossword dot biz>
+ * ï¿½ 2002-2008 Dmitry N. Shilnikov
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -77,7 +77,14 @@ if ( ! class_exists('gw_query_storage')) {
             if (isset($arSql[$ar[0]])) {
                 $arSql[$ar[0]] = str_replace(array("\n", "\r", "\t", "  "), ' ', $arSql[$ar[0]]);
 
-                return sprintf($arSql[$ar[0]], $ar[1], $ar[2], $ar[3], $ar[4], $ar[5], $ar[6], $ar[7], $ar[8]);
+                // Count format specifiers in the query
+                $specifier_count = preg_match_all('/%[sd]/', $arSql[$ar[0]], $matches);
+                // Build args array based on actual specifiers needed
+                $args = array();
+                for ($i = 1; $i <= $specifier_count && $i < 9; $i++) {
+                    $args[] = $ar[$i];
+                }
+                return vsprintf($arSql[$ar[0]], $args);
             }
 
             return '';
