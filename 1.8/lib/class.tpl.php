@@ -36,6 +36,7 @@ if (!defined('IS_CLASS_TPL'))
 {
 	define('IS_CLASS_TPL', 1);
 
+#[AllowDynamicProperties]
 class gwv_template
 {
 	/* all variables are internal */

@@ -29,6 +29,8 @@ if ( ! class_exists('gwv_casemap')) {
         var $ar = array();
         /* Special characters mapping */
         var $arsp = array();
+        /* Special characters array profile */
+        var $ar_sp = array();
         /* Array with profiles, Latin (1) */
         var $arp = array(1);
         var $arp_sp = array(1);

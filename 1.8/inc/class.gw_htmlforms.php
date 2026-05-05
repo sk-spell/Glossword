@@ -15,6 +15,7 @@
  * 
  * $Id: class.gw_htmlforms.php 499 2008-06-15 13:59:46Z glossword_team $
  */
+#[AllowDynamicProperties]
 class gw_htmlforms extends gwForms
 {
 	var $Gsys     = array();

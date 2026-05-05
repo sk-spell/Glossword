@@ -43,6 +43,8 @@ class gwtk
 	public $lang_tdb;
 	public $lang_tht;
 	public $lang_tol;
+	public $lang_addon_topics;
+	public $lang_mail;
 	
 	var $pathHomeDir = 'locale';
 	var $pathLocale  = 'en';

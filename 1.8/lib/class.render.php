@@ -24,6 +24,15 @@ if (!defined('IN_GW'))
 
 class gw_render extends gw_htmlforms
 {
+	var $oSess;
+	var $oFunc;
+	var $oHtml;
+	var $oDb;
+	var $oSqlQ;
+	var $oL;
+	var $oTpl;
+	var $sys;
+	var $ar_theme;
 	var $is_html_preview = 0;
 	var $tag_abbr   = 'acronym'; // 'abbr' for XHTML 2.0
 	var $tag_trns   = 'acronym'; // 'abbr' for XHTML 2.0

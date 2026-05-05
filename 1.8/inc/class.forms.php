@@ -15,6 +15,7 @@
  *
  * @version $Id: class.forms.php 531 2008-07-09 19:20:16Z glossword_team $
  */
+#[AllowDynamicProperties]
 class gwForms {
 	var $title              = '';
 	var $action             = 'post.php';

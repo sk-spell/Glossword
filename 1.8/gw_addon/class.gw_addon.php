@@ -1,7 +1,7 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.info/dev/)
- *  © 2002-2006 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  ï¿½ 2002-2006 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,10 +28,23 @@
 if (!defined('IS_CLASS_ADDON'))
 {
 	define('IS_CLASS_ADDON', 1);
+#[AllowDynamicProperties]
 class gw_addon
 {
 	var $str;
 	var $cfg;
+	var $oSess;
+	var $oFunc;
+	var $oDb;
+	var $oSqlQ;
+	var $oCase;
+	var $oL;
+	var $oTpl;
+	var $oHtml;
+	var $gw_this;
+	var $sys;
+	var $ar_theme;
+	var $arDictParam;
 	function init()
 	{
 		global $oSess, $oDb, $oSqlQ, $oL, $oHtml, $oFunc, $oTpl, $oCase;

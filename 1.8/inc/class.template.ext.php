@@ -17,6 +17,13 @@ if (!defined('IN_GW'))
 $sys['class_tpl'] = 'pch_template';
 class pch_template extends gwv_template
 {
+	public $tmp = array();
+	public $db_table = '';
+	public $id_style = '';
+	public $var_last_parsed = '';
+	public $layout = '';
+	public $varXref = '';
+
 	/* File-based */
 	/*
 	function init()

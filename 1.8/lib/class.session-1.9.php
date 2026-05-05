@@ -18,6 +18,7 @@ class gw_session_1_9
 	/* Property declarations for PHP 8.2 compatibility */
 	public $remote_ip;
 	public $time_now;
+	public $is_remember = 0;
 	
 	var $oDb;
 	var $oL;
