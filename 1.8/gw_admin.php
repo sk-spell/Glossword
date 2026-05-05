@@ -26,7 +26,7 @@ define('THIS_SCRIPT', 'gw_admin.php');
 define('GW_IS_BROWSE_WEB',   0);
 define('GW_IS_BROWSE_ADMIN', 1);
 /* Maximum error control when in admin mode */
-error_reporting(E_ALL | E_STRICT);
+error_reporting(E_ALL);
 /* ------------------------------------------------------- */
 /* Load configuration */
 $sys['is_prepend'] = 1;
