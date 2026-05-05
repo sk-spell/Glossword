@@ -32,6 +32,7 @@ if (!defined('IS_CLASS_GWTK'))
 	$tmp['mtime'] = explode(' ', microtime());
 	$tmp['start_time'] = (float)$tmp['mtime'][1] + (float)$tmp['mtime'][0];
 
+#[AllowDynamicProperties]
 class gwtk
 {
 	/* Property declarations for PHP 8.2 compatibility */
