@@ -354,6 +354,9 @@ class gw_session_1_9
 	function user_set($varname, $value = '')
 	{
 		$this->is_changed = 1;
+		if (!isset($this->ar_user[$this->db_user_settings]) || !is_array($this->ar_user[$this->db_user_settings])) {
+			$this->ar_user[$this->db_user_settings] = array();
+		}
 		$this->ar_user[$this->db_user_settings][$varname] = $value;
 	}
 	/**
