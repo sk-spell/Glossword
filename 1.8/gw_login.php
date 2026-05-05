@@ -273,11 +273,13 @@ function gw_login_form($ar_vars, $ar_broken = array(), $ar_req = array())
 /* Activation key */
 if ($gw_this['vars']['k'])
 {
-	/* Select key using prepared statement */
-	$sql = 'SELECT u.id_user, u.login, u.user_email, CONCAT(u.user_fname," ",u.user_sname) AS user_name '
-		. 'FROM `'.$oSess->db_table_users.'` AS u, `'.$sys['tbl_prefix'].'auth_restore` AS a  '
-		. 'WHERE a.auth_key = :auth_key AND a.id_user = u.id_user LIMIT 1';
-	$arSql = $oDb->sqlExecSafe($sql, array('auth_key' => $gw_this['vars']['k']));
+	/* Select key */
+	$sql = 'SELECT u.id_user, u.login, u.user_email, CONCAT(u.user_fname," ",u.user_sname) AS user_name ';
+	$sql .= 'FROM `'.$oSess->db_table_users.'` AS u, `'.$sys['tbl_prefix'].'auth_restore` AS a  ';
+	$sql .= 'WHERE a.auth_key = "'.gw_text_sql($gw_this['vars']['k']).'" ';
+	$sql .= 'AND a.id_user = u.id_user ';
+	$sql .= 'LIMIT 1 ';
+	$arSql = $oDb->sqlExec($sql);
 	$arSql = isset($arSql[0]) ? $arSql[0] : array();
 
 	if (empty($arSql))
@@ -287,9 +289,11 @@ if ($gw_this['vars']['k'])
 	}
 	else
 	{
-		/* Remove key using prepared statement */
-		$sql = 'DELETE FROM `'.$sys['tbl_prefix'].'auth_restore` WHERE auth_key = :auth_key LIMIT 1';
-		$oDb->sqlExecSafe($sql, array('auth_key' => $gw_this['vars']['k']));
+		/* Remove key */
+		$sql = 'DELETE FROM `'.$sys['tbl_prefix'].'auth_restore` ';
+		$sql .= 'WHERE auth_key = "'.gw_text_sql($gw_this['vars']['k']).'" ';
+		$sql .= 'LIMIT 1 ';
+		$oDb->sqlExec($sql);
 
 		/* Create a new password */
 		$str_password = kMakeUid('', 8);
@@ -356,23 +360,22 @@ else
 {
 	if ($gw_this['vars'][GW_ACTION] == 'lostpass')
 	{
-		/* Reset password using prepared statements */
+		/* Reset password */
 		$arSql = array();
 		if ($gw_this['vars']['arPost']['user_name'] || $gw_this['vars']['arPost']['user_email'])
 		{
-			$sql = 'SELECT id_user, user_email, CONCAT(user_fname," ",user_sname) as user_name, is_active '
-				. 'FROM `'.$oSess->db_table_users.'` ';
-			
+			$sql = 'SELECT id_user, user_email, CONCAT(user_fname," ",user_sname) as user_name, is_active ';
+			$sql .= 'FROM `'.$oSess->db_table_users.'` ';
 			if ($gw_this['vars']['arPost']['user_name'])
 			{
-				$sql .= 'WHERE login = :username LIMIT 1';
-				$arSql = $oDb->sqlExecSafe($sql, array('username' => $gw_this['vars']['arPost']['user_name']));
+				$sql .= 'WHERE login = "'.gw_text_sql($gw_this['vars']['arPost']['user_name']).'" ';
 			}
 			else if ($gw_this['vars']['arPost']['user_email'])
 			{
-				$sql .= 'WHERE user_email = :email LIMIT 1';
-				$arSql = $oDb->sqlExecSafe($sql, array('email' => $gw_this['vars']['arPost']['user_email']));
+				$sql .= 'WHERE user_email = "'.gw_text_sql($gw_this['vars']['arPost']['user_email']).'" ';
 			}
+			$sql .= 'LIMIT 1 ';
+			$arSql = $oDb->sqlExec($sql);
 			$arSql = isset($arSql[0]) ? $arSql[0] : array();
 		}
 		if (empty($arSql))
@@ -446,37 +449,14 @@ else
 	}
 	else
 	{
-		/* Try to log in using prepared statements */
-		$sql = 'SELECT u.* FROM `'.$oSess->db_table_users.'` AS u '
-			. 'WHERE u.login = :username LIMIT 1';
-		$arSql = $oDb->sqlExecSafe($sql, array('username' => $gw_this['vars']['arPost']['user_name']));
+		/* Try to log in */
+		$sql = 'SELECT u.* ';
+		$sql .= 'FROM `'.$oSess->db_table_users.'` AS u ';
+		$sql .= 'WHERE u.login = "'.gw_text_sql($gw_this['vars']['arPost']['user_name']).'" ';
+		$sql .= 'AND u.password = "'.md5(gw_text_sql($gw_this['vars']['arPost']['user_pass'])).'" ';
+		$sql .= 'LIMIT 1 ';
+		$arSql = $oDb->sqlExec($sql);
 		$arSql = isset($arSql[0]) ? $arSql[0] : array();
-		
-		/* Verify password using PHP's password verification or MD5 fallback */
-		if (!empty($arSql)) {
-			$input_password = $gw_this['vars']['arPost']['user_pass'];
-			$stored_password = $arSql['password'];
-			
-			/* Check if password is modern hash or legacy MD5 */
-			if (strlen($stored_password) > 32) {
-				/* Modern password hash */
-				$password_valid = password_verify($input_password, $stored_password);
-			} else {
-				/* Legacy MD5 hash - gradually migrate to secure hashing */
-				$password_valid = ($stored_password === md5($input_password));
-				
-				/* If login is successful with MD5, upgrade to secure hash */
-				if ($password_valid) {
-					$new_hash = password_hash($input_password, PASSWORD_DEFAULT);
-					$update_sql = 'UPDATE `'.$oSess->db_table_users.'` SET password = :new_password WHERE id_user = :user_id';
-					$oDb->sqlExecSafe($update_sql, array('new_password' => $new_hash, 'user_id' => $arSql['id_user']));
-				}
-			}
-			
-			if (!$password_valid) {
-				$arSql = array(); /* Clear user data if password invalid */
-			}
-		}
 		if (!empty($arSql))
 		{
 			/* User found */
