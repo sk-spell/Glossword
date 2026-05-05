@@ -251,7 +251,7 @@ class gw_addon_abbr_admin extends gw_addon
 		{
 			$arQ[] = 'UPDATE `'.$this->sys['tbl_prefix'].'abbr`
 								SET `is_active` = "0"
-								WHERE `id_abbr` = "'.$this->gw_this['vars']['tid'].'"';
+								WHERE `id_abbr` = "'.gw_text_sql($this->gw_this['vars']['tid']).'"';
 			$strR .= postQuery($arQ, GW_ACTION.'='.GW_A_BROWSE . '&'.GW_TARGET.'='.$this->gw_this['vars'][GW_TARGET].'&w1='.$this->gw_this['vars']['w1'].'&w2='.$this->gw_this['vars']['w2'], $this->sys['isDebugQ'], 0);
 			return;
 		}
@@ -259,7 +259,7 @@ class gw_addon_abbr_admin extends gw_addon
 		{
 			$arQ[] = 'UPDATE `'.$this->sys['tbl_prefix'].'abbr`
 								SET `is_active` = "1"
-								WHERE `id_abbr` = "'.$this->gw_this['vars']['tid'].'"';
+								WHERE `id_abbr` = "'.gw_text_sql($this->gw_this['vars']['tid']).'"';
 			$strR .= postQuery($arQ, GW_ACTION.'='.GW_A_BROWSE . '&'.GW_TARGET.'='.$this->gw_this['vars'][GW_TARGET].'&w1='.$this->gw_this['vars']['w1'].'&w2='.$this->gw_this['vars']['w2'], $this->sys['isDebugQ'], 0);
 			return;
 		}

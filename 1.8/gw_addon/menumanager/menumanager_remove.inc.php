@@ -1,7 +1,7 @@
 <?php
 /**
  *  Glossword - glossary compiler (http://glossword.info/)
- *  © 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
+ *  ï¿½ 2002-2008 Dmitry N. Shilnikov <dev at glossword dot info>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,11 +26,11 @@ $ar_query = array();
 switch ($this->gw_this['vars']['w1'])
 {
 	case 'primary':
-		$ar_query[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'component` WHERE `id_component` = "'.$this->gw_this['vars']['tid'].'"';
-		$ar_query[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'component_map` WHERE `id_component` = "'.$this->gw_this['vars']['tid'].'"';
+		$ar_query[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'component` WHERE `id_component` = "'.gw_text_sql($this->gw_this['vars']['tid']).'"';
+		$ar_query[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'component_map` WHERE `id_component` = "'.gw_text_sql($this->gw_this['vars']['tid']).'"';
 	break;
 	case 'secondary':
-		$ar_query[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'component_map` WHERE `id` = "'.$this->gw_this['vars']['tid'].'"';
+		$ar_query[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'component_map` WHERE `id` = "'.gw_text_sql($this->gw_this['vars']['tid']).'"';
 	break;
 }
 /* Run queries now */

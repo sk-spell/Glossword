@@ -213,7 +213,7 @@ else
 	}
 
 	/* */
-	$arQ[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'topics_phrase` WHERE `id_topic` = "' . $this->gw_this['vars']['tid'] . '"';
+	$arQ[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'topics_phrase` WHERE `id_topic` = "' . gw_text_sql($this->gw_this['vars']['tid']) . '"';
 	$id_topic_phrase = $this->oDb->MaxId($this->sys['tbl_prefix'].'topics_phrase', 'id_topic_phrase');
 	foreach ($arPre['topic'] as $elK => $arV)
 	{

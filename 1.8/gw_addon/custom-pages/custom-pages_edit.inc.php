@@ -220,7 +220,7 @@ else
 		}
 	}
 	/* */
-	$arQ[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'pages_phrase` WHERE `id_page` = "'. $this->gw_this['vars']['tid'] .'"';
+	$arQ[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'pages_phrase` WHERE `id_page` = "'. gw_text_sql($this->gw_this['vars']['tid']) .'"';
 	$id_page_phrase = $this->oDb->MaxId($this->sys['tbl_prefix'].'pages_phrase', 'id_page_phrase');
 	foreach ($arPre['page'] as $elK => $arV)
 	{

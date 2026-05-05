@@ -35,7 +35,7 @@ if ($this->gw_this['vars']['w2'])
 		case 'primary':
 			$sql_table = $this->sys['tbl_prefix'].'component';
 			/* Update sorting index */
-			$sql = 'UPDATE `'.$sql_table.'` SET int_sort = ('.$sql_sort.') WHERE `id_component` = "'.$this->gw_this['vars']['tid'].'"';
+			$sql = 'UPDATE `'.$sql_table.'` SET int_sort = ('.$sql_sort.') WHERE `id_component` = "'.gw_text_sql($this->gw_this['vars']['tid']).'"';
 			$this->oDb->sqlExec($sql);
 			$sql = 'SELECT id_component FROM `'.$sql_table.'` ORDER BY int_sort ASC';
 			$ar_sorted = $this->oDb->sqlExec($sql);
@@ -50,9 +50,9 @@ if ($this->gw_this['vars']['w2'])
 		case 'secondary':
 			$sql_table = $this->sys['tbl_prefix'].'component_map';
 			/* Update sorting index */
-			$sql = 'UPDATE `'.$sql_table.'` SET int_sort = ('.$sql_sort.') WHERE `id` = "'.$this->gw_this['vars']['tid'].'"';
+			$sql = 'UPDATE `'.$sql_table.'` SET int_sort = ('.$sql_sort.') WHERE `id` = "'.gw_text_sql($this->gw_this['vars']['tid']).'"';
 			$this->oDb->sqlExec($sql);
-			$sql = 'SELECT id FROM `'.$sql_table.'` WHERE `id_component` = "'.$this->gw_this['vars']['w3'].'" ORDER BY int_sort ASC';
+			$sql = 'SELECT id FROM `'.$sql_table.'` WHERE `id_component` = "'.gw_text_sql($this->gw_this['vars']['w3']).'" ORDER BY int_sort ASC';
 			$ar_sorted = $this->oDb->sqlExec($sql);
 			/* Rebuild sorting index */
 			$arQ = array();

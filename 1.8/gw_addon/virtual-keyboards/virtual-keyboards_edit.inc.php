@@ -41,15 +41,15 @@ $ar_query = array( );
 if ( $this->gw_this['vars']['mode'] == 'off' ) {
 	$ar_query[] = 'UPDATE `' . $this->sys['tbl_prefix'] . 'virtual_keyboard`
 							SET `is_index_page` = "0"
-							WHERE `id_profile` = "' . $this->gw_this['vars']['tid'] . '"';
+							WHERE `id_profile` = "' . gw_text_sql($this->gw_this['vars']['tid']) . '"';
 	$this->str .= postQuery( $ar_query, GW_ACTION . '=' . GW_A_BROWSE . '&' . GW_TARGET . '=' . $this->gw_this['vars'][GW_TARGET], $this->sys['isDebugQ'], 0 );
 	return;
 } elseif ( $this->gw_this['vars']['mode'] == 'on' ) {
 	/* Only one virtual keyboard for the index page */
-	$ar_query[] = gw_sql_update( array( 'is_index_page' => '0' ), $this->sys['tbl_prefix'] . 'virtual_keyboard', 'is_index_page = \'1\' AND id_profile != \'' . $this->gw_this['vars']['tid'] . '\'' );
+	$ar_query[] = gw_sql_update( array( 'is_index_page' => '0' ), $this->sys['tbl_prefix'] . 'virtual_keyboard', 'is_index_page = \'1\' AND id_profile != \'' . gw_text_sql($this->gw_this['vars']['tid']) . '\'' );
 	$ar_query[] = 'UPDATE `' . $this->sys['tbl_prefix'] . 'virtual_keyboard`
 							SET `is_index_page` = "1"
-							WHERE `id_profile` = "' . $this->gw_this['vars']['tid'] . '"';
+							WHERE `id_profile` = "' . gw_text_sql($this->gw_this['vars']['tid']) . '"';
 	$this->str .= postQuery( $ar_query, GW_ACTION . '=' . GW_A_BROWSE . '&' . GW_TARGET . '=' . $this->gw_this['vars'][GW_TARGET], $this->sys['isDebugQ'], 0 );
 	return;
 }

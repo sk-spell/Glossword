@@ -567,8 +567,8 @@ class gw_addon_topic_admin extends gw_addon
 			}
 			else
 			{
-				$arQ[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'topics` WHERE id_topic = "' . $this->gw_this['vars']['tid'] . '"';
-				$arQ[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'topics_phrase` WHERE id_topic = "' . $this->gw_this['vars']['tid'] . '"';
+				$arQ[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'topics` WHERE id_topic = "' . gw_text_sql($this->gw_this['vars']['tid']) . '"';
+				$arQ[] = 'DELETE FROM `'.$this->sys['tbl_prefix'].'topics_phrase` WHERE id_topic = "' . gw_text_sql($this->gw_this['vars']['tid']) . '"';
 				$this->str .= postQuery($arQ, 'a=' . GW_A_BROWSE . '&'.GW_TARGET.'=' . $this->addon_name, $this->sys['isDebugQ'], 0);
 			}
 		}
