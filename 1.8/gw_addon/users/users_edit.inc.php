@@ -59,7 +59,7 @@ if ($this->gw_this['vars']['post'] == '')
 	$arSql['pass_new'] = '';
 	$arSql['pass_confirm'] = '';
 
-	$arSql['dictionaries'] = $arSql['user_settings']['dictionaries'];
+	$arSql['dictionaries'] = isset($arSql['user_settings']['dictionaries']) ? $arSql['user_settings']['dictionaries'] : '';
 
 	/* Removing */
 	if ($this->gw_this['vars']['remove'])
